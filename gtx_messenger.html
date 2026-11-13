@@ -1,0 +1,2418 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>GTX MESSENGER — Multi-Identity Real-Time Messaging</title>
+  <!-- Tailwind CSS for responsive layout & rapid utility styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Inter & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+          },
+          colors: {
+            gtx: {
+              bg: '#090A0F',
+              panel: '#12151E',
+              card: '#181C28',
+              border: '#23293A',
+              accent: '#0070F3',
+              cyan: '#00D2FF',
+              text: '#F1F5F9',
+              muted: '#94A3B8'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-main: #f8fafc;
+      --bg-panel: #ffffff;
+      --bg-card: #f1f5f9;
+      --border-color: #e2e8f0;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+    }
+    html.dark {
+      --bg-main: #090A0F;
+      --bg-panel: #12151E;
+      --bg-card: #181C28;
+      --border-color: #23293A;
+      --text-main: #F1F5F9;
+      --text-muted: #94A3B8;
+    }
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      overflow: hidden;
+      user-select: none;
+    }
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(148, 163, 184, 0.25);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(0, 210, 255, 0.5);
+    }
+    /* Electric Blue Glow Effects */
+    .gtx-glow {
+      box-shadow: 0 0 25px -5px rgba(0, 112, 243, 0.45), 0 0 10px -4px rgba(0, 210, 255, 0.35);
+    }
+    .gtx-gradient {
+      background: linear-gradient(135deg, #0070F3 0%, #00D2FF 100%);
+    }
+    .gtx-gradient-subtle {
+      background: linear-gradient(135deg, rgba(0, 112, 243, 0.14) 0%, rgba(0, 210, 255, 0.08) 100%);
+    }
+    /* Message Bubble Animations */
+    @keyframes msgPop {
+      0% { opacity: 0; transform: translateY(6px) scale(0.99); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .msg-animate {
+      animation: msgPop 0.18s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    /* Subtle Chat Grid Wallpaper */
+    .chat-wallpaper {
+      background-image: radial-gradient(rgba(0, 210, 255, 0.06) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+  </style>
+</head>
+<body class="h-screen w-screen flex flex-col antialiased selection:bg-blue-600 selection:text-white">
+
+  <!-- ===================================================================== -->
+  <!-- 1. GLOBAL LOADING SCREEN                                              -->
+  <!-- ===================================================================== -->
+  <div id="loading-screen" class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-[#090A0F] text-white transition-opacity duration-300">
+    <div class="relative flex items-center justify-center mb-6">
+      <div class="absolute -inset-4 rounded-full bg-blue-500/20 blur-xl animate-pulse"></div>
+      <!-- GTX SVG Logo -->
+      <svg class="w-20 h-20 relative z-10" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="gtxLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#0070F3" />
+            <stop offset="100%" stop-color="#00D2FF" />
+          </linearGradient>
+        </defs>
+        <polygon points="50,6 92,28 92,72 50,94 8,72 8,28" stroke="url(#gtxLogoGrad)" stroke-width="5" fill="#12151E" />
+        <path d="M32 38H68L54 52H68C68 62 58 68 48 68C36 68 28 59 28 48C28 43 30 40 32 38Z" fill="url(#gtxLogoGrad)" />
+        <circle cx="70" cy="34" r="5" fill="#00D2FF" />
+      </svg>
+    </div>
+    <h1 class="font-display text-2xl font-bold tracking-wider bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
+      GTX MESSENGER
+    </h1>
+    <p id="loading-status-text" class="text-xs text-slate-400 mt-2 tracking-widest uppercase">Initializing Secure Multi-Identity Engine...</p>
+    <div class="mt-5 w-48 h-1 bg-slate-800 rounded-full overflow-hidden">
+      <div class="h-full gtx-gradient w-2/3 animate-pulse rounded-full"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 2. TOAST NOTIFICATION CONTAINER                                       -->
+  <!-- ===================================================================== -->
+  <div id="toast-container" class="fixed top-4 right-4 z-[100] flex flex-col gap-2 max-w-sm w-full pointer-events-none px-4 sm:px-0"></div>
+
+  <!-- ===================================================================== -->
+  <!-- 3. AUTHENTICATION VIEW (LOGIN / REGISTER / FORGOT PASSWORD)           -->
+  <!-- ===================================================================== -->
+  <section id="auth-view" class="hidden flex-1 flex flex-col lg:flex-row h-full w-full overflow-y-auto bg-[#090A0F] text-slate-100">
+    <!-- Left Branding Showcase -->
+    <div class="lg:w-7/12 p-8 sm:p-12 lg:p-16 flex flex-col justify-between relative overflow-hidden border-b lg:border-b-0 lg:border-r border-[#23293A] bg-[#0C0E17]">
+      <div class="absolute -top-32 -left-32 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute bottom-10 right-10 w-80 h-80 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Top Brand Header -->
+      <div class="flex items-center justify-between relative z-10">
+        <div class="flex items-center gap-3">
+          <svg class="w-10 h-10" viewBox="0 0 100 100" fill="none">
+            <polygon points="50,6 92,28 92,72 50,94 8,72 8,28" stroke="#00D2FF" stroke-width="6" fill="#12151E" />
+            <path d="M32 38H68L54 52H68C68 62 58 68 48 68C36 68 28 59 28 48C28 43 30 40 32 38Z" fill="#0070F3" />
+            <circle cx="70" cy="34" r="5" fill="#00D2FF" />
+          </svg>
+          <div>
+            <span class="font-display text-xl font-bold tracking-wider text-white">GTX MESSENGER</span>
+            <span class="block text-[10px] uppercase tracking-widest text-cyan-400 font-semibold">Multi-Identity Protocol</span>
+          </div>
+        </div>
+        <button id="auth-open-guide-btn" class="px-3.5 py-2 rounded-xl bg-[#181C28] hover:bg-[#23293A] border border-[#23293A] text-xs font-medium text-cyan-400 flex items-center gap-2 transition">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>Firebase Setup & Rules</span>
+        </button>
+      </div>
+
+      <!-- Center Value Prop -->
+      <div class="my-10 lg:my-0 max-w-xl relative z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-cyan-300 text-xs font-medium mb-6">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+          One Main Account • Unlimited Personas
+        </div>
+        <h2 class="font-display text-3xl sm:text-5xl font-bold leading-tight text-white mb-5">
+          Chat as <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-500">Whoever You Choose</span> in Real Time.
+        </h2>
+        <p class="text-slate-400 text-sm sm:text-base leading-relaxed mb-8">
+          Combine the speed of Telegram with complete identity isolation. Create separate personas—like <span class="text-white font-medium">@alex_work</span>, <span class="text-cyan-400 font-medium">@shadow_gamer</span>, or <span class="text-blue-400 font-medium">@anon_ops</span>—under one secure login and choose which persona each contact sees.
+        </p>
+
+        <!-- Interactive Identity Preview Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div class="p-3.5 rounded-2xl bg-[#12151E]/90 border border-[#23293A] flex items-center gap-3">
+            <img src="https://api.dicebear.com/7.x/bottts-neutral/svg?seed=Alex" alt="Alex" class="w-10 h-10 rounded-xl bg-blue-600/20 p-1" />
+            <div class="overflow-hidden">
+              <div class="text-xs font-semibold text-white truncate">Alex Mercer</div>
+              <div class="text-[11px] text-cyan-400 truncate">@alex_pro</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Work Identity</div>
+            </div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-[#12151E]/90 border border-cyan-500/40 gtx-glow flex items-center gap-3">
+            <img src="https://api.dicebear.com/7.x/bottts-neutral/svg?seed=Shadow" alt="Shadow" class="w-10 h-10 rounded-xl bg-cyan-500/20 p-1" />
+            <div class="overflow-hidden">
+              <div class="text-xs font-semibold text-white truncate">ShadowOps</div>
+              <div class="text-[11px] text-cyan-400 truncate">@shadow</div>
+              <div class="text-[10px] text-emerald-400 mt-0.5">Active Persona</div>
+            </div>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-[#12151E]/90 border border-[#23293A] flex items-center gap-3">
+            <img src="https://api.dicebear.com/7.x/bottts-neutral/svg?seed=Ghost" alt="Anonymous" class="w-10 h-10 rounded-xl bg-purple-600/20 p-1" />
+            <div class="overflow-hidden">
+              <div class="text-xs font-semibold text-white truncate">Cipher_99</div>
+              <div class="text-[11px] text-cyan-400 truncate">@anonymous99</div>
+              <div class="text-[10px] text-slate-400 mt-0.5">Private Alias</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div class="text-xs text-slate-500 flex flex-wrap items-center justify-between gap-4 relative z-10">
+        <span>Connected to Firebase Project: <strong class="text-slate-300">gtxmessenger</strong></span>
+        <span>End-to-End Persona Snapshot Isolation</span>
+      </div>
+    </div>
+
+    <!-- Right Auth Card -->
+    <div class="lg:w-5/12 p-6 sm:p-12 flex items-center justify-center bg-[#090A0F]">
+      <div class="w-full max-w-md bg-[#12151E] border border-[#23293A] rounded-3xl p-6 sm:p-8 shadow-2xl">
+        <!-- Auth Mode Tabs -->
+        <div id="auth-tabs" class="grid grid-cols-2 gap-2 p-1 bg-[#090A0F] rounded-2xl border border-[#23293A] mb-6">
+          <button id="tab-login-btn" type="button" class="py-2.5 text-xs font-semibold rounded-xl transition gtx-gradient text-white shadow">
+            Sign In
+          </button>
+          <button id="tab-register-btn" type="button" class="py-2.5 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white">
+            Create Account
+          </button>
+        </div>
+
+        <!-- Auth Error / Info Banner -->
+        <div id="auth-alert" class="hidden mb-5 p-3.5 rounded-2xl text-xs border flex items-start gap-2.5">
+          <i id="auth-alert-icon" class="fa-solid fa-circle-exclamation mt-0.5"></i>
+          <div id="auth-alert-text" class="flex-1 leading-relaxed"></div>
+        </div>
+
+        <!-- LOGIN FORM -->
+        <form id="login-form" class="space-y-4">
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1.5">Main Account Email</label>
+            <div class="relative">
+              <i class="fa-regular fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+              <input id="login-email" type="email" required placeholder="you@example.com"
+                class="w-full pl-10 pr-4 py-3 rounded-xl bg-[#090A0F] border border-[#23293A] focus:border-cyan-400 focus:outline-none text-sm text-white placeholder-slate-500 transition" />
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="text-xs font-medium text-slate-300">Password</label>
+              <button type="button" id="show-forgot-btn" class="text-xs text-cyan-400 hover:underline">Forgot password?</button>
+            </div>
+            <div class="relative">
+              <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+              <input id="login-password" type="password" required placeholder="••••••••"
+                class="w-full pl-10 pr-10 py-3 rounded-xl bg-[#090A0F] border border-[#23293A] focus:border-cyan-400 focus:outline-none text-sm text-white placeholder-slate-500 transition" />
+              <button type="button" data-toggle-pass="login-password" class=" absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-sm">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <button id="login-submit-btn" type="submit" class="w-full py-3.5 rounded-xl gtx-gradient hover:opacity-95 text-white font-semibold text-sm shadow-lg transition flex items-center justify-center gap-2">
+            <span>Launch GTX Dashboard</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </button>
+        </form>
+
+        <!-- REGISTER FORM -->
+        <form id="register-form" class="hidden space-y-4">
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1.5">Main Account Email (Private)</label>
+            <div class="relative">
+              <i class="fa-regular fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+              <input id="reg-email" type="email" required placeholder="private@example.com"
+                class="w-full pl-10 pr-4 py-3 rounded-xl bg-[#090A0F] border border-[#23293A] focus:border-cyan-400 focus:outline-none text-sm text-white placeholder-slate-500 transition" />
+            </div>
+            <p class="text-[11px] text-slate-500 mt-1">Never shown to other users. Used only for authentication.</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1.5">First Persona Name</label>
+              <input id="reg-display-name" type="text" required maxlength="32" placeholder="e.g. Alex"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-[#090A0F] border border-[#23293A] focus:border-cyan-400 focus:outline-none text-sm text-white placeholder-slate-500 transition" />
+            </div>
+            <div>
+              <label class="block text-xs font-medium text-slate-300 mb-1.5">Unique @Username</label>
+              <input id="reg-username" type="text" required maxlength="24" placeholder="e.g. alex_gtx"
+                class="w-full px-3.5 py-2.5 rounded-xl bg-[#090A0F] border border-[#23293A] focus:border-cyan-400 focus:outline-none text-sm text-white placeholder-slate-500 transition" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1.5">Password (min. 6 characters)</label>
+            <div class="relative">
+              <i class="fa-solid fa-lock absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-500 text-sm"></i>
+              <input id="reg-password" type="password" required minlength="6" placeholder="Create strong password"
+                class="w-full pl-10 pr-10 py-3 rounded-xl bg-[#090A0F] border border-[#23293A] focus:border-cyan-400 focus:outline-none text-sm text-white placeholder-slate-500 transition" />
+              <button type="button" data-toggle-pass="reg-password" class="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-sm">
+                <i class="fa-regular fa-eye"></i>
+              </button>
+            </div>
+          </div>
+
+          <button id="reg-submit-btn" type="submit" class="w-full py-3.5 rounded-xl gtx-gradient hover:opacity-95 text-white font-semibold text-sm shadow-lg transition flex items-center justify-center gap-2">
+            <span>Create Main Account & First Identity</span>
+            <i class="fa-solid fa-user-astronaut"></i>
+          </button>
+        </form>
+
+        <!-- FORGOT PASSWORD FORM -->
+        <form id="forgot-form" class="hidden space-y-4">
+          <div class="text-center mb-2">
+            <h3 class="text-base font-semibold text-white">Reset Main Account Password</h3>
+            <p class="text-xs text-slate-400 mt-1">Enter your account email and we will send a Firebase password reset link.</p>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1.5">Account Email</label>
+            <input id="forgot-email" type="email" required placeholder="you@example.com"
+              class="w-full px-4 py-3 rounded-xl bg-[#090A0F] border border-[#23293A] focus:border-cyan-400 focus:outline-none text-sm text-white placeholder-slate-500 transition" />
+          </div>
+          <button type="submit" class="w-full py-3 rounded-xl gtx-gradient text-white font-semibold text-sm transition">
+            Send Password Reset Email
+          </button>
+          <button type="button" id="back-to-login-btn" class="w-full py-2.5 rounded-xl bg-[#181C28] text-slate-300 hover:text-white text-xs font-medium transition">
+            Back to Sign In
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 4. MAIN MESSAGING DASHBOARD                                           -->
+  <!-- ===================================================================== -->
+  <main id="dashboard-view" class="hidden flex-1 flex h-full w-full overflow-hidden bg-[var(--bg-main)] text-[var(--text-main)]">
+
+    <!-- ================================================================= -->
+    <!-- LEFT SIDEBAR (Identities, Search, Conversations)                  -->
+    <!-- ================================================================= -->
+    <aside id="sidebar-panel" class="w-full md:w-[360px] lg:w-[400px] flex-shrink-0 flex flex-col h-full bg-[var(--bg-panel)] border-r border-[var(--border-color)] z-20">
+
+      <!-- 1. Top Brand & Action Bar -->
+      <div class="p-3.5 border-b border-[var(--border-color)] flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <svg class="w-8 h-8 flex-shrink-0" viewBox="0 0 100 100" fill="none">
+            <polygon points="50,6 92,28 92,72 50,94 8,72 8,28" stroke="#00D2FF" stroke-width="6" fill="#12151E" />
+            <path d="M32 38H68L54 52H68C68 62 58 68 48 68C36 68 28 59 28 48C28 43 30 40 32 38Z" fill="#0070F3" />
+            <circle cx="70" cy="34" r="5" fill="#00D2FF" />
+          </svg>
+          <div>
+            <h1 class="font-display font-bold text-sm tracking-wider">GTX MESSENGER</h1>
+            <div class="flex items-center gap-1.5 text-[10px] text-emerald-400 font-medium">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              <span>Realtime Multi-ID Connected</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-1.5">
+          <!-- New Chat / Search People Button -->
+          <button id="open-search-modal-btn" title="Find User / Start New Chat"
+            class="p-2.5 rounded-xl bg-[var(--bg-card)] hover:bg-blue-600/20 hover:text-cyan-400 border border-[var(--border-color)] transition text-xs">
+            <i class="fa-solid fa-user-plus"></i>
+          </button>
+          <!-- Manage Identities Button -->
+          <button id="open-identities-modal-btn" title="Manage My Identities"
+            class="p-2.5 rounded-xl bg-[var(--bg-card)] hover:bg-blue-600/20 hover:text-cyan-400 border border-[var(--border-color)] transition text-xs">
+            <i class="fa-solid fa-masks-theater"></i>
+          </button>
+          <!-- Settings Modal Button -->
+          <button id="open-settings-modal-btn" title="Settings & Security"
+            class="p-2.5 rounded-xl bg-[var(--bg-card)] hover:bg-blue-600/20 hover:text-cyan-400 border border-[var(--border-color)] transition text-xs">
+            <i class="fa-solid fa-gear"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- 2. Active Default Identity Switcher Bar -->
+      <div class="p-3 bg-gradient-to-r from-blue-600/10 via-cyan-500/5 to-transparent border-b border-[var(--border-color)]">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="text-[10px] font-semibold uppercase tracking-wider text-cyan-400 flex items-center gap-1">
+            <i class="fa-solid fa-id-badge"></i> Active Default Identity
+          </span>
+          <button id="quick-add-identity-btn" class="text-[11px] font-medium text-blue-400 hover:text-cyan-300 flex items-center gap-1">
+            <i class="fa-solid fa-plus text-[10px]"></i> New Persona
+          </button>
+        </div>
+
+        <div class="flex items-center gap-2.5">
+          <img id="sidebar-active-avatar" src="https://api.dicebear.com/7.x/bottts-neutral/svg?seed=GTX" alt="Avatar"
+            class="w-10 h-10 rounded-xl object-cover border border-cyan-500/40 bg-slate-800 flex-shrink-0" />
+          <div class="flex-1 min-w-0">
+            <select id="sidebar-identity-select" aria-label="Select Active Identity"
+              class="w-full bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl px-2.5 py-1.5 text-xs font-semibold focus:outline-none focus:border-cyan-400 cursor-pointer truncate">
+            </select>
+            <div id="sidebar-active-username" class="text-[11px] text-[var(--text-muted)] truncate mt-0.5 pl-1">@loading...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Search Bar (Filter conversations or click to search global directory) -->
+      <div class="p-3 border-b border-[var(--border-color)]">
+        <div class="relative flex items-center">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 text-xs text-[var(--text-muted)]"></i>
+          <input id="sidebar-search-input" type="text" placeholder="Filter chats or search @username..."
+            class="w-full pl-9 pr-20 py-2.5 rounded-xl bg-[var(--bg-card)] border border-[var(--border-color)] focus:border-cyan-400 focus:outline-none text-xs transition" />
+          <button id="sidebar-global-search-btn" type="button"
+            class="absolute right-1.5 px-2.5 py-1 rounded-lg gtx-gradient text-white text-[11px] font-medium hover:opacity-90 transition">
+            Directory
+          </button>
+        </div>
+      </div>
+
+      <!-- 4. Conversation List -->
+      <div class="px-3.5 pt-2.5 pb-1 flex items-center justify-between">
+        <span class="text-[11px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">Recent Conversations</span>
+        <span id="conversation-count-badge" class="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-blue-500/10 text-cyan-400 border border-blue-500/20">0</span>
+      </div>
+
+      <div id="conversation-list" class="flex-1 overflow-y-auto p-2.5 space-y-1.5">
+        <!-- Populated dynamically by Firestore onSnapshot -->
+      </div>
+
+      <!-- 5. Bottom Main Account Bar -->
+      <div class="p-3 border-t border-[var(--border-color)] bg-[var(--bg-card)]/50 flex items-center justify-between text-xs">
+        <div class="flex items-center gap-2 min-w-0">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0"></span>
+          <span class="text-[var(--text-muted)] truncate">Account: <strong id="sidebar-account-email" class="text-[var(--text-main)] font-medium">...</strong></span>
+        </div>
+        <button id="sidebar-logout-btn" title="Sign Out" class="px-2.5 py-1.5 rounded-lg hover:bg-red-500/15 text-red-400 font-medium transition flex items-center gap-1.5 flex-shrink-0">
+          <i class="fa-solid fa-power-off text-xs"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ================================================================= -->
+    <!-- MAIN CHAT AREA                                                    -->
+    <!-- ================================================================= -->
+    <section id="chat-panel" class="hidden md:flex flex-1 flex-col h-full bg-[var(--bg-main)] relative overflow-hidden">
+
+      <!-- A. EMPTY WELCOME SCREEN (When no conversation is selected) -->
+      <div id="chat-empty-state" class="flex-1 flex flex-col items-center justify-center p-8 text-center chat-wallpaper">
+        <div class="w-20 h-20 rounded-3xl gtx-gradient-subtle border border-cyan-500/30 flex items-center justify-center mb-6 gtx-glow">
+          <i class="fa-solid fa-comments text-3xl text-cyan-400"></i>
+        </div>
+        <h2 class="font-display text-2xl sm:text-3xl font-bold mb-2">Welcome to GTX MESSENGER</h2>
+        <p class="text-sm text-[var(--text-muted)] max-w-md leading-relaxed mb-8">
+          Select a conversation from the sidebar or search for another user's public <span class="text-cyan-400 font-medium">@username</span> to start messaging with any of your identities.
+        </p>
+        <div class="flex flex-wrap items-center justify-center gap-3">
+          <button id="empty-start-chat-btn" class="px-5 py-3 rounded-xl gtx-gradient text-white font-semibold text-xs shadow-lg hover:opacity-95 transition flex items-center gap-2">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>Find Someone to Message</span>
+          </button>
+          <button id="empty-create-id-btn" class="px-5 py-3 rounded-xl bg-[var(--bg-panel)] border border-[var(--border-color)] hover:border-cyan-400 text-xs font-semibold transition flex items-center gap-2">
+            <i class="fa-solid fa-masks-theater text-cyan-400"></i>
+            <span>Create New Identity</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- B. ACTIVE CONVERSATION VIEW -->
+      <div id="chat-active-view" class="hidden flex-1 flex flex-col h-full overflow-hidden">
+
+        <!-- Chat Header -->
+        <header class="px-4 py-3 bg-[var(--bg-panel)] border-b border-[var(--border-color)] flex flex-wrap items-center justify-between gap-3 z-10">
+          <!-- Left: Mobile Back + Recipient Identity Details -->
+          <div class="flex items-center gap-3 min-w-0">
+            <button id="mobile-back-btn" class="md:hidden p-2 rounded-xl bg-[var(--bg-card)] border border-[var(--border-color)] text-sm">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <img id="chat-header-peer-avatar" src="https://api.dicebear.com/7.x/bottts-neutral/svg?seed=Peer" alt="Peer"
+              class="w-10 h-10 rounded-xl object-cover border border-[var(--border-color)] bg-slate-800 cursor-pointer flex-shrink-0" />
+            <div class="min-w-0 cursor-pointer" id="chat-header-peer-info">
+              <div class="flex items-center gap-2">
+                <h3 id="chat-header-peer-name" class="font-semibold text-sm truncate">Recipient Name</h3>
+                <span class="px-2 py-0.5 rounded-md bg-blue-500/10 text-cyan-400 text-[10px] font-medium" id="chat-header-peer-handle">@username</span>
+              </div>
+              <p id="chat-header-peer-bio" class="text-[11px] text-[var(--text-muted)] truncate">Click to view public identity card</p>
+            </div>
+          </div>
+
+          <!-- Right: My Selected Identity Switcher FOR THIS CONVERSATION -->
+          <div class="flex items-center gap-2 bg-[var(--bg-card)] px-3 py-1.5 rounded-2xl border border-cyan-500/30">
+            <div class="text-right hidden sm:block">
+              <span class="block text-[9px] uppercase tracking-wider text-cyan-400 font-semibold">Speaking As</span>
+              <span class="block text-[10px] text-[var(--text-muted)]">Per-Chat Persona</span>
+            </div>
+            <img id="chat-my-identity-avatar" src="https://api.dicebear.com/7.x/bottts-neutral/svg?seed=Me" alt="My Persona"
+              class="w-7 h-7 rounded-lg object-cover border border-cyan-400/50" />
+            <select id="chat-conversation-identity-select" title="Switch which identity you use in this conversation"
+              class="bg-transparent text-xs font-semibold focus:outline-none cursor-pointer pr-1 max-w-[140px] truncate">
+            </select>
+          </div>
+        </header>
+
+        <!-- Identity Isolation Notice Banner -->
+        <div class="px-4 py-1.5 bg-blue-950/30 border-b border-[var(--border-color)] flex items-center justify-between text-[11px] text-slate-400">
+          <div class="flex items-center gap-2 truncate">
+            <i class="fa-solid fa-shield-cat text-cyan-400"></i>
+            <span class="truncate">Switching your persona updates future messages only. Past messages permanently keep the identity used when sent.</span>
+          </div>
+        </div>
+
+        <!-- Messages Scroll Container -->
+        <div id="messages-container" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-4 chat-wallpaper">
+          <!-- Real-time messages rendered here -->
+        </div>
+
+        <!-- Message Input Footer -->
+        <footer class="p-3 sm:p-4 bg-[var(--bg-panel)] border-t border-[var(--border-color)]">
+          <form id="message-form" class="flex items-end gap-2.5 max-w-5xl mx-auto">
+            <div class="flex-1 relative bg-[var(--bg-card)] border border-[var(--border-color)] focus-within:border-cyan-400 rounded-2xl px-3.5 py-2 transition">
+              <div class="flex items-center justify-between text-[10px] text-[var(--text-muted)] mb-1">
+                <span>Sending as <strong id="composer-active-persona-label" class="text-cyan-400">@persona</strong></span>
+                <span id="message-char-counter">0 / 1000</span>
+              </div>
+              <textarea id="message-input" rows="1" maxlength="1000" placeholder="Write a message... (Enter to send, Shift+Enter for new line)"
+                class="w-full bg-transparent text-sm focus:outline-none resize-none max-h-32 leading-relaxed"></textarea>
+            </div>
+
+            <button id="send-message-btn" type="submit"
+              class="h-12 px-5 rounded-2xl gtx-gradient hover:opacity-95 text-white font-semibold text-sm shadow-lg transition flex items-center justify-center gap-2 flex-shrink-0">
+              <span class="hidden sm:inline">Send</span>
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- 5. MODAL: MANAGE & CREATE IDENTITIES                                  -->
+  <!-- ===================================================================== -->
+  <div id="identities-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-[var(--bg-panel)] border border-[var(--border-color)] rounded-3xl max-w-3xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-[var(--border-color)] flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl gtx-gradient flex items-center justify-center text-white">
+            <i class="fa-solid fa-masks-theater"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-base">Multi-Identity Studio</h3>
+            <p class="text-xs text-[var(--text-muted)]">Create, customize, or switch between your public & private personas</p>
+          </div>
+        </div>
+        <button data-close-modal="identities-modal" class="p-2 rounded-xl hover:bg-[var(--bg-card)] text-[var(--text-muted)] hover:text-white">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="flex-1 overflow-y-auto p-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Left Column: List of Owned Identities -->
+        <div class="lg:col-span-6 flex flex-col">
+          <div class="flex items-center justify-between mb-3">
+            <h4 class="text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">Your Owned Identities</h4>
+            <button id="reset-identity-form-btn" class="text-xs text-cyan-400 hover:underline font-medium">
+              + Create New
+            </button>
+          </div>
+          <div id="owned-identities-list" class="space-y-2.5 flex-1 overflow-y-auto pr-1">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <!-- Right Column: Create / Edit Identity Form -->
+        <div class="lg:col-span-6 bg-[var(--bg-card)]/60 border border-[var(--border-color)] rounded-2xl p-5">
+          <h4 id="identity-form-title" class="font-display font-bold text-sm mb-4 text-cyan-400">Create New Identity</h4>
+          <form id="identity-form" class="space-y-3.5">
+            <input type="hidden" id="identity-edit-id" value="" />
+
+            <!-- Avatar Preview & Preset Selector -->
+            <div class="flex items-center gap-3.5">
+              <img id="identity-form-avatar-preview" src="https://api.dicebear.com/7.x/bottts-neutral/svg?seed=Shadow" alt="Preview"
+                class="w-16 h-16 rounded-2xl object-cover border-2 border-cyan-400 bg-slate-900 flex-shrink-0" />
+              <div class="flex-1">
+                <label class="block text-[11px] font-medium text-[var(--text-muted)] mb-1">Choose Preset Avatar or Upload Photo</label>
+                <div class="flex flex-wrap gap-1.5 mb-2" id="avatar-preset-buttons">
+                  <button type="button" data-seed="Alex" class="px-2 py-1 text-[10px] rounded-lg bg-[var(--bg-panel)] border border-[var(--border-color)] hover:border-cyan-400">Alex</button>
+                  <button type="button" data-seed="Shadow" class="px-2 py-1 text-[10px] rounded-lg bg-[var(--bg-panel)] border border-[var(--border-color)] hover:border-cyan-400">Shadow</button>
+                  <button type="button" data-seed="Ghost" class="px-2 py-1 text-[10px] rounded-lg bg-[var(--bg-panel)] border border-[var(--border-color)] hover:border-cyan-400">Anon</button>
+                  <button type="button" data-seed="GamingBoy" class="px-2 py-1 text-[10px] rounded-lg bg-[var(--bg-panel)] border border-[var(--border-color)] hover:border-cyan-400">Gamer</button>
+                  <button type="button" data-seed="Cyber" class="px-2 py-1 text-[10px] rounded-lg bg-[var(--bg-panel)] border border-[var(--border-color)] hover:border-cyan-400">Cyber</button>
+                  <label class="px-2 py-1 text-[10px] rounded-lg bg-blue-600/20 text-cyan-300 border border-blue-500/30 cursor-pointer hover:bg-blue-600/30">
+                    <i class="fa-solid fa-upload mr-1"></i>Upload
+                    <input type="file" id="identity-avatar-file" accept="image/*" class="hidden" />
+                  </label>
+                </div>
+                <input id="identity-photo-url" type="url" placeholder="Or paste image URL..."
+                  class="w-full px-3 py-1.5 rounded-xl bg-[var(--bg-panel)] border border-[var(--border-color)] text-xs focus:outline-none focus:border-cyan-400" />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block text-xs font-medium mb-1">Display Name *</label>
+                <input id="identity-display-name" type="text" required maxlength="32" placeholder="e.g. Shadow"
+                  class="w-full px-3 py-2 rounded-xl bg-[var(--bg-panel)] border border-[var(--border-color)] text-xs focus:outline-none focus:border-cyan-400" />
+              </div>
+              <div>
+                <label class="block text-xs font-medium mb-1">Unique @Username *</label>
+                <input id="identity-username" type="text" required maxlength="24" placeholder="e.g. shadow_ops"
+                  class="w-full px-3 py-2 rounded-xl bg-[var(--bg-panel)] border border-[var(--border-color)] text-xs focus:outline-none focus:border-cyan-400" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-medium mb-1">Short Biography</label>
+              <textarea id="identity-bio" rows="2" maxlength="140" placeholder="Available on GTX Messenger..."
+                class="w-full px-3 py-2 rounded-xl bg-[var(--bg-panel)] border border-[var(--border-color)] text-xs focus:outline-none focus:border-cyan-400 resize-none"></textarea>
+            </div>
+
+            <div class="flex items-center justify-between pt-1">
+              <label class="flex items-center gap-2 text-xs cursor-pointer">
+                <input id="identity-is-public" type="checkbox" checked class="rounded text-blue-600 focus:ring-0" />
+                <span>Discoverable in Public Username Search</span>
+              </label>
+            </div>
+
+            <div class="pt-2 flex items-center gap-2">
+              <button id="identity-save-btn" type="submit" class="flex-1 py-2.5 rounded-xl gtx-gradient text-white font-semibold text-xs shadow transition">
+                Save Identity
+              </button>
+              <button id="identity-cancel-edit-btn" type="button" class="hidden px-4 py-2.5 rounded-xl bg-[var(--bg-panel)] border border-[var(--border-color)] text-xs font-medium">
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 6. MODAL: USER SEARCH & START IDENTITY-BASED CONVERSATION             -->
+  <!-- ===================================================================== -->
+  <div id="search-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-[var(--bg-panel)] border border-[var(--border-color)] rounded-3xl max-w-2xl w-full max-h-[88vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-6 py-4 border-b border-[var(--border-color)] flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl gtx-gradient flex items-center justify-center text-white">
+            <i class="fa-solid fa-compass"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-base">Find Users & Start Chat</h3>
+            <p class="text-xs text-[var(--text-muted)]">Search public identities by @username and pick which persona to chat with</p>
+          </div>
+        </div>
+        <button data-close-modal="search-modal" class="p-2 rounded-xl hover:bg-[var(--bg-card)] text-[var(--text-muted)] hover:text-white">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-5 flex-1 overflow-y-auto">
+        <!-- Step 1: Select Which Identity YOU Are Using to Start This Chat -->
+        <div class="p-4 rounded-2xl bg-blue-500/10 border border-cyan-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-cyan-400 block">Step 1: Choose Your Outgoing Identity</span>
+            <span class="text-xs text-[var(--text-muted)]">The recipient will only see this chosen persona.</span>
+          </div>
+          <select id="search-modal-my-identity-select"
+            class="px-3.5 py-2 rounded-xl bg-[var(--bg-panel)] border border-cyan-500/40 text-xs font-semibold focus:outline-none">
+          </select>
+        </div>
+
+        <!-- Step 2: Search Box -->
+        <div>
+          <label class="block text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2">Step 2: Search Public @Username or Display Name</label>
+          <div class="flex gap-2">
+            <div class="relative flex-1">
+              <i class="fa-solid fa-at absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+              <input id="directory-search-input" type="text" placeholder="Type username (e.g. alex, shadow) or leave blank to browse..."
+                class="w-full pl-9 pr-4 py-3 rounded-xl bg-[var(--bg-card)] border border-[var(--border-color)] focus:border-cyan-400 focus:outline-none text-xs" />
+            </div>
+            <button id="directory-search-btn" type="button" class="px-5 py-3 rounded-xl gtx-gradient text-white font-semibold text-xs transition">
+              Search
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 3: Search Results -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold text-[var(--text-muted)]">Public Directory Results</span>
+            <span class="text-[11px] text-[var(--text-muted)]">Private emails are strictly hidden</span>
+          </div>
+          <div id="directory-results-list" class="space-y-2.5">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 7. MODAL: PUBLIC IDENTITY PROFILE VIEWER                              -->
+  <!-- ===================================================================== -->
+  <div id="profile-card-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-[var(--bg-panel)] border border-[var(--border-color)] rounded-3xl max-w-md w-full p-6 shadow-2xl relative text-center">
+      <button data-close-modal="profile-card-modal" class="absolute top-4 right-4 p-2 rounded-xl hover:bg-[var(--bg-card)] text-[var(--text-muted)]">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <img id="profile-modal-avatar" src="" alt="Profile" class="w-24 h-24 rounded-3xl mx-auto object-cover border-2 border-cyan-400 shadow-lg mb-4 bg-slate-900" />
+      <h3 id="profile-modal-name" class="font-display font-bold text-xl">Display Name</h3>
+      <p id="profile-modal-username" class="text-sm text-cyan-400 font-medium mb-3">@username</p>
+      <p id="profile-modal-bio" class="text-xs text-[var(--text-muted)] bg-[var(--bg-card)] p-3.5 rounded-2xl border border-[var(--border-color)] mb-4"></p>
+      <div class="text-[11px] text-[var(--text-muted)] flex items-center justify-center gap-4 mb-5">
+        <span><i class="fa-solid fa-shield-halved text-emerald-400 mr-1"></i>Verified GTX Persona</span>
+        <span id="profile-modal-created">Joined recently</span>
+      </div>
+      <div id="profile-modal-action-area"></div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 8. MODAL: SETTINGS, PASSWORD, THEME & FIREBASE SECURITY RULES         -->
+  <!-- ===================================================================== -->
+  <div id="settings-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-[var(--bg-panel)] border border-[var(--border-color)] rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div class="px-6 py-4 border-b border-[var(--border-color)] flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-2xl gtx-gradient flex items-center justify-center text-white">
+            <i class="fa-solid fa-sliders"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-base">Account Settings & Firebase Architecture</h3>
+            <p class="text-xs text-[var(--text-muted)]">Manage your main account, theme, security rules, and setup guide</p>
+          </div>
+        </div>
+        <button data-close-modal="settings-modal" class="p-2 rounded-xl hover:bg-[var(--bg-card)] text-[var(--text-muted)] hover:text-white">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- Settings Navigation Tabs -->
+      <div class="px-6 pt-3 border-b border-[var(--border-color)] flex gap-4 text-xs font-semibold overflow-x-auto">
+        <button data-settings-tab="tab-account" class="settings-tab-btn pb-3 border-b-2 border-cyan-400 text-cyan-400 whitespace-nowrap">
+          Account & Theme
+        </button>
+        <button data-settings-tab="tab-rules" class="settings-tab-btn pb-3 border-b-2 border-transparent text-[var(--text-muted)] hover:text-white whitespace-nowrap">
+          Firestore & Storage Security Rules
+        </button>
+        <button data-settings-tab="tab-guide" class="settings-tab-btn pb-3 border-b-2 border-transparent text-[var(--text-muted)] hover:text-white whitespace-nowrap">
+          Beginner Setup Guide & Checklist
+        </button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-6">
+        <!-- TAB 1: ACCOUNT & THEME -->
+        <div id="tab-account" class="settings-tab-content space-y-6">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Account Overview Card -->
+            <div class="p-5 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] space-y-3">
+              <h4 class="font-display font-bold text-sm text-cyan-400">Main Account Information</h4>
+              <div class="text-xs space-y-2">
+                <div class="flex justify-between py-1.5 border-b border-[var(--border-color)]">
+                  <span class="text-[var(--text-muted)]">Private Email:</span>
+                  <span id="settings-user-email" class="font-semibold">Not signed in</span>
+                </div>
+                <div class="flex justify-between py-1.5 border-b border-[var(--border-color)]">
+                  <span class="text-[var(--text-muted)]">Account UID:</span>
+                  <span id="settings-user-uid" class="font-mono text-[11px]">...</span>
+                </div>
+                <div class="flex justify-between py-1.5">
+                  <span class="text-[var(--text-muted)]">Owned Identities:</span>
+                  <span id="settings-identity-count" class="font-semibold text-cyan-400">0</span>
+                </div>
+              </div>
+
+              <!-- Theme Toggle -->
+              <div class="pt-3 flex items-center justify-between">
+                <div>
+                  <span class="block text-xs font-semibold">Appearance Theme</span>
+                  <span class="text-[11px] text-[var(--text-muted)]">Default deep black or clean light mode</span>
+                </div>
+                <button id="theme-toggle-btn" type="button" class="px-4 py-2 rounded-xl bg-[var(--bg-panel)] border border-[var(--border-color)] text-xs font-semibold flex items-center gap-2">
+                  <i class="fa-solid fa-moon text-cyan-400"></i>
+                  <span id="theme-toggle-label">Dark Theme</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Change Password Card -->
+            <div class="p-5 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)]">
+              <h4 class="font-display font-bold text-sm text-cyan-400 mb-3">Change Main Account Password</h4>
+              <form id="change-password-form" class="space-y-3">
+                <div>
+                  <label class="block text-xs text-[var(--text-muted)] mb-1">New Password (min. 6 characters)</label>
+                  <input id="new-password-input" type="password" required minlength="6" placeholder="Enter new password"
+                    class="w-full px-3.5 py-2.5 rounded-xl bg-[var(--bg-panel)] border border-[var(--border-color)] text-xs focus:outline-none focus:border-cyan-400" />
+                </div>
+                <button type="submit" class="w-full py-2.5 rounded-xl gtx-gradient text-white text-xs font-semibold">
+                  Update Password
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: FIRESTORE & STORAGE SECURITY RULES -->
+        <div id="tab-rules" class="settings-tab-content hidden space-y-5">
+          <div class="p-4 rounded-2xl bg-blue-500/10 border border-cyan-500/30 text-xs leading-relaxed">
+            <strong class="text-cyan-400 block mb-1"><i class="fa-solid fa-lock mr-1"></i>Production-Grade Security Rules (`firestore.rules` & `storage.rules`)</strong>
+            Copy and paste these rules into your Firebase Console under <strong>Firestore Database → Rules</strong> and <strong>Storage → Rules</strong>. They enforce ownership verification, prevent identity spoofing, and ensure only conversation participants can read or send messages.
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-xs font-bold text-cyan-400">firestore.rules</span>
+              <button type="button" data-copy-target="firestore-rules-code" class="px-3 py-1 rounded-lg bg-[var(--bg-card)] border border-[var(--border-color)] text-xs hover:border-cyan-400">
+                <i class="fa-regular fa-copy mr-1"></i>Copy Firestore Rules
+              </button>
+            </div>
+            <pre id="firestore-rules-code" class="p-4 rounded-2xl bg-[#090A0F] border border-[#23293A] text-[11px] font-mono text-slate-300 overflow-x-auto leading-relaxed select-all">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    // 1. Main User Accounts (Private email storage - never publicly readable)
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+    }
+
+    // 2. Identities Collection
+    match /identities/{identityId} {
+      // Any authenticated user can read public identities for search & chat headers
+      allow read: if isSignedIn();
+
+      // Users can only create identities that belong to their own UID
+      allow create: if isSignedIn()
+        && request.resource.data.ownerUid == request.auth.uid
+        && request.resource.data.username is string
+        && request.resource.data.displayName is string;
+
+      // Users can only update or delete identities they own
+      allow update, delete: if isSignedIn()
+        && resource.data.ownerUid == request.auth.uid
+        && request.resource.data.ownerUid == request.auth.uid;
+    }
+
+    // 3. Conversations Collection
+    match /conversations/{conversationId} {
+      allow read: if isSignedIn()
+        && request.auth.uid in resource.data.participants;
+
+      allow create: if isSignedIn()
+        && request.auth.uid in request.resource.data.participants
+        && request.resource.data.participants.size() == 2;
+
+      allow update: if isSignedIn()
+        && request.auth.uid in resource.data.participants;
+
+      // 4. Messages Subcollection inside a Conversation
+      match /messages/{messageId} {
+        allow read: if isSignedIn()
+          && request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participants;
+
+        // Sender must be authenticated, a participant, and own the identity used
+        allow create: if isSignedIn()
+          && request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participants
+          && request.resource.data.senderUid == request.auth.uid
+          && get(/databases/$(database)/documents/identities/$(request.resource.data.senderIdentityId)).data.ownerUid == request.auth.uid;
+
+        // Sender can only soft-delete their own message without altering senderIdentityId
+        allow update: if isSignedIn()
+          && resource.data.senderUid == request.auth.uid
+          && request.resource.data.senderUid == resource.data.senderUid
+          && request.resource.data.senderIdentityId == resource.data.senderIdentityId;
+      }
+    }
+  }
+}</pre>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="font-mono text-xs font-bold text-cyan-400">storage.rules</span>
+              <button type="button" data-copy-target="storage-rules-code" class="px-3 py-1 rounded-lg bg-[var(--bg-card)] border border-[var(--border-color)] text-xs hover:border-cyan-400">
+                <i class="fa-regular fa-copy mr-1"></i>Copy Storage Rules
+              </button>
+            </div>
+            <pre id="storage-rules-code" class="p-4 rounded-2xl bg-[#090A0F] border border-[#23293A] text-[11px] font-mono text-slate-300 overflow-x-auto leading-relaxed select-all">rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /avatars/{userId}/{allPaths=**} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null
+                   && request.auth.uid == userId
+                   && request.resource.size < 2 * 1024 * 1024
+                   && request.resource.contentType.matches('image/.*');
+    }
+  }
+}</pre>
+          </div>
+        </div>
+
+        <!-- TAB 3: BEGINNER FIREBASE SETUP GUIDE & CHECKLIST -->
+        <div id="tab-guide" class="settings-tab-content hidden space-y-4 text-xs leading-relaxed">
+          <div class="p-4 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] space-y-2">
+            <h4 class="font-display font-bold text-sm text-cyan-400">Step-by-Step Firebase Setup Guide (Pre-Connected to `gtxmessenger`)</h4>
+            <ol class="list-decimal list-inside space-y-2 text-[var(--text-muted)]">
+              <li><strong class="text-[var(--text-main)]">Firebase Configuration:</strong> Your exact `gtxmessenger` Firebase credentials are already embedded and initialized in this application.</li>
+              <li><strong class="text-[var(--text-main)]">Enable Email/Password Auth:</strong> Open <a href="https://console.firebase.google.com/project/gtxmessenger/authentication/providers" target="_blank" class="text-cyan-400 underline">Firebase Console → Authentication → Sign-in method</a> and enable <strong>Email/Password</strong>.</li>
+              <li><strong class="text-[var(--text-main)]">Create Cloud Firestore Database:</strong> Go to <strong>Build → Firestore Database</strong>, click <strong>Create database</strong>, and start in production or test mode.</li>
+              <li><strong class="text-[var(--text-main)]">Publish Security Rules:</strong> Open the <strong>Rules</strong> tab in Firestore and paste the `firestore.rules` provided in the previous tab, or during initial testing use:
+                <code class="block mt-1 p-2 rounded bg-black/40 text-cyan-300 font-mono">allow read, write: if request.auth != null;</code>
+              </li>
+              <li><strong class="text-[var(--text-main)]">Multi-Folder Export Structure:</strong> While everything runs seamlessly in this single file, the JavaScript below is cleanly organized into modular sections (`firebase.js`, `auth.js`, `identities.js`, `chat.js`, `app.js`) so you can split them into separate files anytime.</li>
+            </ol>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)]">
+            <h4 class="font-display font-bold text-sm text-emerald-400 mb-2">Interactive Verification Checklist</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+              <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Register & Login with Email/Password</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Create Multiple Personas (Alex, Shadow, Anon)</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Unique @username validation</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Search public identities without exposing email</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Per-conversation identity switcher</div>
+              <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Past messages preserve original sender identity</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 9. CONFIRMATION MODAL (No browser alert/confirm used)                 -->
+  <!-- ===================================================================== -->
+  <div id="confirm-modal" class="hidden fixed inset-0 z-[90] bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-[var(--bg-panel)] border border-[var(--border-color)] rounded-3xl max-w-sm w-full p-6 shadow-2xl">
+      <h4 id="confirm-modal-title" class="font-display font-bold text-base mb-2">Confirm Action</h4>
+      <p id="confirm-modal-message" class="text-xs text-[var(--text-muted)] leading-relaxed mb-5"></p>
+      <div class="flex items-center justify-end gap-2">
+        <button id="confirm-modal-cancel" class="px-4 py-2 rounded-xl bg-[var(--bg-card)] text-xs font-medium">Cancel</button>
+        <button id="confirm-modal-ok" class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-semibold">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- 10. APPLICATION JAVASCRIPT (MODULAR FIREBASE SDK v11.6.1)             -->
+  <!-- ===================================================================== -->
+  <script type="module">
+    /*************************************************************************
+     * MODULE 1: firebase.js — Firebase Initialization & Configuration
+     *************************************************************************/
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import {
+      getAuth,
+      createUserWithEmailAndPassword,
+      signInWithEmailAndPassword,
+      signOut,
+      sendPasswordResetEmail,
+      updatePassword,
+      onAuthStateChanged
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+    import {
+      getFirestore,
+      doc,
+      getDoc,
+      setDoc,
+      addDoc,
+      updateDoc,
+      deleteDoc,
+      collection,
+      query,
+      where,
+      getDocs,
+      onSnapshot,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+    // Exact Firebase Configuration provided for GTX MESSENGER
+    const firebaseConfig = {
+      apiKey: "AIzaSyDjE5GFytcEwKzjx8SmeszCtrS_NCWG0s0",
+      authDomain: "gtxmessenger.firebaseapp.com",
+      databaseURL: "https://gtxmessenger-default-rtdb.firebaseio.com",
+      projectId: "gtxmessenger",
+      storageBucket: "gtxmessenger.firebasestorage.app",
+      messagingSenderId: "398426534679",
+      appId: "1:398426534679:web:92bfc4305a157cb6ed7d52"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    /*************************************************************************
+     * APPLICATION STATE
+     *************************************************************************/
+    const state = {
+      currentUser: null,          // Firebase Auth User
+      userProfile: null,          // Firestore `users/{uid}` document
+      identities: [],             // Array of owned identities for current user
+      activeIdentityId: null,     // Default selected identity ID
+      conversations: [],          // Real-time list of conversations user belongs to
+      activeConversationId: null, // Currently open conversation ID
+      messages: [],               // Real-time messages for activeConversationId
+      unsubIdentities: null,
+      unsubConversations: null,
+      unsubMessages: null,
+      theme: 'dark'
+    };
+
+    /*************************************************************************
+     * UI HELPERS (Toast, Modals, Avatar Generator, Escaping)
+     *************************************************************************/
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      const colors = {
+        info: 'border-cyan-500/40 bg-[#12151E] text-slate-100',
+        success: 'border-emerald-500/50 bg-[#12151E] text-emerald-300',
+        error: 'border-red-500/50 bg-[#12151E] text-red-300'
+      };
+      const icons = {
+        info: 'fa-circle-info text-cyan-400',
+        success: 'fa-circle-check text-emerald-400',
+        error: 'fa-triangle-exclamation text-red-400'
+      };
+      toast.className = `pointer-events-auto flex items-center gap-3 p-3.5 rounded-2xl border shadow-2xl text-xs font-medium transition-all duration-300 ${colors[type] || colors.info}`;
+      toast.innerHTML = `
+        <i class="fa-solid ${icons[type] || icons.info} text-sm"></i>
+        <span class="flex-1 leading-snug">${escapeHtml(message)}</span>
+      `;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(-8px)';
+        setTimeout(() => toast.remove(), 250);
+      }, 3800);
+    }
+
+    function askConfirm(title, message, onConfirm) {
+      const modal = document.getElementById('confirm-modal');
+      document.getElementById('confirm-modal-title').textContent = title;
+      document.getElementById('confirm-modal-message').textContent = message;
+      modal.classList.remove('hidden');
+
+      const okBtn = document.getElementById('confirm-modal-ok');
+      const cancelBtn = document.getElementById('confirm-modal-cancel');
+
+      const cleanup = () => {
+        modal.classList.add('hidden');
+        okBtn.onclick = null;
+        cancelBtn.onclick = null;
+      };
+
+      okBtn.onclick = () => {
+        cleanup();
+        onConfirm();
+      };
+      cancelBtn.onclick = cleanup;
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function getDiceBearUrl(seed) {
+      const cleanSeed = encodeURIComponent((seed || 'GTX').trim());
+      return `https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${cleanSeed}`;
+    }
+
+    function normalizeUsername(raw) {
+      return String(raw || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9_]/g, '')
+        .slice(0, 24);
+    }
+
+    function formatTime(ts) {
+      if (!ts) return 'Just now';
+      const date = ts.toDate ? ts.toDate() : new Date(ts);
+      if (isNaN(date.getTime())) return 'Just now';
+      const now = new Date();
+      const sameDay = date.toDateString() === now.toDateString();
+      if (sameDay) {
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      }
+      return date.toLocaleDateString([], { month: 'short', day: 'numeric' });
+    }
+
+    function openModal(id) {
+      document.getElementById(id)?.classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id)?.classList.add('hidden');
+    }
+
+    /*************************************************************************
+     * MODULE 2: auth.js — Authentication & Session Management
+     *************************************************************************/
+    function showAuthAlert(msg, isError = true) {
+      const box = document.getElementById('auth-alert');
+      const icon = document.getElementById('auth-alert-icon');
+      const text = document.getElementById('auth-alert-text');
+      box.classList.remove('hidden', 'bg-red-500/10', 'border-red-500/30', 'text-red-300', 'bg-emerald-500/10', 'border-emerald-500/30', 'text-emerald-300');
+      if (isError) {
+        box.classList.add('bg-red-500/10', 'border-red-500/30', 'text-red-300');
+        icon.className = 'fa-solid fa-circle-exclamation mt-0.5 text-red-400';
+      } else {
+        box.classList.add('bg-emerald-500/10', 'border-emerald-500/30', 'text-emerald-300');
+        icon.className = 'fa-solid fa-circle-check mt-0.5 text-emerald-400';
+      }
+      text.textContent = msg;
+    }
+
+    function hideAuthAlert() {
+      document.getElementById('auth-alert').classList.add('hidden');
+    }
+
+    function friendlyFirebaseError(err) {
+      const code = err?.code || '';
+      if (code.includes('auth/invalid-credential') || code.includes('auth/wrong-password') || code.includes('auth/user-not-found')) {
+        return 'Incorrect email or password. Please verify your credentials or create a new account.';
+      }
+      if (code.includes('auth/email-already-in-use')) {
+        return 'This email is already registered. Please switch to Sign In.';
+      }
+      if (code.includes('auth/weak-password')) {
+        return 'Password must be at least 6 characters long.';
+      }
+      if (code.includes('auth/invalid-email')) {
+        return 'Please enter a valid email address.';
+      }
+      if (code.includes('permission-denied')) {
+        return 'Firestore permission denied. Open "Firebase Setup & Rules" to check your Firestore security rules.';
+      }
+      return err?.message || 'An unexpected error occurred. Please try again.';
+    }
+
+    // Switch between Login, Register, Forgot Password
+    function switchAuthMode(mode) {
+      hideAuthAlert();
+      const loginForm = document.getElementById('login-form');
+      const regForm = document.getElementById('register-form');
+      const forgotForm = document.getElementById('forgot-form');
+      const tabLogin = document.getElementById('tab-login-btn');
+      const tabReg = document.getElementById('tab-register-btn');
+      const tabsWrap = document.getElementById('auth-tabs');
+
+      loginForm.classList.add('hidden');
+      regForm.classList.add('hidden');
+      forgotForm.classList.add('hidden');
+
+      if (mode === 'login') {
+        tabsWrap.classList.remove('hidden');
+        loginForm.classList.remove('hidden');
+        tabLogin.className = 'py-2.5 text-xs font-semibold rounded-xl transition gtx-gradient text-white shadow';
+        tabReg.className = 'py-2.5 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white';
+      } else if (mode === 'register') {
+        tabsWrap.classList.remove('hidden');
+        regForm.classList.remove('hidden');
+        tabReg.className = 'py-2.5 text-xs font-semibold rounded-xl transition gtx-gradient text-white shadow';
+        tabLogin.className = 'py-2.5 text-xs font-semibold rounded-xl transition text-slate-400 hover:text-white';
+      } else if (mode === 'forgot') {
+        tabsWrap.classList.add('hidden');
+        forgotForm.classList.remove('hidden');
+      }
+    }
+
+    // Registration Handler
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideAuthAlert();
+
+      const email = document.getElementById('reg-email').value.trim();
+      const displayName = document.getElementById('reg-display-name').value.trim();
+      const rawUsername = document.getElementById('reg-username').value.trim();
+      const username = normalizeUsername(rawUsername);
+      const password = document.getElementById('reg-password').value;
+
+      if (!username || username.length < 3) {
+        showAuthAlert('Username must contain at least 3 alphanumeric characters.');
+        return;
+      }
+
+      const btn = document.getElementById('reg-submit-btn');
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Creating Account & Identity...</span>`;
+
+      try {
+        // 1. Create Firebase Auth User
+        const cred = await createUserWithEmailAndPassword(auth, email, password);
+        const uid = cred.user.uid;
+
+        // 2. Check if username is already taken in `identities`
+        const usernameTaken = await isUsernameTaken(username);
+        const finalUsername = usernameTaken ? `${username}_${Math.floor(100 + Math.random() * 899)}` : username;
+
+        // 3. Create initial identity document
+        const identityRef = doc(collection(db, 'identities'));
+        const identityData = {
+          identityId: identityRef.id,
+          ownerUid: uid,
+          username: finalUsername,
+          displayName: displayName || finalUsername,
+          photoURL: getDiceBearUrl(displayName || finalUsername),
+          bio: 'Hey there! I am using GTX Messenger.',
+          isPublic: true,
+          createdAt: Date.now()
+        };
+        await setDoc(identityRef, identityData);
+
+        // 4. Create main account document in `users/{uid}`
+        await setDoc(doc(db, 'users', uid), {
+          uid,
+          email,
+          defaultIdentityId: identityRef.id,
+          createdAt: Date.now()
+        });
+
+        showToast(`Welcome to GTX Messenger! Created identity @${finalUsername}`, 'success');
+      } catch (err) {
+        showAuthAlert(friendlyFirebaseError(err), true);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span>Create Main Account & First Identity</span><i class="fa-solid fa-user-astronaut"></i>`;
+      }
+    });
+
+    // Login Handler
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideAuthAlert();
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      const btn = document.getElementById('login-submit-btn');
+
+      btn.disabled = true;
+      btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Signing In...</span>`;
+
+      try {
+        await signInWithEmailAndPassword(auth, email, password);
+        showToast('Signed in to GTX Messenger', 'success');
+      } catch (err) {
+        showAuthAlert(friendlyFirebaseError(err), true);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<span>Launch GTX Dashboard</span><i class="fa-solid fa-arrow-right text-xs"></i>`;
+      }
+    });
+
+    // Forgot Password Handler
+    document.getElementById('forgot-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      hideAuthAlert();
+      const email = document.getElementById('forgot-email').value.trim();
+      try {
+        await sendPasswordResetEmail(auth, email);
+        showAuthAlert(`Password reset email sent to ${email}. Check your inbox!`, false);
+      } catch (err) {
+        showAuthAlert(friendlyFirebaseError(err), true);
+      }
+    });
+
+    // Change Password Handler
+    document.getElementById('change-password-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const newPass = document.getElementById('new-password-input').value;
+      if (!state.currentUser) return;
+      try {
+        await updatePassword(state.currentUser, newPass);
+        document.getElementById('new-password-input').value = '';
+        showToast('Main account password updated!', 'success');
+      } catch (err) {
+        showToast(friendlyFirebaseError(err), 'error');
+      }
+    });
+
+    // Logout Handler
+    async function handleLogout() {
+      cleanupListeners();
+      await signOut(auth);
+      state.currentUser = null;
+      state.identities = [];
+      state.conversations = [];
+      state.activeConversationId = null;
+      showToast('Logged out safely', 'info');
+    }
+
+    /*************************************************************************
+     * MODULE 3: identities.js — Multi-Identity Creation, Switching & Safeguards
+     *************************************************************************/
+    async function isUsernameTaken(username, excludeIdentityId = null) {
+      const clean = normalizeUsername(username);
+      const q = query(collection(db, 'identities'), where('username', '==', clean));
+      const snap = await getDocs(q);
+      if (snap.empty) return false;
+      for (const d of snap.docs) {
+        if (d.id !== excludeIdentityId) return true;
+      }
+      return false;
+    }
+
+    function getActiveIdentity() {
+      if (!state.identities.length) return null;
+      return state.identities.find(i => i.identityId === state.activeIdentityId) || state.identities[0];
+    }
+
+    function subscribeToUserIdentities(uid) {
+      if (state.unsubIdentities) state.unsubIdentities();
+
+      const q = query(collection(db, 'identities'), where('ownerUid', '==', uid));
+      state.unsubIdentities = onSnapshot(q, async (snapshot) => {
+        const list = [];
+        snapshot.forEach(docSnap => {
+          list.push({ identityId: docSnap.id, ...docSnap.data() });
+        });
+        list.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+
+        // If a user logged in and somehow has 0 identities, auto-create a default one
+        if (list.length === 0 && state.currentUser) {
+          const fallbackUsername = `gtx_${uid.slice(0, 6).toLowerCase()}`;
+          const newRef = doc(collection(db, 'identities'));
+          const fallbackIdentity = {
+            identityId: newRef.id,
+            ownerUid: uid,
+            username: fallbackUsername,
+            displayName: state.currentUser.email?.split('@')[0] || 'GTX User',
+            photoURL: getDiceBearUrl(fallbackUsername),
+            bio: 'Default GTX Persona',
+            isPublic: true,
+            createdAt: Date.now()
+          };
+          await setDoc(newRef, fallbackIdentity);
+          return;
+        }
+
+        state.identities = list;
+
+        // Ensure activeIdentityId is valid
+        if (!state.activeIdentityId || !list.some(i => i.identityId === state.activeIdentityId)) {
+          const preferred = state.userProfile?.defaultIdentityId;
+          state.activeIdentityId = list.some(i => i.identityId === preferred)
+            ? preferred
+            : list[0]?.identityId;
+        }
+
+        renderIdentitySelectors();
+        renderOwnedIdentitiesList();
+        renderConversationList();
+        if (state.activeConversationId) {
+          renderActiveConversationHeader();
+        }
+      }, (err) => {
+        console.error('Identities listener error:', err);
+        showToast(friendlyFirebaseError(err), 'error');
+      });
+    }
+
+    function renderIdentitySelectors() {
+      const sidebarSelect = document.getElementById('sidebar-identity-select');
+      const searchModalSelect = document.getElementById('search-modal-my-identity-select');
+      const active = getActiveIdentity();
+
+      const optionsHtml = state.identities.map(idObj => `
+        <option value="${escapeHtml(idObj.identityId)}" ${idObj.identityId === active?.identityId ? 'selected' : ''}>
+          ${escapeHtml(idObj.displayName)} (@${escapeHtml(idObj.username)})
+        </option>
+      `).join('');
+
+      sidebarSelect.innerHTML = optionsHtml;
+      searchModalSelect.innerHTML = optionsHtml;
+
+      if (active) {
+        document.getElementById('sidebar-active-avatar').src = active.photoURL || getDiceBearUrl(active.displayName);
+        document.getElementById('sidebar-active-username').textContent = `@${active.username} • ${active.isPublic ? 'Public' : 'Private'}`;
+      }
+
+      document.getElementById('settings-identity-count').textContent = String(state.identities.length);
+    }
+
+    function renderOwnedIdentitiesList() {
+      const container = document.getElementById('owned-identities-list');
+      if (!state.identities.length) {
+        container.innerHTML = `<div class="text-xs text-[var(--text-muted)] p-4 text-center">No identities created yet.</div>`;
+        return;
+      }
+
+      const defaultId = state.userProfile?.defaultIdentityId || state.activeIdentityId;
+
+      container.innerHTML = state.identities.map(item => {
+        const isDefault = item.identityId === defaultId;
+        return `
+          <div class="p-3.5 rounded-2xl bg-[var(--bg-card)] border ${isDefault ? 'border-cyan-500/50' : 'border-[var(--border-color)]'} flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <img src="${escapeHtml(item.photoURL || getDiceBearUrl(item.displayName))}" alt="${escapeHtml(item.displayName)}"
+                class="w-11 h-11 rounded-xl object-cover bg-slate-800 border border-[var(--border-color)] flex-shrink-0" />
+              <div class="min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <span class="font-semibold text-xs truncate">${escapeHtml(item.displayName)}</span>
+                  ${isDefault ? `<span class="px-1.5 py-0.5 rounded bg-cyan-500/15 text-cyan-400 text-[9px] font-bold uppercase">Default</span>` : ''}
+                </div>
+                <div class="text-[11px] text-cyan-400 truncate">@${escapeHtml(item.username)}</div>
+                <div class="text-[10px] text-[var(--text-muted)] truncate">${escapeHtml(item.bio || 'No bio')}</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-1 flex-shrink-0">
+              ${!isDefault ? `
+                <button type="button" data-set-default-id="${escapeHtml(item.identityId)}" title="Set as Default Persona"
+                  class="p-2 rounded-lg hover:bg-blue-500/15 text-slate-400 hover:text-cyan-400 text-xs transition">
+                  <i class="fa-regular fa-star"></i>
+                </button>
+              ` : ''}
+              <button type="button" data-edit-id="${escapeHtml(item.identityId)}" title="Edit Identity"
+                class="p-2 rounded-lg hover:bg-blue-500/15 text-slate-400 hover:text-white text-xs transition">
+                <i class="fa-solid fa-pen"></i>
+              </button>
+              <button type="button" data-delete-id="${escapeHtml(item.identityId)}" title="Delete Identity"
+                class="p-2 rounded-lg hover:bg-red-500/15 text-slate-400 hover:text-red-400 text-xs transition">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Attach action handlers
+      container.querySelectorAll('[data-set-default-id]').forEach(btn => {
+        btn.onclick = async () => {
+          const id = btn.getAttribute('data-set-default-id');
+          state.activeIdentityId = id;
+          if (state.currentUser) {
+            await setDoc(doc(db, 'users', state.currentUser.uid), { defaultIdentityId: id }, { merge: true });
+            if (state.userProfile) state.userProfile.defaultIdentityId = id;
+          }
+          renderIdentitySelectors();
+          renderOwnedIdentitiesList();
+          showToast('Updated default identity', 'success');
+        };
+      });
+
+      container.querySelectorAll('[data-edit-id]').forEach(btn => {
+        btn.onclick = () => populateIdentityFormForEdit(btn.getAttribute('data-edit-id'));
+      });
+
+      container.querySelectorAll('[data-delete-id]').forEach(btn => {
+        btn.onclick = () => handleDeleteIdentity(btn.getAttribute('data-delete-id'));
+      });
+    }
+
+    function populateIdentityFormForEdit(identityId) {
+      const target = state.identities.find(i => i.identityId === identityId);
+      if (!target) return;
+
+      document.getElementById('identity-form-title').textContent = `Edit Identity (@${target.username})`;
+      document.getElementById('identity-edit-id').value = target.identityId;
+      document.getElementById('identity-display-name').value = target.displayName || '';
+      document.getElementById('identity-username').value = target.username || '';
+      document.getElementById('identity-bio').value = target.bio || '';
+      document.getElementById('identity-photo-url').value = target.photoURL || '';
+      document.getElementById('identity-is-public').checked = target.isPublic !== false;
+      document.getElementById('identity-form-avatar-preview').src = target.photoURL || getDiceBearUrl(target.displayName);
+      document.getElementById('identity-cancel-edit-btn').classList.remove('hidden');
+    }
+
+    function resetIdentityForm() {
+      document.getElementById('identity-form-title').textContent = 'Create New Identity';
+      document.getElementById('identity-edit-id').value = '';
+      document.getElementById('identity-display-name').value = '';
+      document.getElementById('identity-username').value = '';
+      document.getElementById('identity-bio').value = '';
+      document.getElementById('identity-photo-url').value = '';
+      document.getElementById('identity-is-public').checked = true;
+      document.getElementById('identity-form-avatar-preview').src = getDiceBearUrl('NewPersona');
+      document.getElementById('identity-cancel-edit-btn').classList.add('hidden');
+    }
+
+    // Create / Update Identity Form Submit
+    document.getElementById('identity-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!state.currentUser) return;
+
+      const editId = document.getElementById('identity-edit-id').value.trim();
+      const displayName = document.getElementById('identity-display-name').value.trim();
+      const username = normalizeUsername(document.getElementById('identity-username').value);
+      const bio = document.getElementById('identity-bio').value.trim();
+      const customUrl = document.getElementById('identity-photo-url').value.trim();
+      const isPublic = document.getElementById('identity-is-public').checked;
+
+      if (username.length < 3) {
+        showToast('Username must be at least 3 characters (letters, numbers, underscores).', 'error');
+        return;
+      }
+
+      const saveBtn = document.getElementById('identity-save-btn');
+      saveBtn.disabled = true;
+      saveBtn.textContent = 'Checking @username...';
+
+      try {
+        const taken = await isUsernameTaken(username, editId || null);
+        if (taken) {
+          showToast(`@${username} is already taken by another identity. Please pick another handle.`, 'error');
+          saveBtn.disabled = false;
+          saveBtn.textContent = 'Save Identity';
+          return;
+        }
+
+        const photoURL = customUrl || document.getElementById('identity-form-avatar-preview').src || getDiceBearUrl(displayName);
+
+        if (editId) {
+          // Verify ownership before editing
+          const existing = state.identities.find(i => i.identityId === editId);
+          if (!existing || existing.ownerUid !== state.currentUser.uid) {
+            throw new Error('Unauthorized identity modification attempt.');
+          }
+          await updateDoc(doc(db, 'identities', editId), {
+            displayName,
+            username,
+            bio,
+            photoURL,
+            isPublic
+          });
+
+          // Also update any active conversation headers where this identity is currently selected
+          for (const conv of state.conversations) {
+            const mySelected = conv.selectedIdentities?.[state.currentUser.uid];
+            if (mySelected && mySelected.identityId === editId) {
+              await updateDoc(doc(db, 'conversations', conv.conversationId), {
+                [`selectedIdentities.${state.currentUser.uid}`]: {
+                  identityId: editId,
+                  displayName,
+                  username,
+                  photoURL,
+                  bio
+                }
+              });
+            }
+          }
+
+          showToast(`Updated identity @${username}`, 'success');
+        } else {
+          const newRef = doc(collection(db, 'identities'));
+          await setDoc(newRef, {
+            identityId: newRef.id,
+            ownerUid: state.currentUser.uid,
+            displayName,
+            username,
+            bio: bio || 'Available on GTX Messenger',
+            photoURL,
+            isPublic,
+            createdAt: Date.now()
+          });
+          state.activeIdentityId = newRef.id;
+          showToast(`Created new identity @${username}!`, 'success');
+        }
+
+        resetIdentityForm();
+      } catch (err) {
+        showToast(friendlyFirebaseError(err), 'error');
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = 'Save Identity';
+      }
+    });
+
+    // Delete Identity with Conversation-History Safeguards
+    async function handleDeleteIdentity(identityId) {
+      if (state.identities.length <= 1) {
+        showToast('You must keep at least one active identity on your account.', 'error');
+        return;
+      }
+
+      const target = state.identities.find(i => i.identityId === identityId);
+      if (!target) return;
+
+      // Check if this identity is currently used in any conversation
+      const usedInConvs = state.conversations.filter(
+        c => c.selectedIdentities?.[state.currentUser.uid]?.identityId === identityId
+      );
+
+      const fallbackIdentity = state.identities.find(i => i.identityId !== identityId);
+
+      const warningMsg = usedInConvs.length > 0
+        ? `@${target.username} is currently assigned to ${usedInConvs.length} conversation(s). Deleting it will automatically switch those chats to @${fallbackIdentity.username} while preserving all historical messages sent as @${target.username}. Proceed?`
+        : `Are you sure you want to permanently delete your persona @${target.username}? Past messages will still preserve their snapshot.`;
+
+      askConfirm(`Delete @${target.username}?`, warningMsg, async () => {
+        try {
+          // Reassign active conversations using this identity to the fallback identity
+          for (const conv of usedInConvs) {
+            await updateDoc(doc(db, 'conversations', conv.conversationId), {
+              [`selectedIdentities.${state.currentUser.uid}`]: {
+                identityId: fallbackIdentity.identityId,
+                displayName: fallbackIdentity.displayName,
+                username: fallbackIdentity.username,
+                photoURL: fallbackIdentity.photoURL,
+                bio: fallbackIdentity.bio || ''
+              }
+            });
+          }
+
+          await deleteDoc(doc(db, 'identities', identityId));
+          if (state.activeIdentityId === identityId) {
+            state.activeIdentityId = fallbackIdentity.identityId;
+          }
+          showToast(`Deleted identity @${target.username}`, 'info');
+        } catch (err) {
+          showToast(friendlyFirebaseError(err), 'error');
+        }
+      });
+    }
+
+    /*************************************************************************
+     * MODULE 4: USER SEARCH & PUBLIC DIRECTORY DISCOVERY
+     *************************************************************************/
+    async function searchPublicIdentities(searchTerm = '') {
+      const resultsContainer = document.getElementById('directory-results-list');
+      resultsContainer.innerHTML = `
+        <div class="p-6 text-center text-xs text-[var(--text-muted)]">
+          <i class="fa-solid fa-circle-notch fa-spin text-cyan-400 mr-2"></i>Searching public GTX directory...
+        </div>
+      `;
+
+      try {
+        const cleanQuery = searchTerm.trim().toLowerCase().replace(/^@/, '');
+        const q = query(collection(db, 'identities'), where('isPublic', '==', true));
+        const snap = await getDocs(q);
+
+        const matches = [];
+        snap.forEach(docSnap => {
+          const data = docSnap.data();
+          // Exclude current user's own identities from "Start Chat with others"
+          if (data.ownerUid === state.currentUser?.uid) return;
+          if (
+            !cleanQuery ||
+            (data.username && data.username.toLowerCase().includes(cleanQuery)) ||
+            (data.displayName && data.displayName.toLowerCase().includes(cleanQuery))
+          ) {
+            matches.push({ identityId: docSnap.id, ...data });
+          }
+        });
+
+        if (matches.length === 0) {
+          resultsContainer.innerHTML = `
+            <div class="p-6 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] text-center text-xs text-[var(--text-muted)]">
+              No other public identities found matching "${escapeHtml(searchTerm)}".
+              <span class="block mt-1 text-[11px]">Tip: Open an incognito window and register a second test account to chat between multiple accounts in real time!</span>
+            </div>
+          `;
+          return;
+        }
+
+        resultsContainer.innerHTML = matches.map(person => `
+          <div class="p-3.5 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] hover:border-cyan-500/40 transition flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0 cursor-pointer" data-view-profile="${escapeHtml(person.identityId)}">
+              <img src="${escapeHtml(person.photoURL || getDiceBearUrl(person.displayName))}" alt="${escapeHtml(person.displayName)}"
+                class="w-11 h-11 rounded-xl object-cover bg-slate-800 border border-[var(--border-color)] flex-shrink-0" />
+              <div class="min-w-0">
+                <div class="font-semibold text-xs truncate">${escapeHtml(person.displayName)}</div>
+                <div class="text-[11px] text-cyan-400 truncate">@${escapeHtml(person.username)}</div>
+                <div class="text-[10px] text-[var(--text-muted)] truncate">${escapeHtml(person.bio || 'GTX Messenger Persona')}</div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 flex-shrink-0">
+              <button type="button" data-view-profile="${escapeHtml(person.identityId)}"
+                class="px-3 py-2 rounded-xl bg-[var(--bg-panel)] border border-[var(--border-color)] text-xs hover:border-cyan-400 transition">
+                Profile
+              </button>
+              <button type="button" data-start-chat="${escapeHtml(person.identityId)}"
+                class="px-3.5 py-2 rounded-xl gtx-gradient text-white font-semibold text-xs shadow transition flex items-center gap-1.5">
+                <i class="fa-solid fa-paper-plane text-[10px]"></i>
+                <span>Start Chat</span>
+              </button>
+            </div>
+          </div>
+        `).join('');
+
+        // Bind profile view & start chat clicks
+        resultsContainer.querySelectorAll('[data-view-profile]').forEach(el => {
+          el.onclick = () => {
+            const id = el.getAttribute('data-view-profile');
+            const person = matches.find(m => m.identityId === id);
+            if (person) showPublicProfileModal(person, true);
+          };
+        });
+
+        resultsContainer.querySelectorAll('[data-start-chat]').forEach(btn => {
+          btn.onclick = () => {
+            const id = btn.getAttribute('data-start-chat');
+            const person = matches.find(m => m.identityId === id);
+            const chosenMyIdentityId = document.getElementById('search-modal-my-identity-select').value;
+            if (person) startOrOpenConversation(person, chosenMyIdentityId);
+          };
+        });
+      } catch (err) {
+        resultsContainer.innerHTML = `<div class="p-4 text-xs text-red-400">${escapeHtml(friendlyFirebaseError(err))}</div>`;
+      }
+    }
+
+    function showPublicProfileModal(identityObj, allowStartChat = false) {
+      document.getElementById('profile-modal-avatar').src = identityObj.photoURL || getDiceBearUrl(identityObj.displayName);
+      document.getElementById('profile-modal-name').textContent = identityObj.displayName || 'Persona';
+      document.getElementById('profile-modal-username').textContent = `@${identityObj.username}`;
+      document.getElementById('profile-modal-bio').textContent = identityObj.bio || 'No public biography provided.';
+      document.getElementById('profile-modal-created').textContent = identityObj.createdAt
+        ? `Created ${formatTime(identityObj.createdAt)}`
+        : 'Verified Persona';
+
+      const actionArea = document.getElementById('profile-modal-action-area');
+      if (allowStartChat && identityObj.ownerUid !== state.currentUser?.uid) {
+        actionArea.innerHTML = `
+          <button id="profile-modal-start-btn" class="w-full py-3 rounded-xl gtx-gradient text-white font-semibold text-xs shadow-lg">
+            Start Conversation with @${escapeHtml(identityObj.username)}
+          </button>
+        `;
+        document.getElementById('profile-modal-start-btn').onclick = () => {
+          closeModal('profile-card-modal');
+          const chosenMyIdentityId = document.getElementById('search-modal-my-identity-select')?.value || state.activeIdentityId;
+          startOrOpenConversation(identityObj, chosenMyIdentityId);
+        };
+      } else {
+        actionArea.innerHTML = '';
+      }
+
+      openModal('profile-card-modal');
+    }
+
+    /*************************************************************************
+     * MODULE 5: chat.js — Identity-Based Real-Time Conversations & Messaging
+     *************************************************************************/
+    async function startOrOpenConversation(targetIdentity, myIdentityId) {
+      if (!state.currentUser || !targetIdentity) return;
+
+      const myUid = state.currentUser.uid;
+      const peerUid = targetIdentity.ownerUid;
+
+      if (myUid === peerUid) {
+        showToast('You own this identity! Select another user to start a conversation.', 'info');
+        return;
+      }
+
+      const myPersona = state.identities.find(i => i.identityId === myIdentityId) || getActiveIdentity();
+      if (!myPersona) {
+        showToast('Please create an identity first.', 'error');
+        return;
+      }
+
+      try {
+        // Check if a conversation between these two main accounts already exists
+        // (Avoid duplicate conversations between the same two main accounts)
+        const existingConv = state.conversations.find(
+          c => Array.isArray(c.participants) && c.participants.includes(myUid) && c.participants.includes(peerUid)
+        );
+
+        const myPersonaSnapshot = {
+          identityId: myPersona.identityId,
+          displayName: myPersona.displayName,
+          username: myPersona.username,
+          photoURL: myPersona.photoURL,
+          bio: myPersona.bio || ''
+        };
+
+        const peerPersonaSnapshot = {
+          identityId: targetIdentity.identityId,
+          displayName: targetIdentity.displayName,
+          username: targetIdentity.username,
+          photoURL: targetIdentity.photoURL,
+          bio: targetIdentity.bio || ''
+        };
+
+        if (existingConv) {
+          // Update our selected identity for this conversation and the peer identity we clicked
+          await updateDoc(doc(db, 'conversations', existingConv.conversationId), {
+            [`selectedIdentities.${myUid}`]: myPersonaSnapshot,
+            [`selectedIdentities.${peerUid}`]: peerPersonaSnapshot,
+            updatedAt: Date.now()
+          });
+          closeModal('search-modal');
+          selectConversation(existingConv.conversationId);
+          showToast(`Switched chat persona to @${myPersona.username}`, 'info');
+          return;
+        }
+
+        // Create new conversation document
+        const convRef = doc(collection(db, 'conversations'));
+        const newConv = {
+          conversationId: convRef.id,
+          participants: [myUid, peerUid],
+          selectedIdentities: {
+            [myUid]: myPersonaSnapshot,
+            [peerUid]: peerPersonaSnapshot
+          },
+          lastMessage: '',
+          lastMessageSenderName: '',
+          lastMessageAt: Date.now(),
+          createdAt: Date.now(),
+          updatedAt: Date.now()
+        };
+
+        await setDoc(convRef, newConv);
+        closeModal('search-modal');
+        selectConversation(convRef.id);
+        showToast(`Started conversation as @${myPersona.username}`, 'success');
+      } catch (err) {
+        showToast(friendlyFirebaseError(err), 'error');
+      }
+    }
+
+    function subscribeToConversations(uid) {
+      if (state.unsubConversations) state.unsubConversations();
+
+      const q = query(collection(db, 'conversations'), where('participants', 'array-contains', uid));
+      state.unsubConversations = onSnapshot(q, (snapshot) => {
+        const list = [];
+        snapshot.forEach(docSnap => {
+          list.push({ conversationId: docSnap.id, ...docSnap.data() });
+        });
+        list.sort((a, b) => (b.updatedAt || b.lastMessageAt || 0) - (a.updatedAt || a.lastMessageAt || 0));
+        state.conversations = list;
+
+        document.getElementById('conversation-count-badge').textContent = String(list.length);
+        renderConversationList();
+
+        if (state.activeConversationId) {
+          renderActiveConversationHeader();
+        }
+      }, (err) => {
+        console.error('Conversations listener error:', err);
+      });
+    }
+
+    function getPeerIdentityFromConversation(conv) {
+      if (!conv || !state.currentUser) return null;
+      const peerUid = (conv.participants || []).find(u => u !== state.currentUser.uid);
+      if (!peerUid) return null;
+      return conv.selectedIdentities?.[peerUid] || {
+        identityId: 'unknown',
+        displayName: 'GTX User',
+        username: 'user',
+        photoURL: getDiceBearUrl(peerUid)
+      };
+    }
+
+    function getMySelectedIdentityForConversation(conv) {
+      if (!conv || !state.currentUser) return getActiveIdentity();
+      const saved = conv.selectedIdentities?.[state.currentUser.uid];
+      if (saved) {
+        // Prefer live owned identity object if still present
+        const live = state.identities.find(i => i.identityId === saved.identityId);
+        if (live) return live;
+        return saved;
+      }
+      return getActiveIdentity();
+    }
+
+    function renderConversationList() {
+      const container = document.getElementById('conversation-list');
+      const filterText = document.getElementById('sidebar-search-input').value.trim().toLowerCase();
+
+      const filtered = state.conversations.filter(conv => {
+        if (!filterText) return true;
+        const peer = getPeerIdentityFromConversation(conv);
+        const myId = getMySelectedIdentityForConversation(conv);
+        return (
+          peer?.displayName?.toLowerCase().includes(filterText) ||
+          peer?.username?.toLowerCase().includes(filterText) ||
+          myId?.username?.toLowerCase().includes(filterText) ||
+          (conv.lastMessage || '').toLowerCase().includes(filterText)
+        );
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="p-6 text-center text-xs text-[var(--text-muted)] space-y-3">
+            <div class="w-12 h-12 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center mx-auto text-cyan-400">
+              <i class="fa-regular fa-paper-plane text-lg"></i>
+            </div>
+            <p class="leading-relaxed">No conversations yet. Click <strong>Directory</strong> or the <strong>+</strong> icon above to search for a user and start chatting!</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(conv => {
+        const peer = getPeerIdentityFromConversation(conv);
+        const myPersona = getMySelectedIdentityForConversation(conv);
+        const isActive = conv.conversationId === state.activeConversationId;
+
+        return `
+          <div data-conv-id="${escapeHtml(conv.conversationId)}"
+            class="p-3 rounded-2xl cursor-pointer transition flex items-center gap-3 border ${
+              isActive
+                ? 'gtx-gradient-subtle border-cyan-500/50 shadow-md'
+                : 'bg-[var(--bg-card)]/40 hover:bg-[var(--bg-card)] border-transparent hover:border-[var(--border-color)]'
+            }">
+            <div class="relative flex-shrink-0">
+              <img src="${escapeHtml(peer.photoURL || getDiceBearUrl(peer.displayName))}" alt="${escapeHtml(peer.displayName)}"
+                class="w-12 h-12 rounded-2xl object-cover bg-slate-800 border border-[var(--border-color)]" />
+              <span class="absolute -bottom-1 -right-1 px-1.5 py-0.2 rounded-md bg-[#090A0F] border border-cyan-500/40 text-[9px] font-semibold text-cyan-400 truncate max-w-[65px]" title="Your identity in this chat">
+                @${escapeHtml(myPersona?.username || 'me')}
+              </span>
+            </div>
+
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center justify-between gap-2">
+                <h4 class="font-semibold text-xs truncate">${escapeHtml(peer.displayName)}</h4>
+                <span class="text-[10px] text-[var(--text-muted)] flex-shrink-0">${formatTime(conv.lastMessageAt || conv.updatedAt)}</span>
+              </div>
+              <div class="text-[11px] text-cyan-400 truncate">@${escapeHtml(peer.username)}</div>
+              <p class="text-xs text-[var(--text-muted)] truncate mt-0.5">
+                ${conv.lastMessage
+                  ? `${conv.lastMessageSenderName ? `<span class="text-[var(--text-main)] font-medium">${escapeHtml(conv.lastMessageSenderName)}:</span> ` : ''}${escapeHtml(conv.lastMessage)}`
+                  : '<span class="italic text-slate-500">No messages yet — say hello!</span>'}
+              </p>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.querySelectorAll('[data-conv-id]').forEach(item => {
+        item.onclick = () => selectConversation(item.getAttribute('data-conv-id'));
+      });
+    }
+
+    function selectConversation(conversationId) {
+      state.activeConversationId = conversationId;
+      renderConversationList();
+
+      // Responsive layout: on mobile, hide sidebar and show chat panel
+      const sidebar = document.getElementById('sidebar-panel');
+      const chatPanel = document.getElementById('chat-panel');
+      sidebar.classList.add('hidden', 'md:flex');
+      chatPanel.classList.remove('hidden');
+      chatPanel.classList.add('flex');
+
+      document.getElementById('chat-empty-state').classList.add('hidden');
+      document.getElementById('chat-active-view').classList.remove('hidden');
+
+      renderActiveConversationHeader();
+      subscribeToMessages(conversationId);
+    }
+
+    function renderActiveConversationHeader() {
+      const conv = state.conversations.find(c => c.conversationId === state.activeConversationId);
+      if (!conv) return;
+
+      const peer = getPeerIdentityFromConversation(conv);
+      const myPersona = getMySelectedIdentityForConversation(conv);
+
+      document.getElementById('chat-header-peer-avatar').src = peer.photoURL || getDiceBearUrl(peer.displayName);
+      document.getElementById('chat-header-peer-name').textContent = peer.displayName;
+      document.getElementById('chat-header-peer-handle').textContent = `@${peer.username}`;
+      document.getElementById('chat-header-peer-bio').textContent = peer.bio || 'Click to view public persona card';
+
+      // Click peer header to inspect their public profile card
+      const openPeerCard = () => showPublicProfileModal(peer, false);
+      document.getElementById('chat-header-peer-avatar').onclick = openPeerCard;
+      document.getElementById('chat-header-peer-info').onclick = openPeerCard;
+
+      // Populate per-conversation identity switcher dropdown
+      const selectEl = document.getElementById('chat-conversation-identity-select');
+      selectEl.innerHTML = state.identities.map(idObj => `
+        <option value="${escapeHtml(idObj.identityId)}" ${idObj.identityId === myPersona?.identityId ? 'selected' : ''}>
+          ${escapeHtml(idObj.displayName)} (@${escapeHtml(idObj.username)})
+        </option>
+      `).join('');
+
+      if (myPersona) {
+        document.getElementById('chat-my-identity-avatar').src = myPersona.photoURL || getDiceBearUrl(myPersona.displayName);
+        document.getElementById('composer-active-persona-label').textContent = `${myPersona.displayName} (@${myPersona.username})`;
+      }
+    }
+
+    // Handle changing identity for the current conversation
+    document.getElementById('chat-conversation-identity-select').addEventListener('change', async (e) => {
+      const newIdentityId = e.target.value;
+      const conv = state.conversations.find(c => c.conversationId === state.activeConversationId);
+      const chosen = state.identities.find(i => i.identityId === newIdentityId);
+      if (!conv || !chosen || !state.currentUser) return;
+
+      try {
+        await updateDoc(doc(db, 'conversations', conv.conversationId), {
+          [`selectedIdentities.${state.currentUser.uid}`]: {
+            identityId: chosen.identityId,
+            displayName: chosen.displayName,
+            username: chosen.username,
+            photoURL: chosen.photoURL,
+            bio: chosen.bio || ''
+          }
+        });
+        showToast(`Now speaking as @${chosen.username} in this chat`, 'info');
+      } catch (err) {
+        showToast(friendlyFirebaseError(err), 'error');
+      }
+    });
+
+    function subscribeToMessages(conversationId) {
+      if (state.unsubMessages) state.unsubMessages();
+
+      const container = document.getElementById('messages-container');
+      container.innerHTML = `
+        <div class="p-8 text-center text-xs text-[var(--text-muted)]">
+          <i class="fa-solid fa-circle-notch fa-spin text-cyan-400 mr-2"></i>Loading encrypted persona message history...
+        </div>
+      `;
+
+      const messagesRef = collection(db, 'conversations', conversationId, 'messages');
+      state.unsubMessages = onSnapshot(messagesRef, (snapshot) => {
+        const list = [];
+        snapshot.forEach(docSnap => {
+          list.push({ messageId: docSnap.id, ...docSnap.data() });
+        });
+        list.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+        state.messages = list;
+        renderMessages();
+      }, (err) => {
+        console.error('Messages listener error:', err);
+        container.innerHTML = `<div class="p-6 text-center text-xs text-red-400">${escapeHtml(friendlyFirebaseError(err))}</div>`;
+      });
+    }
+
+    function renderMessages() {
+      const container = document.getElementById('messages-container');
+      if (!state.messages.length) {
+        container.innerHTML = `
+          <div class="h-full flex flex-col items-center justify-center text-center p-6">
+            <div class="w-14 h-14 rounded-2xl bg-blue-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-3">
+              <i class="fa-regular fa-handshake text-xl"></i>
+            </div>
+            <h4 class="font-display font-semibold text-sm">No Messages Yet</h4>
+            <p class="text-xs text-[var(--text-muted)] max-w-xs mt-1">
+              Send the first message below. Your chosen identity for this conversation will be permanently attached to each message you send.
+            </p>
+          </div>
+        `;
+        return;
+      }
+
+      const myUid = state.currentUser?.uid;
+
+      container.innerHTML = state.messages.map(msg => {
+        const isMine = msg.senderUid === myUid;
+        const isDeleted = msg.deleted === true;
+
+        return `
+          <div class="flex items-end gap-2.5 msg-animate ${isMine ? 'justify-end' : 'justify-start'} group">
+            ${!isMine ? `
+              <img src="${escapeHtml(msg.senderPhotoURL || getDiceBearUrl(msg.senderDisplayName))}" alt="${escapeHtml(msg.senderDisplayName)}"
+                class="w-8 h-8 rounded-xl object-cover bg-slate-800 border border-[var(--border-color)] flex-shrink-0 mb-1" />
+            ` : ''}
+
+            <div class="max-w-[78%] sm:max-w-[65%] flex flex-col ${isMine ? 'items-end' : 'items-start'}">
+              <!-- Sender Identity Snapshot Badge (Preserved per message!) -->
+              <div class="flex items-center gap-1.5 mb-1 px-1">
+                <span class="text-[11px] font-semibold ${isMine ? 'text-cyan-400' : 'text-[var(--text-main)]'}">
+                  ${escapeHtml(msg.senderDisplayName || 'User')}
+                </span>
+                <span class="text-[10px] text-[var(--text-muted)]">
+                  @${escapeHtml(msg.senderUsername || 'persona')}
+                </span>
+                <span class="text-[10px] text-slate-500">• ${formatTime(msg.createdAt)}</span>
+                ${isMine && !isDeleted ? `
+                  <button type="button" data-delete-msg="${escapeHtml(msg.messageId)}" title="Delete message"
+                    class="opacity-0 group-hover:opacity-100 transition text-[10px] text-slate-400 hover:text-red-400 ml-1">
+                    <i class="fa-regular fa-trash-can"></i>
+                  </button>
+                ` : ''}
+              </div>
+
+              <!-- Message Bubble -->
+              <div class="px-4 py-2.5 rounded-2xl text-xs sm:text-sm leading-relaxed break-words shadow-sm ${
+                isDeleted
+                  ? 'bg-[var(--bg-card)]/50 border border-[var(--border-color)] italic text-slate-500'
+                  : isMine
+                    ? 'gtx-gradient text-white rounded-br-none'
+                    : 'bg-[var(--bg-panel)] border border-[var(--border-color)] text-[var(--text-main)] rounded-bl-none'
+              }">
+                ${isDeleted
+                  ? `<i class="fa-solid fa-ban mr-1 text-[11px]"></i>This message was deleted`
+                  : escapeHtml(msg.text).replace(/\n/g, '<br>')}
+              </div>
+            </div>
+
+            ${isMine ? `
+              <img src="${escapeHtml(msg.senderPhotoURL || getDiceBearUrl(msg.senderDisplayName))}" alt="${escapeHtml(msg.senderDisplayName)}"
+                class="w-8 h-8 rounded-xl object-cover bg-slate-800 border border-cyan-500/40 flex-shrink-0 mb-1" />
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+
+      // Bind message delete buttons
+      container.querySelectorAll('[data-delete-msg]').forEach(btn => {
+        btn.onclick = () => handleDeleteMessage(btn.getAttribute('data-delete-msg'));
+      });
+
+      // Auto-scroll to bottom
+      container.scrollTop = container.scrollHeight;
+    }
+
+    // Send Message Handler
+    async function sendMessage() {
+      const input = document.getElementById('message-input');
+      const text = input.value.trim();
+      if (!text || !state.activeConversationId || !state.currentUser) return;
+
+      const conv = state.conversations.find(c => c.conversationId === state.activeConversationId);
+      if (!conv) return;
+
+      const myPersona = getMySelectedIdentityForConversation(conv);
+      if (!myPersona) {
+        showToast('Please select an identity before sending a message.', 'error');
+        return;
+      }
+
+      input.value = '';
+      document.getElementById('message-char-counter').textContent = '0 / 1000';
+
+      try {
+        const msgRef = doc(collection(db, 'conversations', state.activeConversationId, 'messages'));
+        const now = Date.now();
+
+        // Store immutable identity snapshot on the message document so future identity switches never alter historical messages
+        await setDoc(msgRef, {
+          messageId: msgRef.id,
+          conversationId: state.activeConversationId,
+          senderUid: state.currentUser.uid,
+          senderIdentityId: myPersona.identityId,
+          senderDisplayName: myPersona.displayName,
+          senderUsername: myPersona.username,
+          senderPhotoURL: myPersona.photoURL || getDiceBearUrl(myPersona.displayName),
+          text: text.slice(0, 1000),
+          createdAt: now,
+          deleted: false
+        });
+
+        // Update conversation preview & ensure our active persona is synced
+        await updateDoc(doc(db, 'conversations', state.activeConversationId), {
+          lastMessage: text.slice(0, 120),
+          lastMessageSenderName: myPersona.displayName,
+          lastMessageAt: now,
+          updatedAt: now
+        });
+      } catch (err) {
+        showToast(friendlyFirebaseError(err), 'error');
+      }
+    }
+
+    async function handleDeleteMessage(messageId) {
+      if (!state.activeConversationId || !messageId) return;
+      try {
+        await updateDoc(doc(db, 'conversations', state.activeConversationId, 'messages', messageId), {
+          deleted: true,
+          text: ''
+        });
+        showToast('Message deleted', 'info');
+      } catch (err) {
+        showToast(friendlyFirebaseError(err), 'error');
+      }
+    }
+
+    /*************************************************************************
+     * MODULE 6: app.js — Event Listeners, Responsive Controls & Lifecycle
+     *************************************************************************/
+    function cleanupListeners() {
+      if (state.unsubIdentities) { state.unsubIdentities(); state.unsubIdentities = null; }
+      if (state.unsubConversations) { state.unsubConversations(); state.unsubConversations = null; }
+      if (state.unsubMessages) { state.unsubMessages(); state.unsubMessages = null; }
+    }
+
+    // Monitor Firebase Authentication State
+    onAuthStateChanged(auth, async (user) => {
+      const loadingScreen = document.getElementById('loading-screen');
+      const authView = document.getElementById('auth-view');
+      const dashboardView = document.getElementById('dashboard-view');
+
+      if (user) {
+        state.currentUser = user;
+        document.getElementById('sidebar-account-email').textContent = user.email;
+        document.getElementById('settings-user-email').textContent = user.email;
+        document.getElementById('settings-user-uid').textContent = user.uid;
+
+        try {
+          const userSnap = await getDoc(doc(db, 'users', user.uid));
+          if (userSnap.exists()) {
+            state.userProfile = userSnap.data();
+            state.activeIdentityId = state.userProfile.defaultIdentityId || null;
+          }
+        } catch (e) {
+          console.warn('Could not fetch user profile doc:', e);
+        }
+
+        subscribeToUserIdentities(user.uid);
+        subscribeToConversations(user.uid);
+
+        authView.classList.add('hidden');
+        dashboardView.classList.remove('hidden');
+      } else {
+        cleanupListeners();
+        state.currentUser = null;
+        dashboardView.classList.add('hidden');
+        authView.classList.remove('hidden');
+      }
+
+      loadingScreen.classList.add('opacity-0', 'pointer-events-none');
+      setTimeout(() => loadingScreen.classList.add('hidden'), 300);
+    });
+
+    // DOM Event Wiring
+    document.getElementById('tab-login-btn').onclick = () => switchAuthMode('login');
+    document.getElementById('tab-register-btn').onclick = () => switchAuthMode('register');
+    document.getElementById('show-forgot-btn').onclick = () => switchAuthMode('forgot');
+    document.getElementById('back-to-login-btn').onclick = () => switchAuthMode('login');
+
+    // Password Visibility Toggles
+    document.querySelectorAll('[data-toggle-pass]').forEach(btn => {
+      btn.onclick = () => {
+        const inputId = btn.getAttribute('data-toggle-pass');
+        const input = document.getElementById(inputId);
+        const icon = btn.querySelector('i');
+        if (input.type === 'password') {
+          input.type = 'text';
+          icon.className = 'fa-regular fa-eye-slash';
+        } else {
+          input.type = 'password';
+          icon.className = 'fa-regular fa-eye';
+        }
+      };
+    });
+
+    // Sidebar Active Identity Switcher
+    document.getElementById('sidebar-identity-select').addEventListener('change', async (e) => {
+      state.activeIdentityId = e.target.value;
+      renderIdentitySelectors();
+      renderOwnedIdentitiesList();
+      const active = getActiveIdentity();
+      if (active) {
+        showToast(`Default persona switched to @${active.username}`, 'info');
+      }
+    });
+
+    // Open Modals
+    document.getElementById('open-identities-modal-btn').onclick = () => {
+      resetIdentityForm();
+      openModal('identities-modal');
+    };
+    document.getElementById('quick-add-identity-btn').onclick = () => {
+      resetIdentityForm();
+      openModal('identities-modal');
+    };
+    document.getElementById('empty-create-id-btn').onclick = () => {
+      resetIdentityForm();
+      openModal('identities-modal');
+    };
+
+    const openSearchDirectory = () => {
+      renderIdentitySelectors();
+      openModal('search-modal');
+      searchPublicIdentities(document.getElementById('directory-search-input').value);
+    };
+    document.getElementById('open-search-modal-btn').onclick = openSearchDirectory;
+    document.getElementById('sidebar-global-search-btn').onclick = openSearchDirectory;
+    document.getElementById('empty-start-chat-btn').onclick = openSearchDirectory;
+
+    document.getElementById('open-settings-modal-btn').onclick = () => openModal('settings-modal');
+    document.getElementById('auth-open-guide-btn').onclick = () => openModal('settings-modal');
+
+    // Close Modal Buttons
+    document.querySelectorAll('[data-close-modal]').forEach(btn => {
+      btn.onclick = () => closeModal(btn.getAttribute('data-close-modal'));
+    });
+
+    // Directory Search Trigger
+    document.getElementById('directory-search-btn').onclick = () => {
+      searchPublicIdentities(document.getElementById('directory-search-input').value);
+    };
+    document.getElementById('directory-search-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        searchPublicIdentities(e.target.value);
+      }
+    });
+
+    // Sidebar Local Filter Input
+    document.getElementById('sidebar-search-input').addEventListener('input', () => {
+      renderConversationList();
+    });
+
+    // Avatar Presets & Image Upload (Data URL fallback so no paid storage bucket is required)
+    document.querySelectorAll('#avatar-preset-buttons [data-seed]').forEach(btn => {
+      btn.onclick = () => {
+        const url = getDiceBearUrl(btn.getAttribute('data-seed'));
+        document.getElementById('identity-form-avatar-preview').src = url;
+        document.getElementById('identity-photo-url').value = url;
+      };
+    });
+
+    document.getElementById('identity-photo-url').addEventListener('input', (e) => {
+      const val = e.target.value.trim();
+      if (val) document.getElementById('identity-form-avatar-preview').src = val;
+    });
+
+    document.getElementById('identity-avatar-file').addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      if (file.size > 750 * 1024) {
+        showToast('Please choose an image smaller than 750KB.', 'error');
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        // Compress via small canvas to keep Firestore document lightweight
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const size = 160;
+          canvas.width = size;
+          canvas.height = size;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, size, size);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+          document.getElementById('identity-form-avatar-preview').src = dataUrl;
+          document.getElementById('identity-photo-url').value = dataUrl;
+        };
+        img.src = reader.result;
+      };
+      reader.readAsDataURL(file);
+    });
+
+    document.getElementById('reset-identity-form-btn').onclick = resetIdentityForm;
+    document.getElementById('identity-cancel-edit-btn').onclick = resetIdentityForm;
+
+    // Message Composer Enter / Shift+Enter Handling
+    const msgInput = document.getElementById('message-input');
+    msgInput.addEventListener('input', () => {
+      document.getElementById('message-char-counter').textContent = `${msgInput.value.length} / 1000`;
+    });
+    msgInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+    document.getElementById('message-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      sendMessage();
+    });
+
+    // Mobile Back Button (From Chat to Conversation List)
+    document.getElementById('mobile-back-btn').onclick = () => {
+      state.activeConversationId = null;
+      document.getElementById('sidebar-panel').classList.remove('hidden');
+      document.getElementById('chat-panel').classList.add('hidden');
+      renderConversationList();
+    };
+
+    // Settings Tabs Navigation
+    document.querySelectorAll('.settings-tab-btn').forEach(btn => {
+      btn.onclick = () => {
+        const targetId = btn.getAttribute('data-settings-tab');
+        document.querySelectorAll('.settings-tab-btn').forEach(b => {
+          b.className = 'settings-tab-btn pb-3 border-b-2 border-transparent text-[var(--text-muted)] hover:text-white whitespace-nowrap';
+        });
+        btn.className = 'settings-tab-btn pb-3 border-b-2 border-cyan-400 text-cyan-400 whitespace-nowrap';
+
+        document.querySelectorAll('.settings-tab-content').forEach(panel => panel.classList.add('hidden'));
+        document.getElementById(targetId)?.classList.remove('hidden');
+      };
+    });
+
+    // Copy Rules Buttons
+    document.querySelectorAll('[data-copy-target]').forEach(btn => {
+      btn.onclick = () => {
+        const targetId = btn.getAttribute('data-copy-target');
+        const codeText = document.getElementById(targetId)?.textContent || '';
+        const temp = document.createElement('textarea');
+        temp.value = codeText;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand('copy');
+        temp.remove();
+        showToast('Copied security rules to clipboard!', 'success');
+      };
+    });
+
+    // Theme Toggle (Dark / Light)
+    document.getElementById('theme-toggle-btn').onclick = () => {
+      const htmlEl = document.documentElement;
+      const isDark = htmlEl.classList.contains('dark');
+      if (isDark) {
+        htmlEl.classList.remove('dark');
+        document.getElementById('theme-toggle-label').textContent = 'Light Theme';
+      } else {
+        htmlEl.classList.add('dark');
+        document.getElementById('theme-toggle-label').textContent = 'Dark Theme';
+      }
+    };
+
+    // Logout Button
+    document.getElementById('sidebar-logout-btn').onclick = handleLogout;
+  </script>
+</body>
+</html>
