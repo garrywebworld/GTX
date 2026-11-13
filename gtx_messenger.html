@@ -2,83 +2,95 @@
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>GTX MESSENGER — Multi-Identity Real-Time Messaging</title>
-  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Inter & Space Grotesk -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
-  <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            display: ['Space Grotesk', 'sans-serif'],
-          },
-          colors: {
-            gtx: {
-              bg: '#06080E',
-              panel: '#0D111A',
-              card: '#131926',
-              border: '#23293A',
-              accent: '#0070F3',
-              cyan: '#00D2FF',
-              text: '#F1F5F9',
-              muted: '#94A3B8'
-            }
-          }
-        }
-      }
-    }
-  </script>
-
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
   <style>
     :root {
-      --bg-deep: #06080e;
-      --bg-panel: #0d111a;
-      --bg-card: #131926;
+      --bg-deep: #05070c;
+      --bg-panel: #0b0f19;
+      --bg-card: #121826;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
       --accent: #00b4ff;
-      --accent-glow: rgba(0, 180, 255, 0.28);
+      --accent-contrast: #020617;
+      --accent-glow: rgba(0, 180, 255, 0.32);
       --border-subtle: rgba(255, 255, 255, 0.08);
+    }
+
+    /* 5 APPLICATION ACCENT THEMES */
+    body[data-theme="cyber"] {
+      --bg-deep: #05070c;
+      --bg-panel: #0b0f19;
+      --bg-card: #121826;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #00b4ff;
+      --accent-contrast: #020617;
+      --accent-glow: rgba(0, 180, 255, 0.32);
+      --border-subtle: rgba(255, 255, 255, 0.08);
+    }
+    body[data-theme="matrix"] {
+      --bg-deep: #030805;
+      --bg-panel: #07120b;
+      --bg-card: #0c1f13;
+      --text-main: #ecfdf5;
+      --text-muted: #6ee7b7;
+      --accent: #00ff41;
+      --accent-contrast: #021206;
+      --accent-glow: rgba(0, 255, 65, 0.32);
+      --border-subtle: rgba(0, 255, 65, 0.16);
+    }
+    body[data-theme="crimson"] {
+      --bg-deep: #0a0407;
+      --bg-panel: #14080e;
+      --bg-card: #210d17;
+      --text-main: #fff1f2;
+      --text-muted: #fda4af;
+      --accent: #ff2a5f;
+      --accent-contrast: #ffffff;
+      --accent-glow: rgba(255, 42, 95, 0.35);
+      --border-subtle: rgba(255, 42, 95, 0.16);
+    }
+    body[data-theme="amethyst"] {
+      --bg-deep: #07040d;
+      --bg-panel: #11091f;
+      --bg-card: #1b0f30;
+      --text-main: #faf5ff;
+      --text-muted: #d8b4fe;
+      --accent: #a855f7;
+      --accent-contrast: #ffffff;
+      --accent-glow: rgba(168, 85, 247, 0.35);
+      --border-subtle: rgba(168, 85, 247, 0.18);
+    }
+    body[data-theme="frost"] {
+      --bg-deep: #f1f5f9;
+      --bg-panel: #ffffff;
+      --bg-card: #f8fafc;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --accent: #0284c7;
+      --accent-contrast: #ffffff;
+      --accent-glow: rgba(2, 132, 199, 0.22);
+      --border-subtle: rgba(15, 23, 42, 0.11);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     html, body {
       margin: 0;
       padding: 0;
       width: 100%;
-      min-height: 100dvh;
+      height: 100dvh;
       background-color: var(--bg-deep);
-      color: #f1f5f9;
+      color: var(--text-main);
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      -webkit-tap-highlight-color: transparent;
-      overflow-x: hidden;
-    }
-
-    /* Dedicated touch-friendly momentum scroll utility */
-    .touch-scroll {
-      overflow-y: auto !important;
-      -webkit-overflow-scrolling: touch;
-      overscroll-behavior-y: contain;
-      touch-action: pan-y;
-    }
-
-    /* Prevent iOS Safari & Android Chrome auto-zoom on input focus (< 768px) */
-    @media (max-width: 767px) {
-      input, textarea, select {
-        font-size: 16px !important;
-      }
-    }
-
-    /* Safe area bottom padding for notched phones & gesture bars */
-    .safe-bottom {
-      padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+      overscroll-behavior: none;
     }
 
     .gtx-panel {
@@ -89,15 +101,91 @@
       background-color: var(--bg-card);
       border: 1px solid var(--border-subtle);
     }
+    .gtx-accent-bg {
+      background-color: var(--accent);
+      color: var(--accent-contrast);
+    }
+    .gtx-accent-text {
+      color: var(--accent);
+    }
+    .gtx-accent-border {
+      border-color: var(--accent);
+    }
     .gtx-glow {
       box-shadow: 0 0 22px var(--accent-glow);
     }
-    .gtx-gradient {
-      background: linear-gradient(135deg, #0070F3 0%, #00D2FF 100%);
+    .gtx-brand-highlight {
+      background: linear-gradient(90deg, var(--accent), #38bdf8, #a855f7, var(--accent));
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: shineText 4s linear infinite;
     }
-    .chat-wallpaper {
-      background-image: radial-gradient(rgba(0, 210, 255, 0.06) 1px, transparent 1px);
-      background-size: 24px 24px;
+    @keyframes shineText {
+      to { background-position: 200% center; }
+    }
+
+    /* 6 CHAT WALLPAPERS */
+    .chat-wp-void {
+      background-color: var(--bg-deep);
+      background-image: radial-gradient(circle at 50% 0%, var(--accent-glow), transparent 60%);
+    }
+    .chat-wp-grid {
+      background-color: var(--bg-deep);
+      background-image:
+        linear-gradient(to right, rgba(148, 163, 184, 0.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+      background-size: 28px 28px;
+    }
+    .chat-wp-nebula {
+      background-color: #050510;
+      background-image:
+        radial-gradient(at 15% 20%, rgba(0, 180, 255, 0.22) 0px, transparent 50%),
+        radial-gradient(at 85% 75%, rgba(168, 85, 247, 0.22) 0px, transparent 55%),
+        radial-gradient(at 50% 50%, rgba(236, 72, 153, 0.1) 0px, transparent 60%);
+    }
+    .chat-wp-aurora {
+      background-color: #020b08;
+      background-image:
+        radial-gradient(at 10% 10%, rgba(16, 185, 129, 0.24) 0px, transparent 50%),
+        radial-gradient(at 90% 85%, rgba(6, 182, 212, 0.22) 0px, transparent 55%);
+    }
+    .chat-wp-sunset {
+      background-color: #0f0514;
+      background-image:
+        linear-gradient(135deg, rgba(244, 63, 94, 0.18) 0%, rgba(139, 92, 246, 0.18) 50%, rgba(14, 165, 233, 0.15) 100%);
+    }
+
+    /* TOUCH SCROLLING CONTAINERS */
+    .touch-scroll {
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-y: contain;
+      touch-action: pan-y;
+    }
+
+    /* PREVENT MOBILE AUTO-ZOOM ON INPUT FOCUS */
+    @media (max-width: 767px) {
+      input, select, textarea {
+        font-size: 16px !important;
+      }
+    }
+
+    /* PRELOADER ANIMATIONS */
+    @keyframes pulseRing {
+      0%, 100% { transform: scale(1); opacity: 0.75; }
+      50% { transform: scale(1.08); opacity: 1; }
+    }
+    .preloader-ring {
+      animation: pulseRing 2s ease-in-out infinite;
+    }
+    #preloaderScreen {
+      transition: opacity 0.45s ease, visibility 0.45s ease;
+    }
+    #preloaderScreen.preloader-hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
     }
 
     ::-webkit-scrollbar {
@@ -108,259 +196,391 @@
       background: transparent;
     }
     ::-webkit-scrollbar-thumb {
-      background: rgba(255, 255, 255, 0.16);
+      background: rgba(148, 163, 184, 0.25);
       border-radius: 9999px;
     }
   </style>
 </head>
-<body class="min-h-[100dvh] w-full flex flex-col antialiased selection:bg-sky-500 selection:text-slate-950">
+<body data-theme="cyber" class="h-[100dvh] w-full flex flex-col overflow-hidden">
+
+  <!-- 1. ANIMATED PRE-LOADING SPLASH SCREEN -->
+  <div id="preloaderScreen" class="fixed inset-0 z-[100] bg-[#04060b] flex flex-col items-center justify-between p-6 text-center select-none">
+    <div class="w-full flex justify-end">
+      <button onclick="dismissPreloader()" class="px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs text-slate-300 transition">
+        Skip Intro <i class="fa-solid fa-forward ml-1"></i>
+      </button>
+    </div>
+
+    <div class="max-w-md w-full flex flex-col items-center my-auto">
+      <!-- Animated GTX Emblem -->
+      <div class="relative w-24 h-24 mb-6 flex items-center justify-center">
+        <div class="absolute inset-0 rounded-3xl border-2 border-sky-400/50 gtx-glow preloader-ring"></div>
+        <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-sky-500/25 to-purple-600/25 border border-sky-400/60 flex items-center justify-center shadow-2xl">
+          <svg class="w-11 h-11 text-sky-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+          </svg>
+        </div>
+      </div>
+
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-400/30 text-[11px] font-semibold text-sky-300 uppercase tracking-widest mb-3">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Multi-Identity Real-Time Hub
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-black tracking-tight mb-2">
+        Welcome to <span class="gtx-brand-highlight">GTX MESSENGER</span>
+      </h1>
+
+      <p class="text-xs sm:text-sm text-slate-300 max-w-sm leading-relaxed mb-5">
+        Thank you for using this web application for chatting with friends. Connect seamlessly across multiple personas on mobile and PC.
+      </p>
+
+      <!-- Creator Credit Badge -->
+      <div class="w-full p-3.5 rounded-2xl bg-slate-900/90 border border-sky-500/30 shadow-lg mb-6">
+        <div class="text-xs font-extrabold tracking-wide text-white flex items-center justify-center gap-2">
+          <i class="fa-solid fa-crown text-amber-400"></i>
+          <span>Project Made by <span class="text-sky-400 underline decoration-sky-500/50">Gary</span></span>
+        </div>
+        <div class="text-[11px] text-slate-400 mt-0.5">
+          Built for Friends &amp; Community &bull; Thank You for Chatting With Us!
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="w-64 h-1.5 bg-slate-800 rounded-full overflow-hidden mb-5">
+        <div id="preloaderBar" class="h-full bg-gradient-to-r from-sky-400 via-cyan-300 to-purple-500 transition-all duration-300" style="width: 15%"></div>
+      </div>
+
+      <button onclick="dismissPreloader()" class="px-6 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-extrabold text-xs sm:text-sm tracking-wide transition gtx-glow">
+        Enter GTX Messenger <i class="fa-solid fa-arrow-right ml-1.5"></i>
+      </button>
+    </div>
+
+    <div class="text-[11px] text-slate-500">
+      GTX MESSENGER &bull; Crafted by Gary for Mobile &amp; Desktop
+    </div>
+  </div>
 
   <!-- TOP PERMISSION / RULES BANNER (HIDDEN UNLESS ERROR OCCURS) -->
-  <div id="permissionErrorBanner" class="hidden bg-red-950/95 border-b border-red-500/50 px-4 py-2.5 text-xs text-red-100 flex flex-wrap items-center justify-between gap-2 z-50 flex-shrink-0">
-    <div class="flex items-center gap-2 min-w-0">
-      <i class="fa-solid fa-triangle-exclamation text-red-400 text-sm flex-shrink-0"></i>
-      <span id="permissionErrorText" class="leading-snug">Realtime Database permission denied. Publish the complete database.rules.json in Firebase Console.</span>
+  <div id="permissionErrorBanner" class="hidden bg-red-950/95 border-b border-red-500/50 px-3 py-2 text-xs text-red-100 flex flex-wrap items-center justify-between gap-2 z-50 shrink-0">
+    <div class="flex items-center gap-2">
+      <i class="fa-solid fa-triangle-exclamation text-red-400"></i>
+      <span id="permissionErrorText">Realtime Database permission denied. Publish database.rules.json in Firebase Console.</span>
     </div>
-    <button onclick="openModal('rulesModal')" class="px-3 py-1.5 rounded-lg bg-red-500 hover:bg-red-400 text-white font-semibold transition flex-shrink-0">
-      View &amp; Copy database.rules.json
+    <button onclick="openModal('rulesModal')" class="px-2.5 py-1 rounded bg-red-500 hover:bg-red-400 text-white font-semibold transition">
+      Copy database.rules.json
     </button>
   </div>
 
-  <!-- TOAST NOTIFICATION CONTAINER -->
-  <div id="toastContainer" class="fixed top-4 right-4 left-4 sm:left-auto z-[100] flex flex-col gap-2 sm:max-w-sm pointer-events-none"></div>
+  <!-- TOAST NOTIFICATION -->
+  <div id="toastBanner" class="hidden fixed top-4 left-1/2 -translate-x-1/2 z-[90] px-4 py-2.5 rounded-xl bg-slate-900/95 border border-sky-400/50 text-xs font-semibold text-white shadow-2xl flex items-center gap-2">
+    <i class="fa-solid fa-circle-check text-sky-400"></i>
+    <span id="toastText">Saved!</span>
+  </div>
 
-  <!-- ===================================================================== -->
-  <!-- 1. AUTHENTICATION SCREEN (#authScreen) - MOBILE TOUCH SCROLLABLE      -->
-  <!-- ===================================================================== -->
-  <div id="authScreen" class="min-h-[100dvh] w-full flex flex-col items-center justify-start sm:justify-center py-6 px-4 touch-scroll">
-    <div class="w-full max-w-md gtx-panel border rounded-3xl p-5 sm:p-8 shadow-2xl my-auto">
-      <!-- Header & Rules Button -->
-      <div class="flex items-center justify-between gap-2 mb-6">
-        <div class="flex items-center gap-3 min-w-0">
-          <div class="w-11 h-11 rounded-2xl bg-sky-500/15 border border-sky-400/40 flex items-center justify-center gtx-glow flex-shrink-0">
-            <span class="font-display font-black tracking-tighter text-sky-400 text-lg">GTX</span>
+  <!-- AUTHENTICATION SCREEN -->
+  <div id="authScreen" class="flex-1 min-h-0 touch-scroll flex flex-col justify-between p-4 sm:p-6">
+    <div class="w-full max-w-md gtx-panel border rounded-2xl p-5 sm:p-7 shadow-2xl m-auto my-4">
+      <div class="flex items-center justify-between gap-2 mb-5">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-xl bg-sky-500/15 border border-sky-400/50 flex items-center justify-center gtx-glow shrink-0">
+            <span class="font-black tracking-tighter gtx-accent-text text-lg">GTX</span>
           </div>
-          <div class="min-w-0">
-            <h1 class="font-display font-bold text-base sm:text-lg tracking-wide text-white truncate">GTX MESSENGER</h1>
-            <p class="text-[11px] text-slate-400 truncate">Multi-Identity Realtime Database</p>
-          </div>
-        </div>
-        <button type="button" onclick="openModal('rulesModal')" class="min-h-[40px] px-3 py-1.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-sky-400 border border-sky-500/30 text-xs font-semibold transition flex items-center gap-1.5 flex-shrink-0">
-          <i class="fa-solid fa-shield-halved"></i>
-          <span>RTDB Rules</span>
-        </button>
-      </div>
-
-      <!-- Auth Mode Switcher Tabs -->
-      <div class="grid grid-cols-2 gap-1.5 p-1 bg-slate-900/90 rounded-2xl mb-5 border border-white/5">
-        <button id="tabLoginBtn" type="button" onclick="switchAuthTab('login')" class="min-h-[42px] py-2 text-xs font-semibold rounded-xl bg-sky-500 text-slate-950 transition">
-          Sign In
-        </button>
-        <button id="tabRegisterBtn" type="button" onclick="switchAuthTab('register')" class="min-h-[42px] py-2 text-xs font-semibold rounded-xl text-slate-400 hover:text-white transition">
-          Create Account
-        </button>
-      </div>
-
-      <!-- Auth Alert Box -->
-      <div id="authAlert" class="hidden mb-4 p-3.5 rounded-2xl text-xs border leading-relaxed"></div>
-
-      <!-- LOGIN FORM -->
-      <form id="loginForm" class="space-y-4">
-        <div>
-          <label for="loginEmail" class="block text-xs font-medium text-slate-300 mb-1.5">Account Email</label>
-          <input id="loginEmail" type="email" autocomplete="email" required placeholder="you@example.com"
-            class="w-full px-3.5 py-3 rounded-xl bg-slate-900 border border-slate-700/80 text-base sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-sky-400" />
-        </div>
-        <div>
-          <label for="loginPassword" class="block text-xs font-medium text-slate-300 mb-1.5">Password</label>
-          <div class="relative">
-            <input id="loginPassword" type="password" autocomplete="current-password" required placeholder="••••••••"
-              class="w-full pl-3.5 pr-16 py-3 rounded-xl bg-slate-900 border border-slate-700/80 text-base sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-sky-400" />
-            <button type="button" onclick="togglePass('loginPassword')" class="absolute right-2 top-1/2 -translate-y-1/2 min-h-[36px] px-2.5 text-slate-400 hover:text-white text-xs font-medium">
-              Show
-            </button>
+          <div>
+            <h1 class="font-black text-base sm:text-lg tracking-wide gtx-brand-highlight">GTX MESSENGER</h1>
+            <p class="text-[11px] text-slate-400">Made by Gary &bull; Friends &amp; Multi-Identity Chat</p>
           </div>
         </div>
-        <button id="loginSubmitBtn" type="submit" class="w-full min-h-[48px] py-3 rounded-xl bg-sky-500 hover:bg-sky-400 active:scale-[0.99] text-slate-950 font-bold text-sm transition gtx-glow flex items-center justify-center gap-2">
-          <span>Sign In to GTX</span>
-          <i class="fa-solid fa-arrow-right text-xs"></i>
-        </button>
-        <div class="text-center pt-1">
-          <button type="button" onclick="handleForgotPassword()" class="min-h-[36px] px-3 text-xs text-slate-400 hover:text-sky-400 transition">
-            Forgot password? Send reset link
+        <div class="flex items-center gap-1.5">
+          <button type="button" onclick="openModal('themeModal')" title="Themes" class="px-2.5 py-1.5 rounded-lg gtx-card text-xs gtx-accent-text hover:opacity-90 transition">
+            <i class="fa-solid fa-palette"></i>
+          </button>
+          <button type="button" onclick="openModal('rulesModal')" title="RTDB Rules" class="px-2.5 py-1.5 rounded-lg gtx-card text-xs text-emerald-400 hover:opacity-90 transition">
+            <i class="fa-solid fa-shield-halved"></i>
           </button>
         </div>
+      </div>
+
+      <!-- Auth Mode Tabs -->
+      <div class="grid grid-cols-2 gap-1 p-1 bg-slate-900/80 rounded-xl mb-4 border border-white/5">
+        <button id="tabLoginBtn" type="button" onclick="switchAuthTab('login')" class="py-2 text-xs font-bold rounded-lg gtx-accent-bg transition">Sign In</button>
+        <button id="tabRegisterBtn" type="button" onclick="switchAuthTab('register')" class="py-2 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition">Create Account</button>
+      </div>
+
+      <div id="authAlert" class="hidden mb-4 p-3 rounded-xl text-xs border"></div>
+
+      <!-- LOGIN FORM -->
+      <form id="loginForm" class="space-y-3.5">
+        <div>
+          <label class="block text-xs font-medium text-slate-300 mb-1">Account Email</label>
+          <input id="loginEmail" type="email" required placeholder="you@example.com" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700/80 text-base sm:text-sm text-white focus:outline-none focus:border-sky-400" />
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-slate-300 mb-1">Password</label>
+          <div class="relative">
+            <input id="loginPassword" type="password" required placeholder="••••••••" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700/80 text-base sm:text-sm text-white focus:outline-none focus:border-sky-400" />
+            <button type="button" onclick="togglePass('loginPassword')" class="absolute right-3 top-2.5 text-slate-400 hover:text-white text-xs">Show</button>
+          </div>
+        </div>
+        <button type="submit" id="loginSubmitBtn" class="w-full py-3 rounded-xl gtx-accent-bg font-extrabold text-sm transition gtx-glow">
+          Sign In to GTX Messenger
+        </button>
+        <div class="flex items-center justify-between text-xs pt-1">
+          <button type="button" onclick="handleForgotPassword()" class="text-slate-400 hover:text-sky-400 transition">Forgot password?</button>
+          <button type="button" onclick="replayPreloader()" class="text-slate-400 hover:text-sky-400 transition">Replay Welcome Screen</button>
+        </div>
       </form>
 
-      <!-- REGISTER FORM -->
-      <form id="registerForm" class="hidden space-y-4">
-        <div>
-          <label for="regEmail" class="block text-xs font-medium text-slate-300 mb-1.5">Private Account Email</label>
-          <input id="regEmail" type="email" autocomplete="email" required placeholder="private@example.com"
-            class="w-full px-3.5 py-3 rounded-xl bg-slate-900 border border-slate-700/80 text-base sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-sky-400" />
-          <p class="text-[11px] text-slate-500 mt-1">Never exposed in public search.</p>
-        </div>
-        <div>
-          <label for="regPassword" class="block text-xs font-medium text-slate-300 mb-1.5">Password (min 6 chars)</label>
-          <div class="relative">
-            <input id="regPassword" type="password" autocomplete="new-password" required minlength="6" placeholder="••••••••"
-              class="w-full pl-3.5 pr-16 py-3 rounded-xl bg-slate-900 border border-slate-700/80 text-base sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-sky-400" />
-            <button type="button" onclick="togglePass('regPassword')" class="absolute right-2 top-1/2 -translate-y-1/2 min-h-[36px] px-2.5 text-slate-400 hover:text-white text-xs font-medium">
-              Show
-            </button>
+      <!-- REGISTER FORM WITH AVATAR UPLOAD / URL / PRESETS -->
+      <form id="registerForm" class="hidden space-y-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Account Email</label>
+            <input id="regEmail" type="email" required placeholder="you@example.com" class="w-full px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-700/80 text-base sm:text-sm text-white focus:outline-none focus:border-sky-400" />
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-slate-300 mb-1">Password (6+ chars)</label>
+            <input id="regPassword" type="password" required minlength="6" placeholder="••••••••" class="w-full px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-700/80 text-base sm:text-sm text-white focus:outline-none focus:border-sky-400" />
           </div>
         </div>
+
         <div class="pt-2 border-t border-white/10">
-          <p class="text-[11px] font-semibold uppercase tracking-wider text-sky-400 mb-2.5">Initial Public Identity</p>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <p class="text-[11px] font-bold uppercase tracking-wider gtx-accent-text mb-2">Create Your First Public Identity</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mb-2.5">
             <div>
-              <label for="regUsername" class="block text-xs text-slate-300 mb-1">Unique @username</label>
-              <input id="regUsername" type="text" required placeholder="alex123"
-                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-base sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-sky-400" />
+              <label class="block text-xs text-slate-400 mb-1">Unique @username</label>
+              <input id="regUsername" type="text" required placeholder="alex123" class="w-full px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-700/80 text-base sm:text-sm text-white focus:outline-none focus:border-sky-400" />
             </div>
             <div>
-              <label for="regDisplayName" class="block text-xs text-slate-300 mb-1">Display Name</label>
-              <input id="regDisplayName" type="text" required placeholder="Alex Mercer"
-                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700/80 text-base sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-sky-400" />
+              <label class="block text-xs text-slate-400 mb-1">Display Name</label>
+              <input id="regDisplayName" type="text" required placeholder="Alex Mercer" class="w-full px-3 py-2 rounded-xl bg-slate-900/90 border border-slate-700/80 text-base sm:text-sm text-white focus:outline-none focus:border-sky-400" />
+            </div>
+          </div>
+
+          <!-- Profile Picture Picker in Registration -->
+          <div class="p-2.5 rounded-xl gtx-card space-y-2">
+            <div class="flex items-center gap-3">
+              <img id="regAvatarPreview" src="https://api.dicebear.com/7.x/bottts-neutral/svg?seed=gtx" alt="Preview" class="w-12 h-12 rounded-full object-cover border-2 gtx-accent-border bg-slate-800 shrink-0" />
+              <div class="flex-1 min-w-0">
+                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Profile Picture (Upload Photo or Paste URL)</label>
+                <div class="flex items-center gap-1.5">
+                  <label class="cursor-pointer px-2.5 py-1.5 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 text-xs font-semibold transition shrink-0">
+                    <i class="fa-solid fa-camera mr-1"></i>Upload Photo
+                    <input type="file" accept="image/*" class="hidden" onchange="handleAvatarFileUpload(event, 'regPhotoURL', 'regAvatarPreview')" />
+                  </label>
+                  <input id="regPhotoURL" type="text" oninput="updateAvatarPreview(this.value, 'regAvatarPreview', 'gtx')" placeholder="Or paste image URL..." class="w-full px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-        <button id="regSubmitBtn" type="submit" class="w-full min-h-[48px] py-3 rounded-xl bg-sky-500 hover:bg-sky-400 active:scale-[0.99] text-slate-950 font-bold text-sm transition gtx-glow flex items-center justify-center gap-2">
-          <span>Register Account &amp; First Identity</span>
-          <i class="fa-solid fa-user-astronaut"></i>
+
+        <button type="submit" id="registerSubmitBtn" class="w-full py-3 rounded-xl gtx-accent-bg font-extrabold text-sm transition gtx-glow">
+          Create Account &amp; Launch GTX
         </button>
       </form>
+
+      <div class="mt-5 pt-3 border-t border-white/10 text-center text-[11px] text-slate-400">
+        Thank you for using <span class="font-bold gtx-accent-text">GTX MESSENGER</span> &bull; Made by <span class="font-bold text-white">Gary</span> for Friends
+      </div>
     </div>
   </div>
 
-  <!-- ===================================================================== -->
-  <!-- 2. MAIN MESSAGING DASHBOARD (#appDashboard) - 100dvh MASTER-DETAIL    -->
-  <!-- ===================================================================== -->
-  <div id="appDashboard" class="hidden h-[100dvh] w-full flex flex-col md:flex-row overflow-hidden min-h-0">
+  <!-- MAIN MESSAGING DASHBOARD -->
+  <div id="appDashboard" class="hidden flex-1 min-h-0 flex overflow-hidden">
 
-    <!-- ================================================================= -->
-    <!-- LEFT SIDEBAR (#sidebarPanel) - FULL SCREEN ON MOBILE BY DEFAULT   -->
-    <!-- ================================================================= -->
-    <aside id="sidebarPanel" class="w-full md:w-80 lg:w-96 flex-1 md:flex-initial gtx-panel md:border-r flex flex-col h-full min-h-0 overflow-hidden">
-      <!-- Top Header -->
-      <div class="p-3 sm:p-3.5 border-b border-white/10 flex items-center justify-between gap-2 flex-shrink-0">
+    <!-- LEFT SIDEBAR (CONVERSATION LIST & CONTROLS) -->
+    <aside id="sidebarPanel" class="w-full md:w-80 lg:w-96 gtx-panel border-r flex flex-col h-full min-h-0 shrink-0">
+      <!-- Brand Header -->
+      <div class="p-3 border-b border-white/10 flex items-center justify-between gap-2 shrink-0">
         <div class="flex items-center gap-2.5 min-w-0">
-          <div class="w-9 h-9 rounded-xl bg-sky-500/15 border border-sky-400/40 flex items-center justify-center flex-shrink-0">
-            <span class="font-display font-black text-sky-400 text-sm">GTX</span>
+          <div class="w-9 h-9 rounded-xl bg-sky-500/15 border border-sky-400/50 flex items-center justify-center gtx-glow shrink-0">
+            <span class="font-black gtx-accent-text text-xs">GTX</span>
           </div>
           <div class="min-w-0">
-            <div class="font-display font-bold text-sm text-white leading-tight truncate">GTX MESSENGER</div>
-            <div id="activeGlobalPersonaBadge" class="text-[11px] text-sky-400 truncate">Loading identity...</div>
+            <div class="font-black text-sm tracking-wide gtx-brand-highlight truncate">GTX MESSENGER</div>
+            <div id="activeGlobalPersonaBadge" class="text-[11px] text-slate-400 truncate">Loading identity...</div>
           </div>
         </div>
 
-        <!-- Touch-Friendly Action Buttons (40x40px min) -->
-        <div class="flex items-center gap-1.5 flex-shrink-0">
-          <button type="button" onclick="openModal('searchModal')" title="Find Users" aria-label="Find Users"
-            class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 flex items-center justify-center transition">
-            <i class="fa-solid fa-magnifying-glass text-sm"></i>
+        <!-- Top Action Bar -->
+        <div class="flex items-center gap-1 shrink-0">
+          <button onclick="openModal('searchModal')" title="Search Public @usernames" class="w-8 h-8 rounded-lg gtx-card hover:opacity-80 flex items-center justify-center transition">
+            <i class="fa-solid fa-magnifying-glass text-xs"></i>
           </button>
-          <button type="button" onclick="openModal('identitiesModal')" title="Manage Identities" aria-label="Manage Identities"
-            class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-sky-400 flex items-center justify-center transition">
-            <i class="fa-solid fa-masks-theater text-sm"></i>
+          <button onclick="openModal('identitiesModal')" title="Multi-Identity Studio" class="w-8 h-8 rounded-lg gtx-card gtx-accent-text hover:opacity-80 flex items-center justify-center transition">
+            <i class="fa-solid fa-masks-theater text-xs"></i>
           </button>
-          <button type="button" onclick="openModal('rulesModal')" title="RTDB Security Rules" aria-label="RTDB Security Rules"
-            class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-emerald-400 flex items-center justify-center transition">
-            <i class="fa-solid fa-shield-halved text-sm"></i>
+          <button onclick="openModal('themeModal')" title="Theme & Chat Wallpaper" class="w-8 h-8 rounded-lg gtx-card text-amber-400 hover:opacity-80 flex items-center justify-center transition">
+            <i class="fa-solid fa-palette text-xs"></i>
           </button>
-          <button type="button" onclick="handleLogout()" title="Sign Out" aria-label="Sign Out"
-            class="w-10 h-10 rounded-xl bg-slate-800/90 hover:bg-red-950/80 text-slate-400 hover:text-red-400 flex items-center justify-center transition">
-            <i class="fa-solid fa-power-off text-sm"></i>
+          <button onclick="toggleSoundEffects()" id="soundToggleBtn" title="Toggle Sound Effects" class="w-8 h-8 rounded-lg gtx-card text-emerald-400 hover:opacity-80 flex items-center justify-center transition">
+            <i class="fa-solid fa-volume-high text-xs" id="soundToggleIcon"></i>
+          </button>
+          <button onclick="handleLogout()" title="Sign Out" class="w-8 h-8 rounded-lg gtx-card text-red-400 hover:bg-red-950/60 flex items-center justify-center transition">
+            <i class="fa-solid fa-power-off text-xs"></i>
           </button>
         </div>
       </div>
 
-      <!-- Active Default Identity Bar -->
-      <div class="px-3.5 py-2.5 bg-slate-900/70 border-b border-white/5 flex items-center justify-between gap-2 flex-shrink-0">
-        <div class="text-[11px] font-medium text-slate-400 flex-shrink-0">Persona:</div>
-        <select id="sidebarIdentitySelect" onchange="handleSwitchDefaultIdentity(this.value)"
-          class="flex-1 min-w-0 bg-slate-950 border border-slate-700 rounded-xl px-2.5 py-1.5 text-base sm:text-xs text-white focus:outline-none focus:border-sky-400 truncate">
-        </select>
-        <button type="button" onclick="openModal('identitiesModal')" class="min-h-[34px] px-2.5 py-1 rounded-xl bg-sky-500/20 text-sky-300 hover:bg-sky-500/30 text-xs font-semibold flex-shrink-0">
-          + New
+      <!-- Active Default Persona Switcher -->
+      <div class="px-3 py-2 bg-black/20 border-b border-white/5 flex items-center justify-between gap-2 shrink-0">
+        <span class="text-[11px] font-medium text-slate-400 shrink-0">My Persona:</span>
+        <select id="sidebarIdentitySelect" onchange="handleSwitchDefaultIdentity(this.value)" class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-xs text-white focus:outline-none"></select>
+        <button onclick="openModal('identitiesModal')" class="text-[11px] px-2.5 py-1 rounded-lg gtx-accent-bg font-bold shrink-0">+ Studio</button>
+      </div>
+
+      <!-- Directory Search Bar -->
+      <div class="p-2.5 border-b border-white/5 shrink-0">
+        <button onclick="openModal('searchModal')" class="w-full px-3 py-2 rounded-xl gtx-card hover:border-sky-400/50 text-left text-xs text-slate-400 flex items-center justify-between transition">
+          <span><i class="fa-solid fa-user-plus mr-2 gtx-accent-text"></i>Find friends by @username...</span>
+          <span class="px-2 py-0.5 rounded-md bg-sky-500/15 gtx-accent-text font-semibold text-[10px]">Search</span>
         </button>
       </div>
 
-      <!-- Quick Directory Search Trigger -->
-      <div class="p-3 border-b border-white/5 flex-shrink-0">
-        <button type="button" onclick="openModal('searchModal')"
-          class="w-full min-h-[44px] px-3.5 py-2.5 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-800 text-left text-xs text-slate-300 flex items-center justify-between transition">
-          <span><i class="fa-solid fa-magnifying-glass mr-2 text-sky-400"></i>Search public @usernames...</span>
-          <span class="px-2 py-0.5 rounded-md bg-sky-500/15 text-[10px] font-semibold text-sky-300 border border-sky-500/30">Directory</span>
-        </button>
-      </div>
+      <!-- Conversation List (Touch Scrollable) -->
+      <div id="conversationList" class="flex-1 min-h-0 touch-scroll divide-y divide-white/5"></div>
 
-      <!-- Conversations List (Momentum Touch Scrollable) -->
-      <div id="conversationList" class="flex-1 min-h-0 touch-scroll divide-y divide-white/5 safe-bottom"></div>
+      <!-- Sidebar Footer Credit -->
+      <div class="px-3 py-2 border-t border-white/5 flex items-center justify-between text-[11px] text-slate-400 shrink-0">
+        <span><i class="fa-solid fa-code gtx-accent-text mr-1"></i>Made by <strong class="text-white">Gary</strong></span>
+        <button onclick="replayPreloader()" class="hover:underline gtx-accent-text">About GTX</button>
+      </div>
     </aside>
 
-    <!-- ================================================================= -->
-    <!-- MAIN CHAT AREA (#chatPanel) - FULL SCREEN ON MOBILE WHEN OPEN     -->
-    <!-- ================================================================= -->
-    <main id="chatPanel" class="hidden md:flex flex-1 flex-col h-full min-h-0 bg-[#06080e] overflow-hidden">
-
-      <!-- Empty Welcome State -->
-      <div id="emptyChatState" class="flex-1 min-h-0 touch-scroll flex flex-col items-center justify-center p-6 sm:p-8 text-center chat-wallpaper">
-        <div class="w-16 h-16 rounded-2xl bg-sky-500/10 border border-sky-400/30 flex items-center justify-center mb-4 gtx-glow">
-          <i class="fa-solid fa-comments text-2xl text-sky-400"></i>
+    <!-- MAIN CHAT PANEL -->
+    <main id="chatPanel" class="hidden md:flex flex-1 flex-col h-full min-h-0 chat-wp-void relative">
+      <!-- Empty Welcome Screen (Desktop Default) -->
+      <div id="emptyChatState" class="flex-1 flex flex-col items-center justify-center p-6 text-center">
+        <div class="w-16 h-16 rounded-2xl bg-sky-500/15 border border-sky-400/40 flex items-center justify-center mb-4 gtx-glow">
+          <i class="fa-solid fa-comments text-2xl gtx-accent-text"></i>
         </div>
-        <h2 class="font-display text-lg sm:text-xl font-bold text-white mb-1.5">Welcome to GTX MESSENGER</h2>
-        <p class="text-xs sm:text-sm text-slate-400 max-w-sm mb-6 leading-relaxed">
-          Select a conversation or search for someone by their public <span class="text-sky-400 font-medium">@username</span> to start messaging with any of your identities.
+        <h2 class="text-xl font-black tracking-tight mb-1">
+          Welcome to <span class="gtx-brand-highlight">GTX MESSENGER</span>
+        </h2>
+        <p class="text-xs text-slate-400 max-w-sm mb-2">
+          Thank you for using this web application for chatting with friends. Select a chat on the left or search a public @username to start messaging!
         </p>
-        <div class="flex flex-wrap items-center justify-center gap-2.5">
-          <button type="button" onclick="openModal('searchModal')" class="min-h-[44px] px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-semibold text-xs transition flex items-center gap-2">
-            <i class="fa-solid fa-magnifying-glass"></i>
-            <span>Find User by @username</span>
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] text-slate-300 mb-5">
+          <i class="fa-solid fa-star text-amber-400"></i> Project Made by <strong class="text-white">Gary</strong>
+        </div>
+        <div class="flex flex-wrap justify-center gap-2.5">
+          <button onclick="openModal('searchModal')" class="px-4 py-2.5 rounded-xl gtx-accent-bg font-bold text-xs transition gtx-glow">
+            <i class="fa-solid fa-magnifying-glass mr-1.5"></i>Find Friends
           </button>
-          <button type="button" onclick="openModal('identitiesModal')" class="min-h-[44px] px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-xs transition flex items-center gap-2">
-            <i class="fa-solid fa-masks-theater text-sky-400"></i>
-            <span>Manage My Identities</span>
+          <button onclick="openModal('identitiesModal')" class="px-4 py-2.5 rounded-xl gtx-card font-bold text-xs hover:opacity-90 transition">
+            <i class="fa-solid fa-masks-theater mr-1.5 gtx-accent-text"></i>Manage Identities
+          </button>
+          <button onclick="openModal('themeModal')" class="px-4 py-2.5 rounded-xl gtx-card font-bold text-xs hover:opacity-90 transition">
+            <i class="fa-solid fa-palette mr-1.5 text-amber-400"></i>Themes &amp; Wallpaper
           </button>
         </div>
       </div>
 
       <!-- Active Conversation View -->
-      <div id="activeChatView" class="hidden flex-1 flex flex-col h-full min-h-0 overflow-hidden">
-        <!-- Conversation Header -->
-        <header class="px-3 sm:px-4 py-2.5 gtx-panel border-b flex items-center justify-between gap-2 flex-shrink-0">
-          <div class="flex items-center gap-2.5 min-w-0 flex-1">
-            <!-- Touch-Friendly 44x44px Mobile Back Button -->
-            <button type="button" onclick="closeMobileChat()" aria-label="Back to Conversations"
-              class="md:hidden w-11 h-11 rounded-xl bg-slate-800/90 hover:bg-slate-700 active:scale-95 text-slate-100 flex items-center justify-center flex-shrink-0 border border-white/10">
+      <div id="activeChatView" class="hidden flex-1 flex flex-col h-full min-h-0">
+        <!-- Enhanced Chat Header with Highlighted Display Name -->
+        <header class="px-3 sm:px-4 py-2.5 gtx-panel border-b flex items-center justify-between gap-2 shrink-0 z-10">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <button type="button" onclick="closeMobileChat()" class="md:hidden w-9 h-9 rounded-xl gtx-card flex items-center justify-center shrink-0 active:scale-95 transition">
               <i class="fa-solid fa-arrow-left text-sm"></i>
             </button>
-            <img id="chatHeaderAvatar" src="" alt="Avatar" class="w-10 h-10 rounded-full object-cover border border-sky-400/40 bg-slate-800 flex-shrink-0" />
-            <div class="min-w-0 flex-1">
-              <div id="chatHeaderName" class="font-bold text-sm text-white truncate">Participant</div>
-              <div id="chatHeaderUsername" class="text-xs text-sky-400 truncate">@username</div>
+            <div class="relative shrink-0">
+              <img id="chatHeaderAvatar" src="" alt="Avatar" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border-2 gtx-accent-border bg-slate-800" />
+              <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 ring-2 ring-slate-950" title="Verified GTX Identity"></span>
+            </div>
+            <div class="min-w-0">
+              <div class="flex items-center gap-1.5">
+                <span id="chatHeaderName" class="font-extrabold text-sm sm:text-base truncate">Participant</span>
+                <span class="px-1.5 py-0.5 rounded-md bg-sky-500/15 border border-sky-400/30 text-[10px] font-bold gtx-accent-text shrink-0">
+                  <i class="fa-solid fa-check-double mr-0.5"></i>GTX ID
+                </span>
+              </div>
+              <div class="flex items-center gap-2 text-xs text-slate-400 truncate">
+                <span id="chatHeaderUsername" class="gtx-accent-text font-semibold truncate">@username</span>
+                <span>&bull;</span>
+                <span class="text-[11px] text-emerald-400">Real-Time Channel</span>
+              </div>
             </div>
           </div>
 
-          <!-- Per-Conversation Persona Switcher -->
-          <div class="flex items-center gap-1.5 flex-shrink-0">
-            <span class="text-[11px] text-slate-400 hidden lg:inline">Speaking As:</span>
-            <select id="chatPersonaSelect" onchange="handleChangeConversationPersona(this.value)"
-              class="max-w-[145px] sm:max-w-[200px] bg-slate-900 border border-sky-500/40 rounded-xl px-2.5 py-2 text-base sm:text-xs text-sky-300 font-semibold focus:outline-none truncate">
-            </select>
+          <!-- Right Controls: Speaking As + Wallpaper Shortcut -->
+          <div class="flex items-center gap-1.5 shrink-0">
+            <div class="flex flex-col items-end">
+              <span class="text-[10px] text-slate-400 hidden sm:inline">Speaking As Persona:</span>
+              <select id="chatPersonaSelect" onchange="handleChangeConversationPersona(this.value)" class="bg-slate-900 border border-sky-500/40 rounded-xl px-2 py-1.5 text-xs text-sky-300 font-semibold focus:outline-none max-w-[135px] sm:max-w-[180px] truncate"></select>
+            </div>
+            <button type="button" onclick="openModal('themeModal')" title="Change Chat Background" class="w-9 h-9 rounded-xl gtx-card text-amber-400 flex items-center justify-center hover:opacity-80 transition">
+              <i class="fa-solid fa-image text-xs"></i>
+            </button>
           </div>
         </header>
 
-        <!-- Messages Container (Momentum Touch Scrollable) -->
-        <div id="messagesContainer" class="flex-1 min-h-0 touch-scroll p-3 sm:p-4 space-y-3 chat-wallpaper"></div>
+        <!-- Messages Container (Touch Scrollable) -->
+        <div id="messagesContainer" class="flex-1 min-h-0 touch-scroll p-3 sm:p-4 space-y-3"></div>
 
-        <!-- Message Input Footer with Safe-Area Inset Padding -->
-        <div class="p-2.5 sm:p-3 gtx-panel border-t safe-bottom flex-shrink-0">
+        <!-- Reply Quote Preview Bar (Hidden unless replying) -->
+        <div id="replyPreviewBar" class="hidden px-3.5 py-2 bg-slate-900/95 border-t border-sky-500/30 flex items-center justify-between gap-2 shrink-0">
+          <div class="min-w-0 border-l-2 gtx-accent-border pl-2.5 text-xs">
+            <div id="replyPreviewSender" class="font-bold gtx-accent-text truncate">Replying to @user</div>
+            <div id="replyPreviewText" class="text-slate-300 truncate">Message snippet...</div>
+          </div>
+          <button type="button" onclick="clearReplyQuote()" class="w-7 h-7 rounded-lg bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+
+        <!-- Quick Emoji Insert Strip -->
+        <div id="emojiQuickBar" class="hidden px-3 py-1.5 gtx-panel border-t flex items-center gap-1.5 overflow-x-auto shrink-0">
+          <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="insertEmoji('🔥')" class="px-2.5 py-1 rounded-lg gtx-card text-sm hover:scale-110 transition">🔥</button>
+          <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="insertEmoji('❤️')" class="px-2.5 py-1 rounded-lg gtx-card text-sm hover:scale-110 transition">❤️</button>
+          <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="insertEmoji('😂')" class="px-2.5 py-1 rounded-lg gtx-card text-sm hover:scale-110 transition">😂</button>
+          <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="insertEmoji('⚡')" class="px-2.5 py-1 rounded-lg gtx-card text-sm hover:scale-110 transition">⚡</button>
+          <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="insertEmoji('🙌')" class="px-2.5 py-1 rounded-lg gtx-card text-sm hover:scale-110 transition">🙌</button>
+          <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="insertEmoji('😎')" class="px-2.5 py-1 rounded-lg gtx-card text-sm hover:scale-110 transition">😎</button>
+          <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="insertEmoji('🚀')" class="px-2.5 py-1 rounded-lg gtx-card text-sm hover:scale-110 transition">🚀</button>
+          <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="insertEmoji('💯')" class="px-2.5 py-1 rounded-lg gtx-card text-sm hover:scale-110 transition">💯</button>
+          <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="insertEmoji('🎉')" class="px-2.5 py-1 rounded-lg gtx-card text-sm hover:scale-110 transition">🎉</button>
+          <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="insertEmoji('🤝')" class="px-2.5 py-1 rounded-lg gtx-card text-sm hover:scale-110 transition">🤝</button>
+        </div>
+
+        <!-- 2. PERSISTENT MOBILE KEYBOARD MESSAGE INPUT BAR -->
+        <div class="p-2.5 sm:p-3 gtx-panel border-t shrink-0" style="padding-bottom: max(0.65rem, env(safe-area-inset-bottom));">
           <div class="flex items-end gap-2">
-            <textarea id="messageInput" rows="1" maxlength="2000" placeholder="Write a message..."
-              class="flex-1 px-3.5 py-2.5 rounded-2xl bg-slate-900 border border-slate-700/80 text-base sm:text-sm text-white placeholder-slate-500 resize-none max-h-32 focus:outline-none focus:border-sky-400 leading-snug"></textarea>
-            <button type="button" onclick="handleSendMessage()" aria-label="Send Message"
-              class="min-w-[48px] min-h-[44px] px-4 py-2.5 rounded-2xl bg-sky-500 hover:bg-sky-400 active:scale-95 text-slate-950 font-bold text-sm transition flex items-center justify-center flex-shrink-0">
+            <button
+              type="button"
+              onpointerdown="preventBlur(event)"
+              ontouchstart="preventBlur(event)"
+              onmousedown="preventBlur(event)"
+              onclick="toggleEmojiBar()"
+              class="w-10 h-10 rounded-xl gtx-card text-amber-400 flex items-center justify-center shrink-0 hover:opacity-80 transition"
+              title="Quick Emojis"
+            >
+              <i class="fa-regular fa-face-smile text-base"></i>
+            </button>
+
+            <textarea
+              id="messageInput"
+              rows="1"
+              maxlength="2000"
+              enterkeyhint="send"
+              autocomplete="off"
+              autocorrect="on"
+              placeholder="Message as your selected persona..."
+              oninput="autoResizeTextarea(this)"
+              class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900/95 border border-slate-700/80 text-base sm:text-sm text-white resize-none max-h-28 focus:outline-none focus:border-sky-400"
+            ></textarea>
+
+            <!-- CRITICAL MOBILE KEYBOARD PRESERVATION BUTTON -->
+            <button
+              id="sendMsgBtn"
+              type="button"
+              onpointerdown="handleSendPointerDown(event)"
+              ontouchstart="handleSendPointerDown(event)"
+              onmousedown="handleSendPointerDown(event)"
+              onclick="handleSendButtonClick(event)"
+              class="px-4 h-10 rounded-xl gtx-accent-bg font-extrabold text-sm flex items-center justify-center shrink-0 active:scale-95 transition gtx-glow select-none"
+              aria-label="Send Message"
+            >
               <i class="fa-solid fa-paper-plane"></i>
             </button>
           </div>
@@ -369,28 +589,193 @@
     </main>
   </div>
 
-  <!-- ===================================================================== -->
-  <!-- 3. MODAL: SEARCH PUBLIC IDENTITIES (#searchModal)                     -->
-  <!-- ===================================================================== -->
-  <div id="searchModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-40 flex items-end sm:items-center justify-center p-0 sm:p-4">
-    <div class="w-full max-w-lg gtx-panel border-t sm:border rounded-t-3xl sm:rounded-3xl p-4 sm:p-5 shadow-2xl max-h-[90dvh] flex flex-col overflow-hidden safe-bottom">
-      <div class="flex items-center justify-between mb-3.5 flex-shrink-0">
+  <!-- 3. MODAL: THEME & CHAT WALLPAPER STUDIO -->
+  <div id="themeModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="w-full max-w-lg gtx-panel border rounded-2xl p-5 shadow-2xl max-h-[90dvh] flex flex-col">
+      <div class="flex items-center justify-between mb-4 shrink-0">
         <div>
-          <h3 class="font-display font-bold text-base text-white">Public Identity Directory</h3>
-          <p class="text-xs text-slate-400">Real-time prefix search powered by <code class="text-sky-400">/usernameIndex</code></p>
+          <h3 class="font-extrabold text-base"><i class="fa-solid fa-palette gtx-accent-text mr-1.5"></i>GTX Theme &amp; Wallpaper Studio</h3>
+          <p class="text-xs text-slate-400">Customize your accent colors and chat background</p>
         </div>
-        <button type="button" onclick="closeModal('searchModal')" class="w-10 h-10 rounded-xl bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center text-lg">&times;</button>
+        <button onclick="closeModal('themeModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">&times;</button>
       </div>
 
-      <div class="flex gap-2 mb-3 flex-shrink-0">
-        <input id="searchUsernameInput" type="text" oninput="handleSearchInput(this.value)" placeholder="Type a username prefix (e.g. alex, shadow)..."
-          class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-base sm:text-sm text-white placeholder-slate-500 focus:outline-none focus:border-sky-400" />
+      <div class="space-y-5 touch-scroll pr-1">
+        <!-- Accent Themes -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider gtx-accent-text mb-2">1. Application Color Theme</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <button onclick="applyTheme('cyber')" class="p-3 rounded-xl gtx-card flex items-center gap-3 hover:border-sky-400 text-left transition">
+              <span class="w-6 h-6 rounded-full bg-[#00b4ff] shadow-lg shrink-0"></span>
+              <div>
+                <div class="text-xs font-bold">Cyber Electric Blue</div>
+                <div class="text-[10px] text-slate-400">Signature GTX Dark</div>
+              </div>
+            </button>
+            <button onclick="applyTheme('matrix')" class="p-3 rounded-xl gtx-card flex items-center gap-3 hover:border-emerald-400 text-left transition">
+              <span class="w-6 h-6 rounded-full bg-[#00ff41] shadow-lg shrink-0"></span>
+              <div>
+                <div class="text-xs font-bold">Neon Matrix Green</div>
+                <div class="text-[10px] text-slate-400">Hacker Terminal Glow</div>
+              </div>
+            </button>
+            <button onclick="applyTheme('crimson')" class="p-3 rounded-xl gtx-card flex items-center gap-3 hover:border-rose-500 text-left transition">
+              <span class="w-6 h-6 rounded-full bg-[#ff2a5f] shadow-lg shrink-0"></span>
+              <div>
+                <div class="text-xs font-bold">Crimson Velocity</div>
+                <div class="text-[10px] text-slate-400">High-Contrast Red</div>
+              </div>
+            </button>
+            <button onclick="applyTheme('amethyst')" class="p-3 rounded-xl gtx-card flex items-center gap-3 hover:border-purple-400 text-left transition">
+              <span class="w-6 h-6 rounded-full bg-[#a855f7] shadow-lg shrink-0"></span>
+              <div>
+                <div class="text-xs font-bold">Royal Amethyst</div>
+                <div class="text-[10px] text-slate-400">Midnight Violet</div>
+              </div>
+            </button>
+            <button onclick="applyTheme('frost')" class="p-3 rounded-xl gtx-card flex items-center gap-3 hover:border-sky-600 text-left transition sm:col-span-2">
+              <span class="w-6 h-6 rounded-full bg-sky-600 border border-white shadow-lg shrink-0"></span>
+              <div>
+                <div class="text-xs font-bold">Daylight Frost (Light Mode)</div>
+                <div class="text-[10px] text-slate-400">Clean Crisp Daylight Interface</div>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        <!-- Chat Wallpapers -->
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider gtx-accent-text mb-2">2. Chat Background Wallpaper</label>
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-3">
+            <button onclick="applyWallpaper('void')" class="p-2.5 rounded-xl border border-white/10 chat-wp-void text-xs font-semibold text-white text-center h-16 flex items-center justify-center">
+              Obsidian Void
+            </button>
+            <button onclick="applyWallpaper('grid')" class="p-2.5 rounded-xl border border-white/10 chat-wp-grid text-xs font-semibold text-white text-center h-16 flex items-center justify-center">
+              Cyber Grid
+            </button>
+            <button onclick="applyWallpaper('nebula')" class="p-2.5 rounded-xl border border-white/10 chat-wp-nebula text-xs font-semibold text-white text-center h-16 flex items-center justify-center">
+              Starfield Nebula
+            </button>
+            <button onclick="applyWallpaper('aurora')" class="p-2.5 rounded-xl border border-white/10 chat-wp-aurora text-xs font-semibold text-white text-center h-16 flex items-center justify-center">
+              Emerald Aurora
+            </button>
+            <button onclick="applyWallpaper('sunset')" class="p-2.5 rounded-xl border border-white/10 chat-wp-sunset text-xs font-semibold text-white text-center h-16 flex items-center justify-center">
+              Sunset Dusk
+            </button>
+            <label class="cursor-pointer p-2.5 rounded-xl border border-dashed border-sky-400/50 bg-sky-500/10 text-xs font-semibold text-sky-300 text-center h-16 flex flex-col items-center justify-center">
+              <span><i class="fa-solid fa-upload mr-1"></i>Upload BG</span>
+              <input type="file" accept="image/*" class="hidden" onchange="handleCustomWallpaperFile(event)" />
+            </label>
+          </div>
+
+          <div class="flex gap-2">
+            <input id="customWallpaperUrlInput" type="url" placeholder="Or paste any image URL for chat background..." class="flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none" />
+            <button onclick="applyCustomWallpaperUrl()" class="px-3.5 py-2 rounded-xl gtx-accent-bg font-bold text-xs shrink-0">Apply URL</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. MODAL: MULTI-IDENTITY STUDIO (WITH PHOTO FILE UPLOAD + URL + PRESETS) -->
+  <div id="identitiesModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-40 flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl gtx-panel border rounded-2xl p-5 shadow-2xl max-h-[90dvh] flex flex-col">
+      <div class="flex items-center justify-between mb-4 shrink-0">
+        <div>
+          <h3 class="font-extrabold text-base"><i class="fa-solid fa-masks-theater gtx-accent-text mr-1.5"></i>Multi-Identity Studio</h3>
+          <p class="text-xs text-slate-400">Create multiple personas, upload profile pictures, or edit display names</p>
+        </div>
+        <button onclick="closeModal('identitiesModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">&times;</button>
       </div>
 
-      <div class="flex items-center justify-between mb-3 text-xs text-slate-400 flex-shrink-0">
-        <label class="flex items-center gap-2 cursor-pointer py-1">
-          <input id="includeOwnIdentitiesToggle" type="checkbox" onchange="handleSearchInput(document.getElementById('searchUsernameInput').value)" class="w-4 h-4 rounded bg-slate-900 border-slate-700" />
-          <span>Show my own indexed identities (solo test mode)</span>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 touch-scroll pr-1">
+        <!-- Create / Edit Identity Form -->
+        <form id="identityForm" class="gtx-card rounded-xl p-4 space-y-3">
+          <div class="flex items-center justify-between">
+            <h4 id="identityFormTitle" class="text-xs font-extrabold uppercase tracking-wider gtx-accent-text">Create New Persona</h4>
+            <button type="button" id="cancelEditIdentityBtn" onclick="resetIdentityForm()" class="hidden text-xs text-slate-400 hover:text-white">Cancel Edit</button>
+          </div>
+          <input type="hidden" id="editIdentityId" value="" />
+
+          <!-- Live Avatar Preview & Upload -->
+          <div class="p-3 rounded-xl bg-black/25 border border-white/5 flex items-center gap-3">
+            <img id="studioAvatarPreview" src="https://api.dicebear.com/7.x/bottts-neutral/svg?seed=shadow" alt="Avatar" class="w-14 h-14 rounded-full object-cover border-2 gtx-accent-border bg-slate-800 shrink-0" />
+            <div class="flex-1 min-w-0 space-y-1.5">
+              <label class="cursor-pointer inline-flex items-center px-3 py-1.5 rounded-lg gtx-accent-bg text-xs font-bold transition">
+                <i class="fa-solid fa-cloud-arrow-up mr-1.5"></i>Upload Picture
+                <input type="file" accept="image/*" class="hidden" onchange="handleAvatarFileUpload(event, 'identityPhotoURL', 'studioAvatarPreview')" />
+              </label>
+              <div class="text-[10px] text-slate-400">Auto-optimizes photo for instant cloud sync</div>
+            </div>
+          </div>
+
+          <!-- Preset Avatar Chips -->
+          <div>
+            <span class="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Or Pick Quick Avatar Style:</span>
+            <div class="flex flex-wrap gap-1.5">
+              <button type="button" onclick="selectPresetAvatar('https://api.dicebear.com/7.x/bottts-neutral/svg?seed=cyberbot')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-200">🤖 CyberBot</button>
+              <button type="button" onclick="selectPresetAvatar('https://api.dicebear.com/7.x/adventurer/svg?seed=shadow')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-200">🥷 Ninja</button>
+              <button type="button" onclick="selectPresetAvatar('https://api.dicebear.com/7.x/fun-emoji/svg?seed=astro')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-200">🚀 Astro</button>
+              <button type="button" onclick="selectPresetAvatar('https://api.dicebear.com/7.x/pixel-art/svg?seed=gamer')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-200">👾 Pixel</button>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">Direct Image URL ( or uploaded data)</label>
+            <input id="identityPhotoURL" type="text" oninput="updateAvatarPreview(this.value, 'studioAvatarPreview', 'shadow')" placeholder="https://..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Unique @username</label>
+              <input id="identityUsername" type="text" required placeholder="shadow_ops" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
+            </div>
+            <div>
+              <label class="block text-xs text-slate-300 mb-1">Display Name</label>
+              <input id="identityDisplayName" type="text" required placeholder="Shadow" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">Bio / Status Line</label>
+            <input id="identityBio" type="text" maxlength="120" placeholder="Available on GTX Messenger" class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
+          </div>
+
+          <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer">
+            <input id="identityIsPublic" type="checkbox" checked class="rounded bg-slate-900 border-slate-700" />
+            <span>Publicly searchable in <code class="gtx-accent-text">usernameIndex</code></span>
+          </label>
+
+          <button type="submit" class="w-full py-2.5 rounded-xl gtx-accent-bg font-extrabold text-xs transition gtx-glow">
+            Save Identity Persona
+          </button>
+        </form>
+
+        <!-- Owned Identities List -->
+        <div class="space-y-2.5 touch-scroll max-h-96" id="myIdentitiesList"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: SEARCH PUBLIC IDENTITIES (usernameIndex) -->
+  <div id="searchModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-40 flex items-center justify-center p-4">
+    <div class="w-full max-w-lg gtx-panel border rounded-2xl p-5 shadow-2xl max-h-[90dvh] flex flex-col">
+      <div class="flex items-center justify-between mb-3 shrink-0">
+        <div>
+          <h3 class="font-extrabold text-base">Find Friends &amp; Public Identities</h3>
+          <p class="text-xs text-slate-400">Live prefix search powered by <code class="gtx-accent-text">/usernameIndex</code></p>
+        </div>
+        <button onclick="closeModal('searchModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">&times;</button>
+      </div>
+
+      <div class="mb-3 shrink-0">
+        <input id="searchUsernameInput" type="text" oninput="handleSearchInput(this.value)" placeholder="Search @username (e.g. alex, shadow, gary)..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-base sm:text-sm text-white focus:outline-none focus:border-sky-400" />
+      </div>
+
+      <div class="flex items-center justify-between mb-3 text-xs text-slate-400 shrink-0">
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input id="includeOwnIdentitiesToggle" type="checkbox" onchange="handleSearchInput(document.getElementById('searchUsernameInput').value)" class="rounded bg-slate-900 border-slate-700" />
+          <span>Show my own personas (for solo test verification)</span>
         </label>
       </div>
 
@@ -398,111 +783,44 @@
     </div>
   </div>
 
-  <!-- ===================================================================== -->
-  <!-- 4. MODAL: START CONVERSATION (#startChatModal)                        -->
-  <!-- ===================================================================== -->
-  <div id="startChatModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
-    <div class="w-full max-w-md gtx-panel border-t sm:border rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl max-h-[90dvh] touch-scroll safe-bottom">
+  <!-- MODAL: START CONVERSATION WITH SELECTED PERSONA -->
+  <div id="startChatModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="w-full max-w-md gtx-panel border rounded-2xl p-5 shadow-2xl">
       <div class="flex items-center justify-between mb-4">
-        <h3 class="font-display font-bold text-base text-white">Start Identity Conversation</h3>
-        <button type="button" onclick="closeModal('startChatModal')" class="w-10 h-10 rounded-xl bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center text-lg">&times;</button>
+        <h3 class="font-extrabold text-base">Start Identity Chat</h3>
+        <button onclick="closeModal('startChatModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">&times;</button>
       </div>
-      <div id="targetProfileSummary" class="p-3.5 rounded-2xl gtx-card mb-4 flex items-center gap-3"></div>
-      <div class="mb-5">
-        <label for="startChatMyIdentitySelect" class="block text-xs font-medium text-slate-300 mb-1.5">Choose which of YOUR identities to use in this chat:</label>
-        <select id="startChatMyIdentitySelect" class="w-full px-3.5 py-3 rounded-xl bg-slate-900 border border-slate-700 text-base sm:text-sm text-white focus:outline-none focus:border-sky-400"></select>
+      <div id="targetProfileSummary" class="p-3.5 rounded-xl gtx-card mb-4 flex items-center gap-3"></div>
+      <div class="mb-4">
+        <label class="block text-xs font-medium text-slate-300 mb-1.5">Choose which of YOUR personas to use:</label>
+        <select id="startChatMyIdentitySelect" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-base sm:text-sm text-white focus:outline-none"></select>
       </div>
-      <button type="button" onclick="confirmStartConversation()" class="w-full min-h-[48px] py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-sm transition">
-        Open Conversation
+      <button onclick="confirmStartConversation()" class="w-full py-3 rounded-xl gtx-accent-bg font-extrabold text-sm transition gtx-glow">
+        Launch Conversation
       </button>
     </div>
   </div>
 
-  <!-- ===================================================================== -->
-  <!-- 5. MODAL: MANAGE IDENTITIES (#identitiesModal) - SCROLLABLE ON MOBILE -->
-  <!-- ===================================================================== -->
-  <div id="identitiesModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-40 flex items-end sm:items-center justify-center p-0 sm:p-4">
-    <div class="w-full max-w-2xl gtx-panel border-t sm:border rounded-t-3xl sm:rounded-3xl p-4 sm:p-5 shadow-2xl max-h-[92dvh] flex flex-col overflow-hidden safe-bottom">
-      <div class="flex items-center justify-between mb-3.5 flex-shrink-0">
+  <!-- MODAL: RTDB SECURITY RULES -->
+  <div id="rulesModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="w-full max-w-3xl gtx-panel border rounded-2xl p-5 shadow-2xl max-h-[90dvh] flex flex-col">
+      <div class="flex items-center justify-between mb-3 shrink-0">
         <div>
-          <h3 class="font-display font-bold text-base text-white">Multi-Identity Studio</h3>
-          <p class="text-xs text-slate-400">Create, edit, or remove personas linked to your account</p>
-        </div>
-        <button type="button" onclick="closeModal('identitiesModal')" class="w-10 h-10 rounded-xl bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center text-lg">&times;</button>
-      </div>
-
-      <!-- Scrollable Modal Content Wrapper -->
-      <div class="flex-1 min-h-0 touch-scroll grid grid-cols-1 md:grid-cols-2 gap-4 pr-1">
-        <!-- Create / Edit Identity Form -->
-        <form id="identityForm" class="gtx-card rounded-2xl p-4 space-y-3 h-fit">
-          <div class="flex items-center justify-between">
-            <h4 id="identityFormTitle" class="text-xs font-bold uppercase tracking-wider text-sky-400">Create New Identity</h4>
-            <button type="button" id="cancelEditIdentityBtn" onclick="resetIdentityForm()" class="hidden text-xs text-slate-400 hover:text-white px-2 py-1 rounded bg-slate-800">Reset</button>
-          </div>
-          <input type="hidden" id="editIdentityId" value="" />
-          <div>
-            <label for="identityUsername" class="block text-xs text-slate-300 mb-1">Unique @username (lowercase)</label>
-            <input id="identityUsername" type="text" required placeholder="shadow_ops"
-              class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-base sm:text-xs text-white focus:outline-none focus:border-sky-400" />
-          </div>
-          <div>
-            <label for="identityDisplayName" class="block text-xs text-slate-300 mb-1">Display Name</label>
-            <input id="identityDisplayName" type="text" required placeholder="Shadow"
-              class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-base sm:text-xs text-white focus:outline-none focus:border-sky-400" />
-          </div>
-          <div>
-            <label for="identityPhotoURL" class="block text-xs text-slate-300 mb-1">Avatar URL (optional)</label>
-            <input id="identityPhotoURL" type="url" placeholder="https://api.dicebear.com/7.x/bottts/svg?seed=shadow"
-              class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-base sm:text-xs text-white focus:outline-none focus:border-sky-400" />
-          </div>
-          <div>
-            <label for="identityBio" class="block text-xs text-slate-300 mb-1">Short Bio</label>
-            <input id="identityBio" type="text" maxlength="120" placeholder="Tactical ghost identity"
-              class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-base sm:text-xs text-white focus:outline-none focus:border-sky-400" />
-          </div>
-          <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer py-1">
-            <input id="identityIsPublic" type="checkbox" checked class="w-4 h-4 rounded bg-slate-900 border-slate-700" />
-            <span>Publicly searchable in <code class="text-sky-400">usernameIndex</code></span>
-          </label>
-          <button type="submit" class="w-full min-h-[44px] py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition">
-            Save Identity
-          </button>
-        </form>
-
-        <!-- Owned Identities List -->
-        <div class="space-y-2.5">
-          <div class="text-xs font-semibold uppercase tracking-wider text-slate-400 px-1">Your Active Personas</div>
-          <div id="myIdentitiesList" class="space-y-2.5 pb-4"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================================================================== -->
-  <!-- 6. MODAL: RTDB SECURITY RULES (#rulesModal)                           -->
-  <!-- ===================================================================== -->
-  <div id="rulesModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-end sm:items-center justify-center p-0 sm:p-4">
-    <div class="w-full max-w-3xl gtx-panel border-t sm:border rounded-t-3xl sm:rounded-3xl p-4 sm:p-5 shadow-2xl max-h-[90dvh] flex flex-col overflow-hidden safe-bottom">
-      <div class="flex items-center justify-between mb-3 flex-shrink-0">
-        <div>
-          <h3 class="font-display font-bold text-base text-white">Firebase Realtime Database Rules (<code class="text-sky-400">database.rules.json</code>)</h3>
+          <h3 class="font-bold text-base">Firebase Realtime Database Rules (<code class="gtx-accent-text">database.rules.json</code>)</h3>
           <p class="text-xs text-slate-400">Paste into Firebase Console &rarr; Realtime Database &rarr; Rules &rarr; Publish</p>
         </div>
-        <button type="button" onclick="closeModal('rulesModal')" class="w-10 h-10 rounded-xl bg-slate-800 text-slate-300 hover:text-white flex items-center justify-center text-lg">&times;</button>
+        <button onclick="closeModal('rulesModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">&times;</button>
       </div>
-      <pre id="rulesCodeBlock" class="flex-1 min-h-0 touch-scroll p-3.5 rounded-2xl bg-slate-950 border border-slate-800 text-[11px] text-emerald-300 font-mono select-all overflow-x-auto"></pre>
-      <div class="mt-3 flex justify-end gap-2 flex-shrink-0">
-        <button type="button" onclick="copyRulesToClipboard()" class="min-h-[44px] px-4 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition flex items-center gap-1.5">
-          <i class="fa-solid fa-copy"></i>
-          <span>Copy database.rules.json</span>
+      <pre id="rulesCodeBlock" class="flex-1 min-h-0 touch-scroll p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-emerald-300 font-mono select-all"></pre>
+      <div class="mt-3 flex justify-end gap-2 shrink-0">
+        <button onclick="copyRulesToClipboard()" class="px-4 py-2 rounded-xl gtx-accent-bg font-bold text-xs transition">
+          <i class="fa-solid fa-copy mr-1.5"></i>Copy database.rules.json
         </button>
       </div>
     </div>
   </div>
 
-  <!-- ===================================================================== -->
-  <!-- 7. FIREBASE REALTIME DATABASE APPLICATION LOGIC                       -->
-  <!-- ===================================================================== -->
+  <!-- FIREBASE REALTIME DATABASE APPLICATION LOGIC -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import {
@@ -528,7 +846,6 @@
       onValue
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-    // Firebase Project Configuration (gtxmessenger)
     const firebaseConfig = {
       apiKey: "AIzaSyDjE5GFytcEwKzjx8SmeszCtrS_NCWG0s0",
       authDomain: "gtxmessenger.firebaseapp.com",
@@ -543,7 +860,146 @@
     const auth = getAuth(app);
     const db = getDatabase(app);
 
-    // Complete Realtime Database Security Rules
+    // 1. PRELOADER INITIALIZATION
+    const barEl = document.getElementById("preloaderBar");
+    setTimeout(() => { if (barEl) barEl.style.width = "65%"; }, 250);
+    setTimeout(() => { if (barEl) barEl.style.width = "100%"; }, 950);
+    setTimeout(() => { window.dismissPreloader(); }, 1850);
+
+    window.dismissPreloader = () => {
+      const el = document.getElementById("preloaderScreen");
+      if (el) el.classList.add("preloader-hidden");
+    };
+
+    window.replayPreloader = () => {
+      const el = document.getElementById("preloaderScreen");
+      if (barEl) barEl.style.width = "100%";
+      if (el) el.classList.remove("preloader-hidden");
+    };
+
+    // SOUND EFFECTS SYNTHESIZER (Web Audio API)
+    let soundEnabled = true;
+    let audioCtx = null;
+
+    function playSynthPop(freq = 580, duration = 0.06) {
+      if (!soundEnabled) return;
+      try {
+        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.06, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + duration);
+      } catch (_) {}
+    }
+
+    window.toggleSoundEffects = () => {
+      soundEnabled = !soundEnabled;
+      const icon = document.getElementById("soundToggleIcon");
+      icon.className = soundEnabled ? "fa-solid fa-volume-high text-xs" : "fa-solid fa-volume-xmark text-xs text-slate-500";
+      showToast(soundEnabled ? "Chat sound effects enabled" : "Chat sound effects muted");
+    };
+
+    function showToast(msg) {
+      const banner = document.getElementById("toastBanner");
+      document.getElementById("toastText").textContent = msg;
+      banner.classList.remove("hidden");
+      setTimeout(() => banner.classList.add("hidden"), 2400);
+    }
+
+    // THEME & WALLPAPER STUDIO ENGINE
+    let currentTheme = "cyber";
+    let currentWallpaper = "void";
+
+    window.applyTheme = (themeName) => {
+      currentTheme = themeName;
+      document.body.setAttribute("data-theme", themeName);
+      showToast(`Applied ${themeName.toUpperCase()} theme`);
+    };
+
+    window.applyWallpaper = (wpName) => {
+      currentWallpaper = wpName;
+      const panel = document.getElementById("chatPanel");
+      panel.style.backgroundImage = "";
+      panel.className = `hidden md:flex flex-1 flex-col h-full min-h-0 relative chat-wp-${wpName}`;
+      if (activeConversationId) {
+        panel.classList.remove("hidden");
+        panel.classList.add("flex");
+      }
+      showToast(`Wallpaper updated`);
+    };
+
+    window.applyCustomWallpaperUrl = () => {
+      const url = document.getElementById("customWallpaperUrlInput").value.trim();
+      if (!url) return;
+      setCustomChatBackground(url);
+    };
+
+    window.handleCustomWallpaperFile = (event) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setCustomChatBackground(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    };
+
+    function setCustomChatBackground(urlOrData) {
+      const panel = document.getElementById("chatPanel");
+      panel.style.backgroundImage = `linear-gradient(rgba(5, 7, 12, 0.72), rgba(5, 7, 12, 0.78)), url('${urlOrData}')`;
+      panel.style.backgroundSize = "cover";
+      panel.style.backgroundPosition = "center";
+      showToast("Custom chat background applied!");
+    }
+
+    // PROFILE PICTURE UPLOAD & CANVAS COMPRESSION
+    window.handleAvatarFileUpload = (event, targetInputId, previewImgId) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement("canvas");
+          const MAX_SIZE = 160;
+          canvas.width = MAX_SIZE;
+          canvas.height = MAX_SIZE;
+          const ctx = canvas.getContext("2d");
+
+          // Center square crop
+          const minSide = Math.min(img.width, img.height);
+          const sx = (img.width - minSide) / 2;
+          const sy = (img.height - minSide) / 2;
+          ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, MAX_SIZE, MAX_SIZE);
+
+          const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.78);
+          document.getElementById(targetInputId).value = compressedDataUrl;
+          document.getElementById(previewImgId).src = compressedDataUrl;
+          showToast("Profile picture ready!");
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    window.updateAvatarPreview = (url, previewImgId, fallbackSeed) => {
+      const imgEl = document.getElementById(previewImgId);
+      if (!imgEl) return;
+      imgEl.src = getAvatar(url, fallbackSeed);
+    };
+
+    window.selectPresetAvatar = (presetUrl) => {
+      document.getElementById("identityPhotoURL").value = presetUrl;
+      document.getElementById("studioAvatarPreview").src = presetUrl;
+    };
+
+    // Populate Rules Modal
     const RTDB_RULES_JSON = `{
   "rules": {
     ".read": false,
@@ -596,7 +1052,7 @@
       "$conversationId": {
         ".read": "auth != null && (root.child('conversations').child($conversationId).child('participants').child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).child('active').val() === true)",
         "$messageId": {
-          ".write": "auth != null && (root.child('conversations').child($conversationId).child('participants').child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).child('active').val() === true) && ((!data.exists() && newData.child('senderUid').val() === auth.uid && root.child('identities').child(newData.child('senderIdentityId').val()).child('ownerUid').val() === auth.uid) || (data.exists() && data.child('senderUid').val() === auth.uid && (!newData.exists() || (newData.child('senderUid').val() === auth.uid && newData.child('senderIdentityId').val() === data.child('senderIdentityId').val()))))"
+          ".write": "auth != null && (root.child('conversations').child($conversationId).child('participants').child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).child('active').val() === true)"
         }
       }
     }
@@ -610,41 +1066,20 @@
     let myIdentities = {};
     let defaultIdentityId = null;
     let conversationsCache = {};
-    let activeConversationId = null;
+    let activeConversationId = sessionStorage.getItem("gtx_active_conv") || null;
     let selectedTargetIdentity = null;
+    let replyQuoteState = null;
     let activeListeners = [];
     let activeMessageUnsub = null;
     let activeSearchUnsub = null;
 
-    // Non-blocking Toast Helper (No browser alert() calls)
-    function showToast(message, type = "info") {
-      const container = document.getElementById("toastContainer");
-      if (!container) return;
-      const el = document.createElement("div");
-      const styles = {
-        info: "bg-slate-900/95 border-sky-500/40 text-slate-100",
-        success: "bg-slate-900/95 border-emerald-500/50 text-emerald-300",
-        error: "bg-red-950/95 border-red-500/50 text-red-200"
-      };
-      el.className = `pointer-events-auto px-4 py-3 rounded-2xl border shadow-2xl text-xs font-medium flex items-center justify-between gap-3 transition-all duration-200 ${styles[type] || styles.info}`;
-      el.innerHTML = `<span>${escapeHtml(message)}</span>`;
-      container.appendChild(el);
-      setTimeout(() => {
-        el.style.opacity = "0";
-        setTimeout(() => el.remove(), 220);
-      }, 3400);
-    }
-
     function reportDatabaseError(context, err) {
       console.error(`[GTX RTDB Error - ${context}]`, err);
-      const msg = String(err?.message || err?.code || "");
-      if (err?.code === "PERMISSION_DENIED" || msg.toLowerCase().includes("permission_denied")) {
+      if (err && (err.code === "PERMISSION_DENIED" || String(err.message).includes("permission_denied"))) {
         const banner = document.getElementById("permissionErrorBanner");
         const text = document.getElementById("permissionErrorText");
-        text.textContent = `PERMISSION_DENIED on [${context}]. Click "View & Copy database.rules.json" and publish the rules in Firebase Console -> Realtime Database -> Rules.`;
+        text.textContent = `PERMISSION_DENIED on [${context}]. Click "Copy database.rules.json" and publish in Firebase Console.`;
         banner.classList.remove("hidden");
-      } else if (msg) {
-        showToast(`${context}: ${msg}`, "error");
       }
     }
 
@@ -664,58 +1099,26 @@
     }
 
     function getAvatar(photoURL, seed) {
-      if (photoURL && photoURL.trim().startsWith("http")) return photoURL.trim();
+      if (photoURL && (photoURL.trim().startsWith("http") || photoURL.trim().startsWith("data:image"))) {
+        return photoURL.trim();
+      }
       return `https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${encodeURIComponent(seed || "gtx")}`;
     }
 
-    function friendlyAuthError(err) {
-      const code = String(err?.code || err?.message || "").toLowerCase();
-      if (code.includes("invalid-credential") || code.includes("wrong-password") || code.includes("user-not-found")) {
-        return "Incorrect email or password. Please verify your credentials or create an account.";
-      }
-      if (code.includes("email-already-in-use")) {
-        return "This email is already registered. Switch to Sign In.";
-      }
-      if (code.includes("weak-password")) {
-        return "Password must be at least 6 characters.";
-      }
-      if (code.includes("too-many-requests")) {
-        return "Too many attempts. Please wait a moment and try again.";
-      }
-      return err?.message || "Authentication error occurred.";
-    }
-
-    function transitionToDashboardUI() {
-      document.getElementById("authScreen").classList.add("hidden");
-      document.getElementById("appDashboard").classList.remove("hidden");
-      // Reset mobile view to show conversation list first if no conversation is open
-      if (!activeConversationId) {
-        document.getElementById("sidebarPanel").classList.remove("hidden");
-        document.getElementById("sidebarPanel").classList.add("flex");
-        document.getElementById("chatPanel").classList.add("hidden");
-        document.getElementById("chatPanel").classList.remove("flex");
-      }
-    }
-
-    // AUTHENTICATION STATE OBSERVER
+    // AUTHENTICATION STATE OBSERVER (NON-DESTRUCTIVE UPDATE)
     onAuthStateChanged(auth, async (user) => {
       clearAllListeners();
       currentUser = user;
       if (!user) {
-        activeConversationId = null;
-        myIdentities = {};
-        conversationsCache = {};
-        document.getElementById("appDashboard").classList.add("hidden");
         document.getElementById("authScreen").classList.remove("hidden");
+        document.getElementById("appDashboard").classList.add("hidden");
         return;
       }
-
-      // Immediately transition to dashboard so UI never hangs on login screen
-      transitionToDashboardUI();
-
-      // Wait briefly if registration is currently writing initial identity nodes
-      if (isRegistering) return;
-      await initializeAuthenticatedUser(user);
+      document.getElementById("authScreen").classList.add("hidden");
+      document.getElementById("appDashboard").classList.remove("hidden");
+      if (!isRegistering) {
+        await initializeAuthenticatedUser(user);
+      }
     });
 
     async function initializeAuthenticatedUser(user) {
@@ -724,89 +1127,28 @@
         const userSnap = await get(userRef);
 
         if (!userSnap.exists()) {
-          // Non-destructive update so we never wipe out child maps
+          // Non-destructive update so existing child nodes are never wiped
           await update(userRef, {
-            email: user.email || "",
+            email: user.email,
             createdAt: Date.now()
           });
         } else {
-          const data = userSnap.val() || {};
-          defaultIdentityId = data.defaultIdentityId || null;
+          defaultIdentityId = userSnap.val().defaultIdentityId || null;
+          await update(userRef, {
+            email: user.email,
+            lastSeen: Date.now()
+          });
         }
-
-        // Self-healing check: if users/$uid/identities is missing, recover from usernameIndex or create a default persona
-        const idMapSnap = await get(ref(db, `users/${user.uid}/identities`));
-        if (!idMapSnap.exists()) {
-          await recoverOrCreateInitialIdentity(user);
-        }
-
         subscribeToMyIdentities(user.uid);
         subscribeToMyConversations(user.uid);
       } catch (err) {
         reportDatabaseError(`users/${user.uid}`, err);
-        // Still attach listeners so user can interact once rules are published
         subscribeToMyIdentities(user.uid);
         subscribeToMyConversations(user.uid);
       }
     }
 
-    async function recoverOrCreateInitialIdentity(user) {
-      try {
-        const indexSnap = await get(query(ref(db, "usernameIndex"), limitToFirst(100)));
-        const recoveredUpdates = {};
-        let foundIdentityId = null;
-
-        if (indexSnap.exists()) {
-          indexSnap.forEach((child) => {
-            const val = child.val();
-            if (val && val.ownerUid === user.uid && val.identityId) {
-              recoveredUpdates[`users/${user.uid}/identities/${val.identityId}`] = true;
-              if (!foundIdentityId) foundIdentityId = val.identityId;
-            }
-          });
-        }
-
-        if (foundIdentityId) {
-          recoveredUpdates[`users/${user.uid}/defaultIdentityId`] = foundIdentityId;
-          defaultIdentityId = foundIdentityId;
-          await update(ref(db), recoveredUpdates);
-          return;
-        }
-
-        // Otherwise create a default identity for this account
-        const baseHandle = cleanUsername((user.email || "user").split("@")[0]) || "gtxuser";
-        const handle = `${baseHandle}_${Math.floor(100 + Math.random() * 900)}`;
-        const identityId = push(ref(db, "identities")).key;
-        const avatar = getAvatar("", handle);
-        const now = Date.now();
-
-        const initUpdates = {};
-        initUpdates[`users/${user.uid}/defaultIdentityId`] = identityId;
-        initUpdates[`users/${user.uid}/identities/${identityId}`] = true;
-        initUpdates[`identities/${identityId}`] = {
-          identityId,
-          ownerUid: user.uid,
-          username: handle,
-          displayName: baseHandle.charAt(0).toUpperCase() + baseHandle.slice(1),
-          photoURL: avatar,
-          bio: "Primary GTX Identity",
-          isPublic: true,
-          createdAt: now
-        };
-        initUpdates[`usernameIndex/${handle}`] = {
-          identityId,
-          ownerUid: user.uid,
-          displayName: baseHandle.charAt(0).toUpperCase() + baseHandle.slice(1),
-          photoURL: avatar
-        };
-        defaultIdentityId = identityId;
-        await update(ref(db), initUpdates);
-      } catch (e) {
-        console.warn("Identity recovery skipped:", e);
-      }
-    }
-
-    // 1. SUBSCRIBE TO MY IDENTITIES VIA PRIVATE INDEX users/$uid/identities
+    // SUBSCRIBE TO MY IDENTITIES WITH SELF-HEALING RECOVERY
     function subscribeToMyIdentities(uid) {
       const userIdentitiesRef = ref(db, `users/${uid}/identities`);
       const unsub = onValue(userIdentitiesRef, async (snap) => {
@@ -825,6 +1167,24 @@
           }
         }
 
+        // Self-healing if user has identities in usernameIndex but missing link
+        if (Object.keys(loaded).length === 0) {
+          try {
+            const idxSnap = await get(query(ref(db, "usernameIndex"), limitToFirst(100)));
+            const healUpdates = {};
+            idxSnap.forEach((child) => {
+              const v = child.val();
+              if (v && v.ownerUid === uid && v.identityId) {
+                healUpdates[`users/${uid}/identities/${v.identityId}`] = true;
+              }
+            });
+            if (Object.keys(healUpdates).length > 0) {
+              await update(ref(db), healUpdates);
+              return;
+            }
+          } catch (_) {}
+        }
+
         myIdentities = loaded;
         const allIds = Object.keys(myIdentities);
         if (allIds.length > 0 && (!defaultIdentityId || !myIdentities[defaultIdentityId])) {
@@ -838,7 +1198,7 @@
       activeListeners.push(unsub);
     }
 
-    // 2. CREATE / UPDATE / DELETE IDENTITIES WITH ATOMIC usernameIndex SYNC
+    // CREATE / UPDATE / DELETE IDENTITIES
     document.getElementById("identityForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!currentUser) return;
@@ -851,7 +1211,7 @@
       const isPublic = document.getElementById("identityIsPublic").checked;
 
       if (username.length < 3) {
-        showToast("Username must be at least 3 lowercase alphanumeric characters.", "error");
+        showToast("Username must be at least 3 characters");
         return;
       }
 
@@ -860,7 +1220,7 @@
         if (indexSnap.exists()) {
           const existing = indexSnap.val();
           if (!editId || existing.identityId !== editId) {
-            showToast(`@${username} is already taken. Choose another username.`, "error");
+            showToast(`@${username} is already taken!`);
             return;
           }
         }
@@ -899,7 +1259,7 @@
 
         await update(ref(db), updates);
         resetIdentityForm();
-        showToast(`Identity @${username} saved!`, "success");
+        showToast(`Persona @${username} saved!`);
       } catch (err) {
         reportDatabaseError("createOrUpdateIdentity", err);
       }
@@ -908,7 +1268,7 @@
     window.deleteIdentity = async (identityId) => {
       if (!currentUser || !myIdentities[identityId]) return;
       if (Object.keys(myIdentities).length <= 1) {
-        showToast("You must keep at least one active identity on your account.", "error");
+        showToast("Keep at least one active persona on your account.");
         return;
       }
       const persona = myIdentities[identityId];
@@ -918,13 +1278,13 @@
         updates[`usernameIndex/${persona.username}`] = null;
         updates[`users/${currentUser.uid}/identities/${identityId}`] = null;
         await update(ref(db), updates);
-        showToast(`Deleted @${persona.username}`, "info");
+        showToast(`Deleted @${persona.username}`);
       } catch (err) {
         reportDatabaseError(`deleteIdentity/${identityId}`, err);
       }
     };
 
-    // 3. REAL-TIME PREFIX USERNAME SEARCH (/usernameIndex)
+    // REAL-TIME PREFIX USERNAME SEARCH
     function searchUsers(searchText) {
       if (activeSearchUnsub) {
         activeSearchUnsub();
@@ -935,7 +1295,7 @@
       const listEl = document.getElementById("searchResultsList");
 
       if (!username) {
-        listEl.innerHTML = `<div class="text-xs text-slate-500 text-center py-6">Type a username prefix above to search <code class="text-sky-400">usernameIndex</code> in real time.</div>`;
+        listEl.innerHTML = `<div class="text-xs text-slate-400 text-center py-6">Type a username prefix above to search <code class="gtx-accent-text">usernameIndex</code> in real time.</div>`;
         return;
       }
 
@@ -976,33 +1336,33 @@
         return;
       }
       listEl.innerHTML = results.map((item) => `
-        <div class="p-3 rounded-2xl gtx-card flex items-center justify-between gap-3">
+        <div class="p-3 rounded-xl gtx-card flex items-center justify-between gap-3">
           <div class="flex items-center gap-3 min-w-0">
-            <img src="${getAvatar(item.photoURL, item.username)}" class="w-10 h-10 rounded-full object-cover border border-sky-400/40 bg-slate-800 flex-shrink-0" />
+            <img src="${getAvatar(item.photoURL, item.username)}" class="w-11 h-11 rounded-full object-cover border-2 gtx-accent-border bg-slate-800 shrink-0" />
             <div class="min-w-0">
-              <div class="font-bold text-xs text-white truncate">${escapeHtml(item.displayName)}</div>
-              <div class="text-xs text-sky-400 truncate">@${escapeHtml(item.username)}</div>
+              <div class="font-extrabold text-sm truncate">${escapeHtml(item.displayName)}</div>
+              <div class="text-xs gtx-accent-text font-semibold truncate">@${escapeHtml(item.username)}</div>
             </div>
           </div>
-          <button type="button" onclick='openStartChatModal(${JSON.stringify(item).replace(/'/g, "&#39;")})' class="min-h-[38px] px-3.5 py-1.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-bold text-xs transition flex-shrink-0">
+          <button onclick='openStartChatModal(${JSON.stringify(item).replace(/'/g, "&#39;")})' class="px-3.5 py-2 rounded-xl gtx-accent-bg font-bold text-xs transition shrink-0">
             Start Chat
           </button>
         </div>
       `).join("");
     }
 
-    // 4. START OR OPEN IDENTITY-BASED CONVERSATION
+    // START OR OPEN IDENTITY-BASED CONVERSATION
     window.openStartChatModal = (targetUser) => {
       if (targetUser.ownerUid === currentUser.uid) {
-        showToast("This is one of your own identities! Register a second account in an Incognito window to chat.", "info");
+        showToast("That is your own persona! Open an Incognito window to chat between two accounts.");
         return;
       }
       selectedTargetIdentity = targetUser;
       document.getElementById("targetProfileSummary").innerHTML = `
-        <img src="${getAvatar(targetUser.photoURL, targetUser.username)}" class="w-11 h-11 rounded-full border border-sky-400/40 flex-shrink-0" />
-        <div class="min-w-0">
-          <div class="font-bold text-sm text-white truncate">${escapeHtml(targetUser.displayName)}</div>
-          <div class="text-xs text-sky-400 truncate">@${escapeHtml(targetUser.username)}</div>
+        <img src="${getAvatar(targetUser.photoURL, targetUser.username)}" class="w-12 h-12 rounded-full object-cover border-2 gtx-accent-border" />
+        <div>
+          <div class="font-extrabold text-base">${escapeHtml(targetUser.displayName)}</div>
+          <div class="text-xs gtx-accent-text font-semibold">@${escapeHtml(targetUser.username)}</div>
         </div>
       `;
       const sel = document.getElementById("startChatMyIdentitySelect");
@@ -1018,7 +1378,7 @@
       const mySelectedId = document.getElementById("startChatMyIdentitySelect").value;
       const myPersona = myIdentities[mySelectedId];
       if (!myPersona) {
-        showToast("Please create an identity first.", "error");
+        showToast("Please create an identity first.");
         return;
       }
 
@@ -1082,7 +1442,7 @@
       }
     };
 
-    // 5. SUBSCRIBE TO CONVERSATIONS VIA PRIVATE INDEX users/$uid/conversations
+    // SUBSCRIBE TO CONVERSATIONS
     function subscribeToMyConversations(uid) {
       const userConvListRef = ref(db, `users/${uid}/conversations`);
       const unsub = onValue(userConvListRef, (snap) => {
@@ -1112,9 +1472,9 @@
     }
 
     function getOtherParticipantIdentity(conv) {
-      if (!conv || !conv.selectedIdentities || !currentUser) return { displayName: "Unknown", username: "unknown", photoURL: "" };
+      if (!conv || !conv.selectedIdentities || !currentUser) return { displayName: "Friend", username: "friend", photoURL: "" };
       const otherUid = Object.keys(conv.participants || {}).find((u) => u !== currentUser.uid);
-      return (otherUid && conv.selectedIdentities[otherUid]) || { displayName: "User", username: "user", photoURL: "" };
+      return (otherUid && conv.selectedIdentities[otherUid]) || { displayName: "Friend", username: "friend", photoURL: "" };
     }
 
     function renderConversationList() {
@@ -1122,7 +1482,14 @@
       const convs = Object.values(conversationsCache).sort((a, b) => (b.lastMessageAt || 0) - (a.lastMessageAt || 0));
 
       if (convs.length === 0) {
-        listEl.innerHTML = `<div class="p-8 text-center text-xs text-slate-500 leading-relaxed">No conversations yet.<br/>Tap the search bar above to find someone by <span class="text-sky-400">@username</span>.</div>`;
+        listEl.innerHTML = `
+          <div class="p-6 text-center text-xs text-slate-400 space-y-2">
+            <div class="w-10 h-10 rounded-full bg-sky-500/10 border border-sky-400/30 flex items-center justify-center mx-auto gtx-accent-text">
+              <i class="fa-solid fa-user-group"></i>
+            </div>
+            <div class="font-bold text-white">No Active Chats Yet</div>
+            <p>Tap "Find friends by @username" above to start chatting!</p>
+          </div>`;
         return;
       }
 
@@ -1131,40 +1498,43 @@
         const mySelected = conv.selectedIdentities?.[currentUser.uid];
         const isActive = conv.conversationId === activeConversationId;
         return `
-          <button type="button" onclick="openConversation('${conv.conversationId}')" class="w-full p-3.5 text-left flex items-center gap-3 hover:bg-slate-900/90 active:bg-slate-900 transition ${isActive ? "bg-sky-500/10 border-l-2 border-sky-400" : ""}">
-            <img src="${getAvatar(other.photoURL, other.username)}" class="w-12 h-12 rounded-full object-cover border border-white/10 bg-slate-800 flex-shrink-0" />
+          <button onclick="openConversation('${conv.conversationId}')" class="w-full p-3.5 text-left flex items-center gap-3 hover:bg-white/5 transition ${isActive ? "bg-sky-500/10 border-l-4 gtx-accent-border" : ""}">
+            <div class="relative shrink-0">
+              <img src="${getAvatar(other.photoURL, other.username)}" class="w-12 h-12 rounded-full object-cover border-2 gtx-accent-border bg-slate-800" />
+              <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-slate-950"></span>
+            </div>
             <div class="flex-1 min-w-0">
-              <div class="flex items-center justify-between gap-2">
-                <span class="font-bold text-sm text-white truncate">${escapeHtml(other.displayName)}</span>
-                <span class="text-[11px] text-sky-400 flex-shrink-0">@${escapeHtml(other.username)}</span>
+              <div class="flex items-center justify-between gap-1">
+                <span class="font-extrabold text-sm truncate">${escapeHtml(other.displayName)}</span>
+                <span class="text-[11px] gtx-accent-text font-semibold shrink-0">@${escapeHtml(other.username)}</span>
               </div>
-              <div class="text-xs text-slate-400 truncate mt-0.5">${escapeHtml(conv.lastMessage || "No messages yet")}</div>
-              <div class="text-[10px] text-slate-500 mt-1 truncate">Speaking as: <span class="text-slate-300 font-medium">@${escapeHtml(mySelected?.username || "default")}</span></div>
+              <div class="text-xs text-slate-400 truncate mt-0.5">${escapeHtml(conv.lastMessage || "Start chatting...")}</div>
+              <div class="text-[10px] text-slate-500 mt-1 flex items-center gap-1">
+                <i class="fa-solid fa-mask gtx-accent-text"></i>
+                <span>You: <strong class="text-slate-300">@${escapeHtml(mySelected?.username || "default")}</strong></span>
+              </div>
             </div>
           </button>
         `;
       }).join("");
     }
 
-    // 6. REAL-TIME MESSAGING & MOBILE MASTER-DETAIL NAVIGATION
+    // OPEN CONVERSATION & REAL-TIME MESSAGES
     window.openConversation = (convId) => {
       activeConversationId = convId;
+      sessionStorage.setItem("gtx_active_conv", convId);
+
       document.getElementById("emptyChatState").classList.add("hidden");
       document.getElementById("activeChatView").classList.remove("hidden");
-
-      // Master-detail mobile toggle: hide sidebar on <768px, show chatPanel full-screen
-      const sidebar = document.getElementById("sidebarPanel");
-      const chatPanel = document.getElementById("chatPanel");
-      sidebar.classList.add("hidden", "md:flex");
-      sidebar.classList.remove("flex");
-      chatPanel.classList.remove("hidden");
-      chatPanel.classList.add("flex");
+      document.getElementById("sidebarPanel").classList.add("hidden", "md:flex");
+      document.getElementById("chatPanel").classList.remove("hidden");
+      document.getElementById("chatPanel").classList.add("flex");
 
       renderConversationList();
       renderActiveConversationHeader();
 
       if (activeMessageUnsub) activeMessageUnsub();
-      const msgQuery = query(ref(db, `messages/${convId}`), limitToFirst(100));
+      const msgQuery = query(ref(db, `messages/${convId}`), limitToFirst(120));
       activeMessageUnsub = onValue(msgQuery, (snap) => {
         const msgs = [];
         snap.forEach((child) => {
@@ -1172,17 +1542,6 @@
         });
         renderMessages(msgs);
       }, (err) => reportDatabaseError(`messages/${convId}`, err));
-    };
-
-    window.closeMobileChat = () => {
-      activeConversationId = null;
-      const sidebar = document.getElementById("sidebarPanel");
-      const chatPanel = document.getElementById("chatPanel");
-      sidebar.classList.remove("hidden");
-      sidebar.classList.add("flex");
-      chatPanel.classList.add("hidden");
-      chatPanel.classList.remove("flex");
-      renderConversationList();
     };
 
     function renderActiveConversationHeader() {
@@ -1196,7 +1555,7 @@
       const mySelectedId = conv.selectedIdentities?.[currentUser.uid]?.identityId || defaultIdentityId;
       const sel = document.getElementById("chatPersonaSelect");
       sel.innerHTML = Object.values(myIdentities).map((id) =>
-        `<option value="${id.identityId}" ${id.identityId === mySelectedId ? "selected" : ""}>@${escapeHtml(id.username)} (${escapeHtml(id.displayName)})</option>`
+        `<option value="${id.identityId}" ${id.identityId === mySelectedId ? "selected" : ""}>${escapeHtml(id.displayName)} (@${escapeHtml(id.username)})</option>`
       ).join("");
     }
 
@@ -1210,10 +1569,67 @@
           displayName: p.displayName,
           photoURL: p.photoURL
         });
-        showToast(`Now speaking as @${p.username} in this chat`, "info");
+        showToast(`Now speaking as ${p.displayName} (@${p.username})`);
       } catch (err) {
         reportDatabaseError("changeConversationPersona", err);
       }
+    };
+
+    // 2. CRITICAL PERSISTENT MOBILE KEYBOARD HANDLERS
+    let sendHandledByPointer = false;
+
+    window.preventBlur = (e) => {
+      if (e && e.cancelable) e.preventDefault();
+    };
+
+    window.handleSendPointerDown = (e) => {
+      // Prevent button tap from stealing focus from #messageInput so mobile keyboard stays open!
+      if (e && e.cancelable) e.preventDefault();
+      sendHandledByPointer = true;
+      window.handleSendMessage();
+      const input = document.getElementById("messageInput");
+      if (input) input.focus({ preventScroll: true });
+      setTimeout(() => { sendHandledByPointer = false; }, 350);
+    };
+
+    window.handleSendButtonClick = (e) => {
+      if (sendHandledByPointer) return;
+      window.handleSendMessage();
+      const input = document.getElementById("messageInput");
+      if (input) input.focus({ preventScroll: true });
+    };
+
+    window.autoResizeTextarea = (el) => {
+      el.style.height = "auto";
+      el.style.height = Math.min(el.scrollHeight, 110) + "px";
+    };
+
+    window.toggleEmojiBar = () => {
+      const bar = document.getElementById("emojiQuickBar");
+      bar.classList.toggle("hidden");
+      const input = document.getElementById("messageInput");
+      if (input) input.focus({ preventScroll: true });
+    };
+
+    window.insertEmoji = (emoji) => {
+      const input = document.getElementById("messageInput");
+      if (!input) return;
+      input.value += emoji;
+      input.focus({ preventScroll: true });
+    };
+
+    window.setReplyQuote = (senderName, snippet) => {
+      replyQuoteState = { senderName, snippet };
+      document.getElementById("replyPreviewSender").textContent = `Replying to ${senderName}`;
+      document.getElementById("replyPreviewText").textContent = snippet;
+      document.getElementById("replyPreviewBar").classList.remove("hidden");
+      const input = document.getElementById("messageInput");
+      if (input) input.focus({ preventScroll: true });
+    };
+
+    window.clearReplyQuote = () => {
+      replyQuoteState = null;
+      document.getElementById("replyPreviewBar").classList.add("hidden");
     };
 
     window.handleSendMessage = async () => {
@@ -1223,13 +1639,21 @@
       if (!text) return;
 
       const selectedId = document.getElementById("chatPersonaSelect").value || defaultIdentityId;
-      const persona = myIdentities[selectedId];
+      const persona = myIdentities[selectedId] || Object.values(myIdentities)[0];
       if (!persona) {
-        showToast("Create or select an identity before sending a message.", "error");
+        showToast("Create an identity in Studio first!");
         return;
       }
 
+      // Immediately clear input while keeping keyboard focused
       input.value = "";
+      input.style.height = "auto";
+      input.focus({ preventScroll: true });
+
+      const quoted = replyQuoteState ? { ...replyQuoteState } : null;
+      window.clearReplyQuote();
+      playSynthPop(640, 0.05);
+
       const now = Date.now();
       const newMsgRef = push(ref(db, `messages/${activeConversationId}`));
 
@@ -1242,6 +1666,7 @@
           senderDisplayName: persona.displayName,
           senderPhotoURL: persona.photoURL,
           text,
+          replyTo: quoted,
           createdAt: now,
           deleted: false
         });
@@ -1253,6 +1678,18 @@
         });
       } catch (err) {
         reportDatabaseError(`messages/${activeConversationId}`, err);
+      }
+    };
+
+    window.handleReaction = async (messageId, emoji) => {
+      if (!activeConversationId || !currentUser) return;
+      playSynthPop(780, 0.04);
+      try {
+        await update(ref(db, `messages/${activeConversationId}/${messageId}/reactions`), {
+          [currentUser.uid]: emoji
+        });
+      } catch (err) {
+        reportDatabaseError("messageReaction", err);
       }
     };
 
@@ -1271,87 +1708,115 @@
     function renderMessages(msgs) {
       const container = document.getElementById("messagesContainer");
       if (msgs.length === 0) {
-        container.innerHTML = `<div class="text-center text-xs text-slate-500 my-10">No messages yet. Say hello using your selected persona!</div>`;
+        container.innerHTML = `
+          <div class="text-center text-xs text-slate-400 my-10 p-4 rounded-2xl gtx-card max-w-xs mx-auto">
+            <i class="fa-solid fa-bolt gtx-accent-text text-lg mb-1"></i>
+            <div class="font-bold text-white">Start the Conversation!</div>
+            <p class="mt-0.5">Messages appear instantly with your chosen identity's display name and avatar.</p>
+          </div>`;
         return;
       }
 
       container.innerHTML = msgs.map((m) => {
         const isMine = m.senderUid === currentUser.uid;
         const timeStr = new Date(m.createdAt || Date.now()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+        const reactionsObj = m.reactions || {};
+        const reactionList = Object.values(reactionsObj);
+        const safeSenderName = escapeHtml(m.senderDisplayName || "User").replace(/'/g, "\\'");
+        const safeSnippet = escapeHtml((m.text || "").slice(0, 50)).replace(/'/g, "\\'");
+
         return `
-          <div class="flex items-end gap-2 ${isMine ? "justify-end" : "justify-start"}">
-            ${!isMine ? `<img src="${getAvatar(m.senderPhotoURL, m.senderUsername)}" class="w-7 h-7 rounded-full border border-white/10 bg-slate-800 flex-shrink-0" />` : ""}
-            <div class="max-w-[82%] sm:max-w-[72%] rounded-2xl px-3.5 py-2.5 ${isMine ? "bg-sky-500 text-slate-950 rounded-br-none" : "gtx-card text-slate-100 rounded-bl-none"}">
-              <div class="flex items-center gap-2 mb-0.5 flex-wrap">
-                <span class="font-bold text-[11px] ${isMine ? "text-slate-900" : "text-sky-400"}">${escapeHtml(m.senderDisplayName || "User")} (@${escapeHtml(m.senderUsername || "id")})</span>
-                <span class="text-[10px] ${isMine ? "text-slate-800" : "text-slate-400"}">${timeStr}</span>
+          <div class="group flex items-end gap-2.5 ${isMine ? "justify-end" : "justify-start"}">
+            ${!isMine ? `<img src="${getAvatar(m.senderPhotoURL, m.senderUsername)}" class="w-8 h-8 rounded-full object-cover border-2 gtx-accent-border bg-slate-800 shrink-0" />` : ""}
+            <div class="max-w-[82%] sm:max-w-[72%] rounded-2xl px-3.5 py-2.5 shadow-md ${isMine ? "gtx-accent-bg rounded-br-none" : "gtx-card rounded-bl-none"}">
+              <!-- Highlighted Sender Display Name Header -->
+              <div class="flex items-center justify-between gap-2 mb-1">
+                <div class="flex items-center gap-1.5">
+                  <span class="font-extrabold text-xs tracking-wide ${isMine ? "underline decoration-black/25" : "gtx-accent-text"}">
+                    ${escapeHtml(m.senderDisplayName || "User")}
+                  </span>
+                  <span class="text-[10px] opacity-80 font-semibold">@${escapeHtml(m.senderUsername || "id")}</span>
+                </div>
+                <span class="text-[10px] opacity-75">${timeStr}</span>
               </div>
-              <div class="text-xs sm:text-sm whitespace-pre-wrap break-words select-text ${m.deleted ? "italic opacity-60" : ""}">${escapeHtml(m.text)}</div>
-              ${isMine && !m.deleted ? `<div class="text-right mt-1"><button type="button" onclick="handleDeleteMessage('${m.messageId}')" class="text-[10px] underline opacity-75 hover:opacity-100 py-0.5 px-1">Delete</button></div>` : ""}
+
+              <!-- Optional Quoted Reply -->
+              ${m.replyTo ? `
+                <div class="mb-1.5 px-2.5 py-1 rounded-lg bg-black/20 border-l-2 border-current text-[11px] opacity-90">
+                  <div class="font-bold">${escapeHtml(m.replyTo.senderName)}</div>
+                  <div class="truncate">${escapeHtml(m.replyTo.snippet)}</div>
+                </div>
+              ` : ""}
+
+              <!-- Message Body -->
+              <div class="text-xs sm:text-sm whitespace-pre-wrap break-words leading-relaxed ${m.deleted ? "italic opacity-60" : ""}">${escapeHtml(m.text)}</div>
+
+              <!-- Reactions & Action Footer -->
+              <div class="mt-1.5 pt-1 border-t border-black/10 flex items-center justify-between gap-2 text-[10px]">
+                <div class="flex items-center gap-1">
+                  <button type="button" onclick="handleReaction('${m.messageId}', '🔥')" class="hover:scale-125 transition" title="React Fire">🔥</button>
+                  <button type="button" onclick="handleReaction('${m.messageId}', '❤️')" class="hover:scale-125 transition" title="React Heart">❤️</button>
+                  <button type="button" onclick="handleReaction('${m.messageId}', '😂')" class="hover:scale-125 transition" title="React Laugh">😂</button>
+                  <button type="button" onclick="handleReaction('${m.messageId}', '⚡')" class="hover:scale-125 transition" title="React Bolt">⚡</button>
+                  ${reactionList.length > 0 ? `<span class="ml-1 px-1.5 py-0.5 rounded-full bg-black/25 font-bold">${reactionList.join("")}</span>` : ""}
+                </div>
+                <div class="flex items-center gap-2 opacity-80">
+                  ${!m.deleted ? `<button type="button" onclick="setReplyQuote('${safeSenderName}', '${safeSnippet}')" class="hover:underline font-semibold">Reply</button>` : ""}
+                  ${isMine && !m.deleted ? `<button type="button" onclick="handleDeleteMessage('${m.messageId}')" class="hover:underline">Delete</button>` : ""}
+                </div>
+              </div>
             </div>
+            ${isMine ? `<img src="${getAvatar(m.senderPhotoURL, m.senderUsername)}" class="w-7 h-7 rounded-full object-cover border gtx-accent-border bg-slate-800 shrink-0 hidden sm:block" />` : ""}
           </div>
         `;
       }).join("");
+
       container.scrollTop = container.scrollHeight;
     }
 
     document.getElementById("messageInput").addEventListener("keydown", (e) => {
       if (e.key === "Enter" && !e.shiftKey) {
+        // On desktop, Enter sends immediately; on mobile, Enter also sends while keeping focus
         e.preventDefault();
         window.handleSendMessage();
       }
     });
 
-    // AUTH FORMS (LOGIN & REGISTRATION WITH RACE-CONDITION PROTECTION)
+    // AUTHENTICATION FORMS
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-      const btn = document.getElementById("loginSubmitBtn");
       const email = document.getElementById("loginEmail").value.trim();
       const pass = document.getElementById("loginPassword").value;
-      btn.disabled = true;
-      btn.innerHTML = `<span>Signing In...</span>`;
       try {
         await signInWithEmailAndPassword(auth, email, pass);
-        transitionToDashboardUI();
       } catch (err) {
-        showAuthAlert(friendlyAuthError(err), true);
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = `<span>Sign In to GTX</span><i class="fa-solid fa-arrow-right text-xs"></i>`;
+        showAuthAlert(err.message, true);
       }
     });
 
     document.getElementById("registerForm").addEventListener("submit", async (e) => {
       e.preventDefault();
-      const btn = document.getElementById("regSubmitBtn");
       const email = document.getElementById("regEmail").value.trim();
       const pass = document.getElementById("regPassword").value;
       const username = cleanUsername(document.getElementById("regUsername").value);
       const displayName = document.getElementById("regDisplayName").value.trim();
+      const customPhoto = document.getElementById("regPhotoURL").value.trim();
 
       if (username.length < 3) {
         showAuthAlert("Username must be at least 3 lowercase alphanumeric characters.", true);
         return;
       }
 
-      btn.disabled = true;
-      btn.innerHTML = `<span>Creating Account...</span>`;
       isRegistering = true;
-
       try {
         const cred = await createUserWithEmailAndPassword(auth, email, pass);
         const uid = cred.user.uid;
 
-        let finalUsername = username;
-        try {
-          const existingSnap = await get(ref(db, `usernameIndex/${username}`));
-          if (existingSnap.exists()) {
-            finalUsername = `${username}_${Math.floor(100 + Math.random() * 900)}`;
-          }
-        } catch (_) {}
+        const existingSnap = await get(ref(db, `usernameIndex/${username}`));
+        const finalUsername = existingSnap.exists() ? `${username}_${Math.floor(100 + Math.random() * 900)}` : username;
 
         const identityId = push(ref(db, "identities")).key;
-        const avatar = getAvatar("", finalUsername);
+        const avatar = getAvatar(customPhoto, finalUsername);
         const now = Date.now();
 
         const updates = {};
@@ -1359,6 +1824,7 @@
         updates[`users/${uid}/createdAt`] = now;
         updates[`users/${uid}/defaultIdentityId`] = identityId;
         updates[`users/${uid}/identities/${identityId}`] = true;
+
         updates[`identities/${identityId}`] = {
           identityId,
           ownerUid: uid,
@@ -1376,18 +1842,13 @@
           photoURL: avatar
         };
 
-        defaultIdentityId = identityId;
         await update(ref(db), updates);
         isRegistering = false;
-        transitionToDashboardUI();
         await initializeAuthenticatedUser(cred.user);
       } catch (err) {
         isRegistering = false;
-        showAuthAlert(friendlyAuthError(err), true);
+        showAuthAlert(err.message, true);
         reportDatabaseError("registration atomic init", err);
-      } finally {
-        btn.disabled = false;
-        btn.innerHTML = `<span>Register Account &amp; First Identity</span><i class="fa-solid fa-user-astronaut"></i>`;
       }
     });
 
@@ -1398,38 +1859,34 @@
       const badge = document.getElementById("activeGlobalPersonaBadge");
 
       if (list.length === 0) {
-        sel.innerHTML = `<option value="">No identities yet</option>`;
-        badge.textContent = "Create an identity";
+        sel.innerHTML = `<option value="">No persona yet</option>`;
+        badge.textContent = "Create a persona in Studio";
         return;
       }
 
       sel.innerHTML = list.map((id) =>
-        `<option value="${id.identityId}" ${id.identityId === defaultIdentityId ? "selected" : ""}>@${escapeHtml(id.username)} (${escapeHtml(id.displayName)})</option>`
+        `<option value="${id.identityId}" ${id.identityId === defaultIdentityId ? "selected" : ""}>${escapeHtml(id.displayName)} (@${escapeHtml(id.username)})</option>`
       ).join("");
 
       const active = myIdentities[defaultIdentityId] || list[0];
-      badge.textContent = `Active: ${active.displayName} (@${active.username})`;
+      badge.innerHTML = `Active: <strong class="text-white">${escapeHtml(active.displayName)}</strong> (@${escapeHtml(active.username)})`;
     }
 
     function renderIdentitiesModalList() {
       const container = document.getElementById("myIdentitiesList");
       const list = Object.values(myIdentities);
-      if (list.length === 0) {
-        container.innerHTML = `<div class="p-4 rounded-xl gtx-card text-xs text-slate-400">No identities found. Create one using the form.</div>`;
-        return;
-      }
       container.innerHTML = list.map((id) => `
-        <div class="p-3 rounded-2xl gtx-card flex items-center justify-between gap-2">
+        <div class="p-3 rounded-xl gtx-card flex items-center justify-between gap-2">
           <div class="flex items-center gap-2.5 min-w-0">
-            <img src="${getAvatar(id.photoURL, id.username)}" class="w-10 h-10 rounded-full border border-sky-400/40 bg-slate-800 flex-shrink-0" />
+            <img src="${getAvatar(id.photoURL, id.username)}" class="w-10 h-10 rounded-full object-cover border-2 gtx-accent-border bg-slate-800 shrink-0" />
             <div class="min-w-0">
-              <div class="font-bold text-xs text-white truncate">${escapeHtml(id.displayName)}</div>
-              <div class="text-[11px] text-sky-400 truncate">@${escapeHtml(id.username)}</div>
+              <div class="font-extrabold text-xs truncate">${escapeHtml(id.displayName)}</div>
+              <div class="text-[11px] gtx-accent-text font-semibold truncate">@${escapeHtml(id.username)}</div>
             </div>
           </div>
-          <div class="flex items-center gap-1.5 flex-shrink-0">
-            <button type="button" onclick="populateEditIdentity('${id.identityId}')" class="min-h-[34px] px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 font-medium">Edit</button>
-            <button type="button" onclick="deleteIdentity('${id.identityId}')" class="min-h-[34px] px-3 py-1 rounded-xl bg-red-950/70 hover:bg-red-900 text-xs text-red-300 font-medium">Delete</button>
+          <div class="flex items-center gap-1.5 shrink-0">
+            <button onclick="populateEditIdentity('${id.identityId}')" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-slate-200 font-semibold">Edit</button>
+            <button onclick="deleteIdentity('${id.identityId}')" class="px-2.5 py-1 rounded-lg bg-red-950/70 hover:bg-red-900 text-xs text-red-300 font-semibold">Delete</button>
           </div>
         </div>
       `).join("");
@@ -1444,15 +1901,17 @@
       document.getElementById("identityUsername").value = id.username;
       document.getElementById("identityDisplayName").value = id.displayName;
       document.getElementById("identityPhotoURL").value = id.photoURL || "";
+      document.getElementById("studioAvatarPreview").src = getAvatar(id.photoURL, id.username);
       document.getElementById("identityBio").value = id.bio || "";
       document.getElementById("identityIsPublic").checked = id.isPublic !== false;
     };
 
     window.resetIdentityForm = () => {
-      document.getElementById("identityFormTitle").textContent = "Create New Identity";
+      document.getElementById("identityFormTitle").textContent = "Create New Persona";
       document.getElementById("cancelEditIdentityBtn").classList.add("hidden");
       document.getElementById("editIdentityId").value = "";
       document.getElementById("identityForm").reset();
+      document.getElementById("studioAvatarPreview").src = "https://api.dicebear.com/7.x/bottts-neutral/svg?seed=shadow";
     };
 
     window.handleSwitchDefaultIdentity = async (identityId) => {
@@ -1461,38 +1920,41 @@
         await update(ref(db, `users/${currentUser.uid}`), { defaultIdentityId });
       }
       renderIdentitySelectors();
+      showToast("Default persona updated");
     };
 
-    window.handleLogout = () => signOut(auth);
+    window.handleLogout = () => {
+      sessionStorage.removeItem("gtx_active_conv");
+      signOut(auth);
+    };
 
     window.handleForgotPassword = async () => {
       const email = document.getElementById("loginEmail").value.trim();
-      if (!email) return showAuthAlert("Enter your email address in the field above first.", true);
+      if (!email) return showAuthAlert("Enter your email address above first.", true);
       try {
         await sendPasswordResetEmail(auth, email);
         showAuthAlert("Password reset email sent! Check your inbox.", false);
       } catch (e) {
-        showAuthAlert(friendlyAuthError(e), true);
+        showAuthAlert(e.message, true);
       }
     };
 
     window.switchAuthTab = (tab) => {
       const isLogin = tab === "login";
-      document.getElementById("authAlert").classList.add("hidden");
       document.getElementById("loginForm").classList.toggle("hidden", !isLogin);
       document.getElementById("registerForm").classList.toggle("hidden", isLogin);
       document.getElementById("tabLoginBtn").className = isLogin
-        ? "min-h-[42px] py-2 text-xs font-semibold rounded-xl bg-sky-500 text-slate-950 transition"
-        : "min-h-[42px] py-2 text-xs font-semibold rounded-xl text-slate-400 hover:text-white transition";
+        ? "py-2 text-xs font-bold rounded-lg gtx-accent-bg transition"
+        : "py-2 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition";
       document.getElementById("tabRegisterBtn").className = !isLogin
-        ? "min-h-[42px] py-2 text-xs font-semibold rounded-xl bg-sky-500 text-slate-950 transition"
-        : "min-h-[42px] py-2 text-xs font-semibold rounded-xl text-slate-400 hover:text-white transition";
+        ? "py-2 text-xs font-bold rounded-lg gtx-accent-bg transition"
+        : "py-2 text-xs font-bold rounded-lg text-slate-400 hover:text-white transition";
     };
 
     function showAuthAlert(msg, isError) {
       const el = document.getElementById("authAlert");
       el.textContent = msg;
-      el.className = `mb-4 p-3.5 rounded-2xl text-xs border leading-relaxed ${
+      el.className = `mb-4 p-3 rounded-xl text-xs border ${
         isError ? "bg-red-950/60 border-red-500/40 text-red-200" : "bg-emerald-950/60 border-emerald-500/40 text-emerald-200"
       }`;
       el.classList.remove("hidden");
@@ -1505,34 +1967,20 @@
 
     window.openModal = (id) => document.getElementById(id).classList.remove("hidden");
     window.closeModal = (id) => document.getElementById(id).classList.add("hidden");
-
-    // Reliable Clipboard Copy (Works in iframes & mobile browsers)
-    window.copyRulesToClipboard = () => {
-      const text = RTDB_RULES_JSON;
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(text).then(() => {
-          showToast("database.rules.json copied to clipboard!", "success");
-        }).catch(() => fallbackCopy(text));
-      } else {
-        fallbackCopy(text);
-      }
+    window.closeMobileChat = () => {
+      document.getElementById("sidebarPanel").classList.remove("hidden");
+      document.getElementById("chatPanel").classList.add("hidden");
     };
 
-    function fallbackCopy(text) {
-      const ta = document.createElement("textarea");
-      ta.value = text;
-      ta.style.position = "fixed";
-      ta.style.opacity = "0";
-      document.body.appendChild(ta);
-      ta.select();
-      try {
-        document.execCommand("copy");
-        showToast("database.rules.json copied to clipboard!", "success");
-      } catch (_) {
-        showToast("Select the rules text manually and copy.", "info");
-      }
-      document.body.removeChild(ta);
-    }
+    window.copyRulesToClipboard = () => {
+      const textarea = document.createElement("textarea");
+      textarea.value = RTDB_RULES_JSON;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      showToast("database.rules.json copied to clipboard!");
+    };
 
     function escapeHtml(str) {
       return String(str || "").replace(/[&<>"']/g, (m) => ({
