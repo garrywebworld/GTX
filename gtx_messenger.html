@@ -162,7 +162,7 @@
         </div>
         <button id="auth-open-guide-btn" class="px-3.5 py-2 rounded-xl bg-[#181C28] hover:bg-[#23293A] border border-[#23293A] text-xs font-medium text-cyan-400 flex items-center gap-2 transition">
           <i class="fa-solid fa-shield-halved"></i>
-          <span>Firebase Setup & Rules</span>
+          <span>RTDB Rules & Inspector</span>
         </button>
       </div>
 
@@ -210,8 +210,8 @@
 
       <!-- Footer -->
       <div class="text-xs text-slate-500 flex flex-wrap items-center justify-between gap-4 relative z-10">
-        <span>Connected to Firebase Project: <strong class="text-slate-300">gtxmessenger</strong></span>
-        <span>End-to-End Persona Snapshot Isolation</span>
+        <span>Connected to Firebase RTDB: <strong class="text-slate-300">gtxmessenger-default-rtdb</strong></span>
+        <span>Atomic <code class="text-cyan-400">usernameIndex</code> + Persona Snapshot Isolation</span>
       </div>
     </div>
 
@@ -617,13 +617,13 @@
             </div>
 
             <div class="flex items-center justify-between pt-1">
-              <label class="flex items-center gap-2 text-xs cursor-pointer">
-                <input id="identity-is-public" type="checkbox" checked class="rounded text-blue-600 focus:ring-0" />
-                <span>Discoverable in Public Username Search</span>
-              </label>
-            </div>
+            <label class="flex items-center gap-2 text-xs cursor-pointer">
+              <input id="identity-is-public" type="checkbox" checked class="rounded text-blue-600 focus:ring-0" />
+              <span>Index in <code class="text-cyan-400">usernameIndex</code> for Public Search</span>
+            </label>
+          </div>
 
-            <div class="pt-2 flex items-center gap-2">
+          <div class="pt-2 flex items-center gap-2">
               <button id="identity-save-btn" type="submit" class="flex-1 py-2.5 rounded-xl gtx-gradient text-white font-semibold text-xs shadow transition">
                 Save Identity
               </button>
@@ -671,23 +671,32 @@
 
         <!-- Step 2: Search Box -->
         <div>
-          <label class="block text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)] mb-2">Step 2: Search Public @Username or Display Name</label>
+          <div class="flex items-center justify-between mb-2">
+            <label class="block text-xs font-semibold uppercase tracking-wider text-[var(--text-muted)]">Step 2: Real-Time Prefix Search (<code class="text-cyan-400">usernameIndex</code>)</label>
+            <label class="flex items-center gap-1.5 text-[11px] text-cyan-400 cursor-pointer select-none" title="By default, search excludes your own UID as required. Toggle this to test/inspect your own indexed usernames when testing with 1 account.">
+              <input id="search-include-own-toggle" type="checkbox" class="rounded text-cyan-500 focus:ring-0" />
+              <span>Show my own indexed personas (Solo Test Mode)</span>
+            </label>
+          </div>
           <div class="flex gap-2">
             <div class="relative flex-1">
               <i class="fa-solid fa-at absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
-              <input id="directory-search-input" type="text" placeholder="Type username (e.g. alex, shadow) or leave blank to browse..."
+              <input id="directory-search-input" type="text" placeholder="Type lowercase username prefix (e.g. alex, shadow)..."
                 class="w-full pl-9 pr-4 py-3 rounded-xl bg-[var(--bg-card)] border border-[var(--border-color)] focus:border-cyan-400 focus:outline-none text-xs" />
             </div>
             <button id="directory-search-btn" type="button" class="px-5 py-3 rounded-xl gtx-gradient text-white font-semibold text-xs transition">
               Search
             </button>
           </div>
+          <p class="text-[11px] text-[var(--text-muted)] mt-1.5">
+            Uses live <code class="text-cyan-400">query(ref(db, "usernameIndex"), orderByKey(), startAt(username), endAt(username + "\uf8ff"), limitToFirst(20))</code>
+          </p>
         </div>
 
         <!-- Step 3: Search Results -->
         <div>
           <div class="flex items-center justify-between mb-2">
-            <span class="text-xs font-semibold text-[var(--text-muted)]">Public Directory Results</span>
+            <span class="text-xs font-semibold text-[var(--text-muted)]">Live <code class="text-cyan-400">usernameIndex</code> Results</span>
             <span class="text-[11px] text-[var(--text-muted)]">Private emails are strictly hidden</span>
           </div>
           <div id="directory-results-list" class="space-y-2.5">
@@ -712,14 +721,15 @@
       <p id="profile-modal-bio" class="text-xs text-[var(--text-muted)] bg-[var(--bg-card)] p-3.5 rounded-2xl border border-[var(--border-color)] mb-4"></p>
       <div class="text-[11px] text-[var(--text-muted)] flex items-center justify-center gap-4 mb-5">
         <span><i class="fa-solid fa-shield-halved text-emerald-400 mr-1"></i>Verified GTX Persona</span>
-        <span id="profile-modal-created">Joined recently</span>
+        <span id="profile-modal-created">Indexed in RTDB</span>
       </div>
-      <div id="profile-modal-action-area"></div>
+      <!-- Identity Selector for Starting Chat from Profile Modal -->
+      <div id="profile-modal-action-area" class="space-y-3 text-left"></div>
     </div>
   </div>
 
   <!-- ===================================================================== -->
-  <!-- 8. MODAL: SETTINGS, PASSWORD, THEME & FIREBASE SECURITY RULES         -->
+  <!-- 8. MODAL: SETTINGS, PASSWORD, THEME & RTDB SECURITY RULES             -->
   <!-- ===================================================================== -->
   <div id="settings-modal" class="hidden fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4">
     <div class="bg-[var(--bg-panel)] border border-[var(--border-color)] rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
@@ -729,11 +739,11 @@
             <i class="fa-solid fa-sliders"></i>
           </div>
           <div>
-            <h3 class="font-display font-bold text-base">Account Settings & Firebase Architecture</h3>
-            <p class="text-xs text-[var(--text-muted)]">Manage your main account, theme, security rules, and setup guide</p>
+            <h3 class="font-display font-bold text-base">Account Settings & Realtime Database Rules</h3>
+            <p class="text-xs text-[var(--text-muted)]">Manage your main account, theme, <code class="text-cyan-400">database.rules.json</code>, and two-account verification</p>
           </div>
         </div>
-        <button data-close-modal="settings-modal" class="p-2 rounded-xl hover:bg-[var(--bg-card)] text-[var(--text-muted)] hover:text-white">
+        <button data-close-modal="settings-modal" class="p-2 rounded-xl hover:bg-[var(--bg-card)] text-[var(--bg-muted)] hover:text-white">
           <i class="fa-solid fa-xmark text-lg"></i>
         </button>
       </div>
@@ -744,10 +754,10 @@
           Account & Theme
         </button>
         <button data-settings-tab="tab-rules" class="settings-tab-btn pb-3 border-b-2 border-transparent text-[var(--text-muted)] hover:text-white whitespace-nowrap">
-          Firestore & Storage Security Rules
+          Realtime Database Rules (database.rules.json)
         </button>
         <button data-settings-tab="tab-guide" class="settings-tab-btn pb-3 border-b-2 border-transparent text-[var(--text-muted)] hover:text-white whitespace-nowrap">
-          Beginner Setup Guide & Checklist
+          RTDB Schema & Two-Account Testing Checklist
         </button>
       </div>
 
@@ -803,135 +813,104 @@
           </div>
         </div>
 
-        <!-- TAB 2: FIRESTORE & STORAGE SECURITY RULES -->
+        <!-- TAB 2: REALTIME DATABASE SECURITY RULES -->
         <div id="tab-rules" class="settings-tab-content hidden space-y-5">
           <div class="p-4 rounded-2xl bg-blue-500/10 border border-cyan-500/30 text-xs leading-relaxed">
-            <strong class="text-cyan-400 block mb-1"><i class="fa-solid fa-lock mr-1"></i>Production-Grade Security Rules (`firestore.rules` & `storage.rules`)</strong>
-            Copy and paste these rules into your Firebase Console under <strong>Firestore Database → Rules</strong> and <strong>Storage → Rules</strong>. They enforce ownership verification, prevent identity spoofing, and ensure only conversation participants can read or send messages.
+            <strong class="text-cyan-400 block mb-1"><i class="fa-solid fa-lock mr-1"></i>Complete Realtime Database Security Rules (`database.rules.json`)</strong>
+            Open your <a href="https://console.firebase.google.com/project/gtxmessenger/database/gtxmessenger-default-rtdb/rules" target="_blank" class="text-cyan-300 underline font-semibold">Firebase Console → Realtime Database → Rules</a> tab and paste the JSON below. It enforces strict security across <code class="text-cyan-300">users</code>, <code class="text-cyan-300">identities</code>, <code class="text-cyan-300">usernameIndex</code>, <code class="text-cyan-300">conversations</code>, <code class="text-cyan-300">conversationMembers</code>, and <code class="text-cyan-300">messages</code>—ensuring only conversation participants can read messages and users can never send messages using identities they do not own.
           </div>
 
           <div>
             <div class="flex items-center justify-between mb-2">
-              <span class="font-mono text-xs font-bold text-cyan-400">firestore.rules</span>
-              <button type="button" data-copy-target="firestore-rules-code" class="px-3 py-1 rounded-lg bg-[var(--bg-card)] border border-[var(--border-color)] text-xs hover:border-cyan-400">
-                <i class="fa-regular fa-copy mr-1"></i>Copy Firestore Rules
+              <span class="font-mono text-xs font-bold text-cyan-400">database.rules.json</span>
+              <button type="button" data-copy-target="rtdb-rules-code" class="px-3 py-1 rounded-lg bg-[var(--bg-card)] border border-[var(--border-color)] text-xs hover:border-cyan-400">
+                <i class="fa-regular fa-copy mr-1"></i>Copy Realtime Database Rules
               </button>
             </div>
-            <pre id="firestore-rules-code" class="p-4 rounded-2xl bg-[#090A0F] border border-[#23293A] text-[11px] font-mono text-slate-300 overflow-x-auto leading-relaxed select-all">rules_version = '2';
-service cloud.firestore {
-  match /databases/{database}/documents {
+            <pre id="rtdb-rules-code" class="p-4 rounded-2xl bg-[#090A0F] border border-[#23293A] text-[11px] font-mono text-slate-300 overflow-x-auto leading-relaxed select-all">{
+  "rules": {
+    ".read": false,
+    ".write": false,
 
-    function isSignedIn() {
-      return request.auth != null;
-    }
-
-    function isOwner(uid) {
-      return isSignedIn() && request.auth.uid == uid;
-    }
-
-    // 1. Main User Accounts (Private email storage - never publicly readable)
-    match /users/{userId} {
-      allow read, write: if isOwner(userId);
-    }
-
-    // 2. Identities Collection
-    match /identities/{identityId} {
-      // Any authenticated user can read public identities for search & chat headers
-      allow read: if isSignedIn();
-
-      // Users can only create identities that belong to their own UID
-      allow create: if isSignedIn()
-        && request.resource.data.ownerUid == request.auth.uid
-        && request.resource.data.username is string
-        && request.resource.data.displayName is string;
-
-      // Users can only update or delete identities they own
-      allow update, delete: if isSignedIn()
-        && resource.data.ownerUid == request.auth.uid
-        && request.resource.data.ownerUid == request.auth.uid;
-    }
-
-    // 3. Conversations Collection
-    match /conversations/{conversationId} {
-      allow read: if isSignedIn()
-        && request.auth.uid in resource.data.participants;
-
-      allow create: if isSignedIn()
-        && request.auth.uid in request.resource.data.participants
-        && request.resource.data.participants.size() == 2;
-
-      allow update: if isSignedIn()
-        && request.auth.uid in resource.data.participants;
-
-      // 4. Messages Subcollection inside a Conversation
-      match /messages/{messageId} {
-        allow read: if isSignedIn()
-          && request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participants;
-
-        // Sender must be authenticated, a participant, and own the identity used
-        allow create: if isSignedIn()
-          && request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participants
-          && request.resource.data.senderUid == request.auth.uid
-          && get(/databases/$(database)/documents/identities/$(request.resource.data.senderIdentityId)).data.ownerUid == request.auth.uid;
-
-        // Sender can only soft-delete their own message without altering senderIdentityId
-        allow update: if isSignedIn()
-          && resource.data.senderUid == request.auth.uid
-          && request.resource.data.senderUid == resource.data.senderUid
-          && request.resource.data.senderIdentityId == resource.data.senderIdentityId;
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid"
       }
-    }
-  }
-}</pre>
-          </div>
+    },
 
-          <div>
-            <div class="flex items-center justify-between mb-2">
-              <span class="font-mono text-xs font-bold text-cyan-400">storage.rules</span>
-              <button type="button" data-copy-target="storage-rules-code" class="px-3 py-1 rounded-lg bg-[var(--bg-card)] border border-[var(--border-color)] text-xs hover:border-cyan-400">
-                <i class="fa-regular fa-copy mr-1"></i>Copy Storage Rules
-              </button>
-            </div>
-            <pre id="storage-rules-code" class="p-4 rounded-2xl bg-[#090A0F] border border-[#23293A] text-[11px] font-mono text-slate-300 overflow-x-auto leading-relaxed select-all">rules_version = '2';
-service firebase.storage {
-  match /b/{bucket}/o {
-    match /avatars/{userId}/{allPaths=**} {
-      allow read: if request.auth != null;
-      allow write: if request.auth != null
-                   && request.auth.uid == userId
-                   && request.resource.size < 2 * 1024 * 1024
-                   && request.resource.contentType.matches('image/.*');
+    "identities": {
+      ".indexOn": ["ownerUid", "username"],
+      ".read": "auth != null",
+      "$identityId": {
+        ".read": "auth != null && (data.child('ownerUid').val() === auth.uid || data.child('isPublic').val() === true)",
+        ".write": "auth != null && ((!data.exists() && newData.child('ownerUid').val() === auth.uid) || (data.exists() && data.child('ownerUid').val() === auth.uid && (!newData.exists() || newData.child('ownerUid').val() === auth.uid)))"
+      }
+    },
+
+    "usernameIndex": {
+      ".read": "auth != null",
+      "$username": {
+        ".write": "auth != null && ((!data.exists() && newData.child('ownerUid').val() === auth.uid) || (data.exists() && data.child('ownerUid').val() === auth.uid && (!newData.exists() || newData.child('ownerUid').val() === auth.uid)))"
+      }
+    },
+
+    "conversationMembers": {
+      "$conversationId": {
+        ".read": "auth != null && data.child(auth.uid).val() === true",
+        ".write": "auth != null && ((!data.exists() && newData.child(auth.uid).val() === true) || data.child(auth.uid).val() === true)"
+      }
+    },
+
+    "conversations": {
+      ".read": "auth != null",
+      "$conversationId": {
+        ".read": "auth != null && root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true",
+        ".write": "auth != null && (root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true || newData.parent().parent().child('conversationMembers').child($conversationId).child(auth.uid).val() === true)"
+      }
+    },
+
+    "messages": {
+      "$conversationId": {
+        ".read": "auth != null && root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true",
+        "$messageId": {
+          ".write": "auth != null && root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true && ((!data.exists() && newData.child('senderUid').val() === auth.uid && root.child('identities').child(newData.child('senderIdentityId').val()).child('ownerUid').val() === auth.uid) || (data.exists() && data.child('senderUid').val() === auth.uid && newData.child('senderUid').val() === auth.uid && newData.child('senderIdentityId').val() === data.child('senderIdentityId').val()))"
+        }
+      }
     }
   }
 }</pre>
           </div>
         </div>
 
-        <!-- TAB 3: BEGINNER FIREBASE SETUP GUIDE & CHECKLIST -->
+        <!-- TAB 3: RTDB SCHEMA & TWO-ACCOUNT TESTING CHECKLIST -->
         <div id="tab-guide" class="settings-tab-content hidden space-y-4 text-xs leading-relaxed">
           <div class="p-4 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] space-y-2">
-            <h4 class="font-display font-bold text-sm text-cyan-400">Step-by-Step Firebase Setup Guide (Pre-Connected to `gtxmessenger`)</h4>
-            <ol class="list-decimal list-inside space-y-2 text-[var(--text-muted)]">
-              <li><strong class="text-[var(--text-main)]">Firebase Configuration:</strong> Your exact `gtxmessenger` Firebase credentials are already embedded and initialized in this application.</li>
-              <li><strong class="text-[var(--text-main)]">Enable Email/Password Auth:</strong> Open <a href="https://console.firebase.google.com/project/gtxmessenger/authentication/providers" target="_blank" class="text-cyan-400 underline">Firebase Console → Authentication → Sign-in method</a> and enable <strong>Email/Password</strong>.</li>
-              <li><strong class="text-[var(--text-main)]">Create Cloud Firestore Database:</strong> Go to <strong>Build → Firestore Database</strong>, click <strong>Create database</strong>, and start in production or test mode.</li>
-              <li><strong class="text-[var(--text-main)]">Publish Security Rules:</strong> Open the <strong>Rules</strong> tab in Firestore and paste the `firestore.rules` provided in the previous tab, or during initial testing use:
-                <code class="block mt-1 p-2 rounded bg-black/40 text-cyan-300 font-mono">allow read, write: if request.auth != null;</code>
-              </li>
-              <li><strong class="text-[var(--text-main)]">Multi-Folder Export Structure:</strong> While everything runs seamlessly in this single file, the JavaScript below is cleanly organized into modular sections (`firebase.js`, `auth.js`, `identities.js`, `chat.js`, `app.js`) so you can split them into separate files anytime.</li>
-            </ol>
+            <h4 class="font-display font-bold text-sm text-cyan-400">Exact Realtime Database Tree Architecture (`gtxmessenger-default-rtdb`)</h4>
+            <pre class="p-3 rounded-xl bg-[#090A0F] border border-[#23293A] font-mono text-[11px] text-slate-300 overflow-x-auto">GTX-MESSENGER (https://gtxmessenger-default-rtdb.firebaseio.com)
+├── users/$userId
+│    ├── email, createdAt, defaultIdentityId
+├── identities/$identityId
+│    ├── identityId, ownerUid, username, displayName, photoURL, bio, createdAt, isPublic
+├── usernameIndex/$username (lowercase unique key, e.g. "alex123")
+│    ├── identityId, ownerUid, displayName, photoURL, bio
+├── conversations/$conversationId
+│    ├── conversationId, createdAt, updatedAt, lastMessage, lastMessageAt, participantIdentities
+├── conversationMembers/$conversationId
+│    └── $userId: true
+└── messages/$conversationId/$messageId
+     └── messageId, conversationId, senderUid, senderIdentityId, senderUsername, senderDisplayName, senderPhotoURL, text, createdAt, deleted</pre>
           </div>
 
           <div class="p-4 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)]">
-            <h4 class="font-display font-bold text-sm text-emerald-400 mb-2">Interactive Verification Checklist</h4>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-              <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Register & Login with Email/Password</div>
-              <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Create Multiple Personas (Alex, Shadow, Anon)</div>
-              <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Unique @username validation</div>
-              <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Search public identities without exposing email</div>
-              <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Per-conversation identity switcher</div>
-              <div class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-emerald-400"></i> Past messages preserve original sender identity</div>
-            </div>
+            <h4 class="font-display font-bold text-sm text-emerald-400 mb-2">Two-Account Live Search & Security Verification Guide</h4>
+            <ol class="list-decimal list-inside space-y-1.5 text-[var(--text-muted)] mb-3">
+              <li><strong class="text-[var(--text-main)]">Account A:</strong> Register in your main browser window (e.g. create persona <code class="text-cyan-400">@alex123</code> and a second persona <code class="text-cyan-400">@shadow_ops</code>). Both are atomically written to <code class="text-cyan-400">/identities</code> and <code class="text-cyan-400">/usernameIndex</code>.</li>
+              <li><strong class="text-[var(--text-main)]">Account B:</strong> Open an Incognito/Private window and register a second account (e.g. persona <code class="text-cyan-400">@john_gtx</code>).</li>
+              <li><strong class="text-[var(--text-main)]">Real-Time Prefix Search:</strong> In Account B, click <strong>Directory</strong> and type <code class="text-cyan-400">alex</code>. The live <code class="text-cyan-400">onValue</code> listener on <code class="text-cyan-400">usernameIndex</code> immediately streams <code class="text-cyan-400">@alex123</code> with avatar and display name.</li>
+              <li><strong class="text-[var(--text-main)]">Profile & Start Chat:</strong> Click on <code class="text-cyan-400">@alex123</code> to open their profile card, choose which of your personas to speak as, and click <strong>Start Chat</strong>.</li>
+              <li><strong class="text-[var(--text-main)]">Rename / Delete Cleanup:</strong> Rename <code class="text-cyan-400">@alex123</code> to <code class="text-cyan-400">@alex_pro</code> in Multi-Identity Studio—the old <code class="text-cyan-400">usernameIndex/alex123</code> node is atomically set to <code class="text-cyan-400">null</code> and replaced by <code class="text-cyan-400">usernameIndex/alex_pro</code>.</li>
+            </ol>
           </div>
         </div>
       </div>
@@ -953,11 +932,11 @@ service firebase.storage {
   </div>
 
   <!-- ===================================================================== -->
-  <!-- 10. APPLICATION JAVASCRIPT (MODULAR FIREBASE SDK v11.6.1)             -->
+  <!-- 10. APPLICATION JAVASCRIPT (FIREBASE REALTIME DATABASE SDK v11.6.1)   -->
   <!-- ===================================================================== -->
   <script type="module">
     /*************************************************************************
-     * MODULE 1: firebase.js — Firebase Initialization & Configuration
+     * MODULE 1: firebase.js — Firebase Auth & Realtime Database Initialization
      *************************************************************************/
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
     import {
@@ -970,22 +949,23 @@ service firebase.storage {
       onAuthStateChanged
     } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
     import {
-      getFirestore,
-      doc,
-      getDoc,
-      setDoc,
-      addDoc,
-      updateDoc,
-      deleteDoc,
-      collection,
+      getDatabase,
+      ref,
+      get,
+      set,
+      update,
+      push,
       query,
-      where,
-      getDocs,
-      onSnapshot,
-      serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+      orderByChild,
+      orderByKey,
+      equalTo,
+      startAt,
+      endAt,
+      limitToFirst,
+      onValue
+    } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-database.js";
 
-    // Exact Firebase Configuration provided for GTX MESSENGER
+    // Exact Firebase Configuration provided for GTX MESSENGER (Realtime Database)
     const firebaseConfig = {
       apiKey: "AIzaSyDjE5GFytcEwKzjx8SmeszCtrS_NCWG0s0",
       authDomain: "gtxmessenger.firebaseapp.com",
@@ -998,22 +978,24 @@ service firebase.storage {
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    const db = getFirestore(app);
+    const db = getDatabase(app);
 
     /*************************************************************************
      * APPLICATION STATE
      *************************************************************************/
     const state = {
       currentUser: null,          // Firebase Auth User
-      userProfile: null,          // Firestore `users/{uid}` document
+      userProfile: null,          // RTDB `users/{uid}` object
       identities: [],             // Array of owned identities for current user
       activeIdentityId: null,     // Default selected identity ID
       conversations: [],          // Real-time list of conversations user belongs to
       activeConversationId: null, // Currently open conversation ID
       messages: [],               // Real-time messages for activeConversationId
+      lastSearchResults: [],      // Latest search results from `usernameIndex`
       unsubIdentities: null,
       unsubConversations: null,
       unsubMessages: null,
+      unsubSearch: null,          // Active `onValue` unsubscribe for prefix search
       theme: 'dark'
     };
 
@@ -1085,6 +1067,7 @@ service firebase.storage {
 
     function normalizeUsername(raw) {
       return String(raw || '')
+        .trim()
         .toLowerCase()
         .replace(/[^a-z0-9_]/g, '')
         .slice(0, 24);
@@ -1092,7 +1075,7 @@ service firebase.storage {
 
     function formatTime(ts) {
       if (!ts) return 'Just now';
-      const date = ts.toDate ? ts.toDate() : new Date(ts);
+      const date = new Date(Number(ts));
       if (isNaN(date.getTime())) return 'Just now';
       const now = new Date();
       const sameDay = date.toDateString() === now.toDateString();
@@ -1111,7 +1094,7 @@ service firebase.storage {
     }
 
     /*************************************************************************
-     * MODULE 2: auth.js — Authentication & Session Management
+     * MODULE 2: auth.js — Authentication & Session Management (RTDB)
      *************************************************************************/
     function showAuthAlert(msg, isError = true) {
       const box = document.getElementById('auth-alert');
@@ -1133,7 +1116,7 @@ service firebase.storage {
     }
 
     function friendlyFirebaseError(err) {
-      const code = err?.code || '';
+      const code = (err?.code || err?.message || '').toLowerCase();
       if (code.includes('auth/invalid-credential') || code.includes('auth/wrong-password') || code.includes('auth/user-not-found')) {
         return 'Incorrect email or password. Please verify your credentials or create a new account.';
       }
@@ -1146,13 +1129,12 @@ service firebase.storage {
       if (code.includes('auth/invalid-email')) {
         return 'Please enter a valid email address.';
       }
-      if (code.includes('permission-denied')) {
-        return 'Firestore permission denied. Open "Firebase Setup & Rules" to check your Firestore security rules.';
+      if (code.includes('permission_denied') || code.includes('permission denied')) {
+        return 'Realtime Database permission denied. Click "RTDB Rules & Inspector" to copy and paste database.rules.json into your Firebase Realtime Database Rules tab.';
       }
       return err?.message || 'An unexpected error occurred. Please try again.';
     }
 
-    // Switch between Login, Register, Forgot Password
     function switchAuthMode(mode) {
       hideAuthAlert();
       const loginForm = document.getElementById('login-form');
@@ -1182,7 +1164,7 @@ service firebase.storage {
       }
     }
 
-    // Registration Handler
+    // Registration Handler — Atomically creates `users/{uid}`, `identities/{identityId}`, and `usernameIndex/{username}`
     document.getElementById('register-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       hideAuthAlert();
@@ -1194,46 +1176,58 @@ service firebase.storage {
       const password = document.getElementById('reg-password').value;
 
       if (!username || username.length < 3) {
-        showAuthAlert('Username must contain at least 3 alphanumeric characters.');
+        showAuthAlert('Username must contain at least 3 lowercase alphanumeric characters.');
         return;
       }
 
       const btn = document.getElementById('reg-submit-btn');
       btn.disabled = true;
-      btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Creating Account & Identity...</span>`;
+      btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i> <span>Creating Account & Indexing @${escapeHtml(username)}...</span>`;
 
       try {
         // 1. Create Firebase Auth User
         const cred = await createUserWithEmailAndPassword(auth, email, password);
         const uid = cred.user.uid;
 
-        // 2. Check if username is already taken in `identities`
-        const usernameTaken = await isUsernameTaken(username);
-        const finalUsername = usernameTaken ? `${username}_${Math.floor(100 + Math.random() * 899)}` : username;
+        // 2. Check if username is already taken in `usernameIndex/{username}`
+        const taken = await isUsernameTaken(username);
+        const finalUsername = taken ? `${username}${Math.floor(100 + Math.random() * 899)}` : username;
 
-        // 3. Create initial identity document
-        const identityRef = doc(collection(db, 'identities'));
-        const identityData = {
-          identityId: identityRef.id,
+        // 3. Generate new RTDB push key for `identities`
+        const newIdentityRef = push(ref(db, 'identities'));
+        const identityId = newIdentityRef.key;
+        const now = Date.now();
+        const photoURL = getDiceBearUrl(displayName || finalUsername);
+        const finalDisplayName = displayName || finalUsername;
+        const bio = 'Hey there! I am using GTX Messenger.';
+
+        // 4. Perform atomic multi-path write across `users`, `identities`, and `usernameIndex`
+        const atomicUpdates = {};
+        atomicUpdates[`users/${uid}`] = {
+          email,
+          createdAt: now,
+          defaultIdentityId: identityId
+        };
+        atomicUpdates[`identities/${identityId}`] = {
+          identityId,
           ownerUid: uid,
           username: finalUsername,
-          displayName: displayName || finalUsername,
-          photoURL: getDiceBearUrl(displayName || finalUsername),
-          bio: 'Hey there! I am using GTX Messenger.',
-          isPublic: true,
-          createdAt: Date.now()
+          displayName: finalDisplayName,
+          photoURL,
+          bio,
+          createdAt: now,
+          isPublic: true
         };
-        await setDoc(identityRef, identityData);
+        atomicUpdates[`usernameIndex/${finalUsername}`] = {
+          identityId,
+          ownerUid: uid,
+          displayName: finalDisplayName,
+          photoURL,
+          bio
+        };
 
-        // 4. Create main account document in `users/{uid}`
-        await setDoc(doc(db, 'users', uid), {
-          uid,
-          email,
-          defaultIdentityId: identityRef.id,
-          createdAt: Date.now()
-        });
-
-        showToast(`Welcome to GTX Messenger! Created identity @${finalUsername}`, 'success');
+        await update(ref(db), atomicUpdates);
+        showToast(`Welcome to GTX Messenger! Indexed @${finalUsername}`, 'success');
       } catch (err) {
         showAuthAlert(friendlyFirebaseError(err), true);
       } finally {
@@ -1303,17 +1297,18 @@ service firebase.storage {
     }
 
     /*************************************************************************
-     * MODULE 3: identities.js — Multi-Identity Creation, Switching & Safeguards
+     * MODULE 3: identities.js — Atomic `identities` & `usernameIndex` Engine
      *************************************************************************/
     async function isUsernameTaken(username, excludeIdentityId = null) {
       const clean = normalizeUsername(username);
-      const q = query(collection(db, 'identities'), where('username', '==', clean));
-      const snap = await getDocs(q);
-      if (snap.empty) return false;
-      for (const d of snap.docs) {
-        if (d.id !== excludeIdentityId) return true;
+      if (!clean) return true;
+      const snap = await get(ref(db, `usernameIndex/${clean}`));
+      if (!snap.exists()) return false;
+      const data = snap.val();
+      if (excludeIdentityId && data.identityId === excludeIdentityId) {
+        return false;
       }
-      return false;
+      return true;
     }
 
     function getActiveIdentity() {
@@ -1324,35 +1319,77 @@ service firebase.storage {
     function subscribeToUserIdentities(uid) {
       if (state.unsubIdentities) state.unsubIdentities();
 
-      const q = query(collection(db, 'identities'), where('ownerUid', '==', uid));
-      state.unsubIdentities = onSnapshot(q, async (snapshot) => {
+      // Listen to `/identities` and filter owned identities (also backfill `usernameIndex` if any legacy identity lacked an index entry)
+      const identitiesRef = ref(db, 'identities');
+      state.unsubIdentities = onValue(identitiesRef, async (snapshot) => {
         const list = [];
-        snapshot.forEach(docSnap => {
-          list.push({ identityId: docSnap.id, ...docSnap.data() });
-        });
+        if (snapshot.exists()) {
+          snapshot.forEach(childSnap => {
+            const val = childSnap.val();
+            if (val && val.ownerUid === uid) {
+              list.push({ identityId: childSnap.key, ...val });
+            }
+          });
+        }
         list.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
 
-        // If a user logged in and somehow has 0 identities, auto-create a default one
+        // Auto-create a default identity + usernameIndex entry if user has 0 identities
         if (list.length === 0 && state.currentUser) {
-          const fallbackUsername = `gtx_${uid.slice(0, 6).toLowerCase()}`;
-          const newRef = doc(collection(db, 'identities'));
-          const fallbackIdentity = {
-            identityId: newRef.id,
+          const baseUsername = normalizeUsername(`gtx_${uid.slice(0, 6)}`);
+          const newIdRef = push(ref(db, 'identities'));
+          const identityId = newIdRef.key;
+          const displayName = state.currentUser.email?.split('@')[0] || 'GTX User';
+          const photoURL = getDiceBearUrl(baseUsername);
+          const now = Date.now();
+
+          const updates = {};
+          updates[`identities/${identityId}`] = {
+            identityId,
             ownerUid: uid,
-            username: fallbackUsername,
-            displayName: state.currentUser.email?.split('@')[0] || 'GTX User',
-            photoURL: getDiceBearUrl(fallbackUsername),
+            username: baseUsername,
+            displayName,
+            photoURL,
             bio: 'Default GTX Persona',
-            isPublic: true,
-            createdAt: Date.now()
+            createdAt: now,
+            isPublic: true
           };
-          await setDoc(newRef, fallbackIdentity);
+          updates[`usernameIndex/${baseUsername}`] = {
+            identityId,
+            ownerUid: uid,
+            displayName,
+            photoURL,
+            bio: 'Default GTX Persona'
+          };
+          updates[`users/${uid}/defaultIdentityId`] = identityId;
+
+          try {
+            await update(ref(db), updates);
+          } catch (e) {
+            console.warn('Auto-create identity error:', e);
+          }
           return;
+        }
+
+        // Ensure every public identity owned by this user is synced into `usernameIndex`
+        for (const idObj of list) {
+          const cleanU = normalizeUsername(idObj.username);
+          if (cleanU && idObj.isPublic !== false) {
+            get(ref(db, `usernameIndex/${cleanU}`)).then(idxSnap => {
+              if (!idxSnap.exists()) {
+                set(ref(db, `usernameIndex/${cleanU}`), {
+                  identityId: idObj.identityId,
+                  ownerUid: uid,
+                  displayName: idObj.displayName,
+                  photoURL: idObj.photoURL || getDiceBearUrl(idObj.displayName),
+                  bio: idObj.bio || ''
+                }).catch(() => {});
+              }
+            }).catch(() => {});
+          }
         }
 
         state.identities = list;
 
-        // Ensure activeIdentityId is valid
         if (!state.activeIdentityId || !list.some(i => i.identityId === state.activeIdentityId)) {
           const preferred = state.userProfile?.defaultIdentityId;
           state.activeIdentityId = list.some(i => i.identityId === preferred)
@@ -1367,7 +1404,7 @@ service firebase.storage {
           renderActiveConversationHeader();
         }
       }, (err) => {
-        console.error('Identities listener error:', err);
+        console.error('Identities RTDB listener error:', err);
         showToast(friendlyFirebaseError(err), 'error');
       });
     }
@@ -1388,7 +1425,7 @@ service firebase.storage {
 
       if (active) {
         document.getElementById('sidebar-active-avatar').src = active.photoURL || getDiceBearUrl(active.displayName);
-        document.getElementById('sidebar-active-username').textContent = `@${active.username} • ${active.isPublic ? 'Public' : 'Private'}`;
+        document.getElementById('sidebar-active-username').textContent = `@${active.username} • ${active.isPublic !== false ? 'Indexed' : 'Private'}`;
       }
 
       document.getElementById('settings-identity-count').textContent = String(state.identities.length);
@@ -1430,7 +1467,7 @@ service firebase.storage {
                 class="p-2 rounded-lg hover:bg-blue-500/15 text-slate-400 hover:text-white text-xs transition">
                 <i class="fa-solid fa-pen"></i>
               </button>
-              <button type="button" data-delete-id="${escapeHtml(item.identityId)}" title="Delete Identity"
+              <button type="button" data-delete-id="${escapeHtml(item.identityId)}" title="Delete Identity & Remove Index"
                 class="p-2 rounded-lg hover:bg-red-500/15 text-slate-400 hover:text-red-400 text-xs transition">
                 <i class="fa-solid fa-trash"></i>
               </button>
@@ -1439,13 +1476,12 @@ service firebase.storage {
         `;
       }).join('');
 
-      // Attach action handlers
       container.querySelectorAll('[data-set-default-id]').forEach(btn => {
         btn.onclick = async () => {
           const id = btn.getAttribute('data-set-default-id');
           state.activeIdentityId = id;
           if (state.currentUser) {
-            await setDoc(doc(db, 'users', state.currentUser.uid), { defaultIdentityId: id }, { merge: true });
+            await update(ref(db, `users/${state.currentUser.uid}`), { defaultIdentityId: id });
             if (state.userProfile) state.userProfile.defaultIdentityId = id;
           }
           renderIdentitySelectors();
@@ -1490,7 +1526,7 @@ service firebase.storage {
       document.getElementById('identity-cancel-edit-btn').classList.add('hidden');
     }
 
-    // Create / Update Identity Form Submit
+    // Create / Update Identity Form Submit — Atomically updates `/identities` AND `/usernameIndex`
     document.getElementById('identity-form').addEventListener('submit', async (e) => {
       e.preventDefault();
       if (!state.currentUser) return;
@@ -1498,75 +1534,115 @@ service firebase.storage {
       const editId = document.getElementById('identity-edit-id').value.trim();
       const displayName = document.getElementById('identity-display-name').value.trim();
       const username = normalizeUsername(document.getElementById('identity-username').value);
-      const bio = document.getElementById('identity-bio').value.trim();
+      const bio = document.getElementById('identity-bio').value.trim() || 'Available on GTX Messenger';
       const customUrl = document.getElementById('identity-photo-url').value.trim();
       const isPublic = document.getElementById('identity-is-public').checked;
 
       if (username.length < 3) {
-        showToast('Username must be at least 3 characters (letters, numbers, underscores).', 'error');
+        showToast('Username must be at least 3 lowercase characters (a-z, 0-9, _).', 'error');
         return;
       }
 
       const saveBtn = document.getElementById('identity-save-btn');
       saveBtn.disabled = true;
-      saveBtn.textContent = 'Checking @username...';
+      saveBtn.textContent = 'Checking usernameIndex...';
 
       try {
         const taken = await isUsernameTaken(username, editId || null);
         if (taken) {
-          showToast(`@${username} is already taken by another identity. Please pick another handle.`, 'error');
+          showToast(`@${username} is already claimed in usernameIndex. Please choose a different username.`, 'error');
           saveBtn.disabled = false;
           saveBtn.textContent = 'Save Identity';
           return;
         }
 
         const photoURL = customUrl || document.getElementById('identity-form-avatar-preview').src || getDiceBearUrl(displayName);
+        const atomicUpdates = {};
 
         if (editId) {
-          // Verify ownership before editing
           const existing = state.identities.find(i => i.identityId === editId);
           if (!existing || existing.ownerUid !== state.currentUser.uid) {
             throw new Error('Unauthorized identity modification attempt.');
           }
-          await updateDoc(doc(db, 'identities', editId), {
+
+          const oldUsername = normalizeUsername(existing.username);
+
+          // 1. Update `identities/{editId}`
+          atomicUpdates[`identities/${editId}`] = {
+            identityId: editId,
+            ownerUid: state.currentUser.uid,
             displayName,
             username,
             bio,
             photoURL,
-            isPublic
-          });
+            isPublic,
+            createdAt: existing.createdAt || Date.now()
+          };
 
-          // Also update any active conversation headers where this identity is currently selected
+          // 2. If username changed, remove old `usernameIndex/{oldUsername}`
+          if (oldUsername && oldUsername !== username) {
+            atomicUpdates[`usernameIndex/${oldUsername}`] = null;
+          }
+
+          // 3. Set or remove `usernameIndex/{username}` depending on `isPublic`
+          if (isPublic) {
+            atomicUpdates[`usernameIndex/${username}`] = {
+              identityId: editId,
+              ownerUid: state.currentUser.uid,
+              displayName,
+              photoURL,
+              bio
+            };
+          } else {
+            atomicUpdates[`usernameIndex/${username}`] = null;
+          }
+
+          // 4. Sync active conversation participantIdentities where this persona is currently selected
           for (const conv of state.conversations) {
-            const mySelected = conv.selectedIdentities?.[state.currentUser.uid];
+            const mySelected = conv.participantIdentities?.[state.currentUser.uid];
             if (mySelected && mySelected.identityId === editId) {
-              await updateDoc(doc(db, 'conversations', conv.conversationId), {
-                [`selectedIdentities.${state.currentUser.uid}`]: {
-                  identityId: editId,
-                  displayName,
-                  username,
-                  photoURL,
-                  bio
-                }
-              });
+              atomicUpdates[`conversations/${conv.conversationId}/participantIdentities/${state.currentUser.uid}`] = {
+                identityId: editId,
+                displayName,
+                username,
+                photoURL,
+                bio
+              };
             }
           }
 
-          showToast(`Updated identity @${username}`, 'success');
+          await update(ref(db), atomicUpdates);
+          showToast(`Updated @${username} & synced usernameIndex`, 'success');
         } else {
-          const newRef = doc(collection(db, 'identities'));
-          await setDoc(newRef, {
-            identityId: newRef.id,
+          // Create brand new identity + `usernameIndex` entry atomically
+          const newIdRef = push(ref(db, 'identities'));
+          const newId = newIdRef.key;
+          const now = Date.now();
+
+          atomicUpdates[`identities/${newId}`] = {
+            identityId: newId,
             ownerUid: state.currentUser.uid,
             displayName,
             username,
-            bio: bio || 'Available on GTX Messenger',
+            bio,
             photoURL,
             isPublic,
-            createdAt: Date.now()
-          });
-          state.activeIdentityId = newRef.id;
-          showToast(`Created new identity @${username}!`, 'success');
+            createdAt: now
+          };
+
+          if (isPublic) {
+            atomicUpdates[`usernameIndex/${username}`] = {
+              identityId: newId,
+              ownerUid: state.currentUser.uid,
+              displayName,
+              photoURL,
+              bio
+            };
+          }
+
+          await update(ref(db), atomicUpdates);
+          state.activeIdentityId = newId;
+          showToast(`Created @${username} & indexed in usernameIndex!`, 'success');
         }
 
         resetIdentityForm();
@@ -1578,7 +1654,7 @@ service firebase.storage {
       }
     });
 
-    // Delete Identity with Conversation-History Safeguards
+    // Delete Identity — Atomically removes `identities/{id}` and `usernameIndex/{username}`
     async function handleDeleteIdentity(identityId) {
       if (state.identities.length <= 1) {
         showToast('You must keep at least one active identity on your account.', 'error');
@@ -1588,37 +1664,43 @@ service firebase.storage {
       const target = state.identities.find(i => i.identityId === identityId);
       if (!target) return;
 
-      // Check if this identity is currently used in any conversation
       const usedInConvs = state.conversations.filter(
-        c => c.selectedIdentities?.[state.currentUser.uid]?.identityId === identityId
+        c => c.participantIdentities?.[state.currentUser.uid]?.identityId === identityId
       );
 
       const fallbackIdentity = state.identities.find(i => i.identityId !== identityId);
 
       const warningMsg = usedInConvs.length > 0
-        ? `@${target.username} is currently assigned to ${usedInConvs.length} conversation(s). Deleting it will automatically switch those chats to @${fallbackIdentity.username} while preserving all historical messages sent as @${target.username}. Proceed?`
-        : `Are you sure you want to permanently delete your persona @${target.username}? Past messages will still preserve their snapshot.`;
+        ? `@${target.username} is currently assigned to ${usedInConvs.length} conversation(s). Deleting it will remove usernameIndex/${target.username} and switch those chats to @${fallbackIdentity.username} while preserving all historical messages sent as @${target.username}. Proceed?`
+        : `Are you sure you want to permanently delete @${target.username} and remove it from usernameIndex? Past messages will still preserve their snapshot.`;
 
       askConfirm(`Delete @${target.username}?`, warningMsg, async () => {
         try {
+          const atomicUpdates = {};
+          const cleanUsername = normalizeUsername(target.username);
+
           // Reassign active conversations using this identity to the fallback identity
           for (const conv of usedInConvs) {
-            await updateDoc(doc(db, 'conversations', conv.conversationId), {
-              [`selectedIdentities.${state.currentUser.uid}`]: {
-                identityId: fallbackIdentity.identityId,
-                displayName: fallbackIdentity.displayName,
-                username: fallbackIdentity.username,
-                photoURL: fallbackIdentity.photoURL,
-                bio: fallbackIdentity.bio || ''
-              }
-            });
+            atomicUpdates[`conversations/${conv.conversationId}/participantIdentities/${state.currentUser.uid}`] = {
+              identityId: fallbackIdentity.identityId,
+              displayName: fallbackIdentity.displayName,
+              username: fallbackIdentity.username,
+              photoURL: fallbackIdentity.photoURL,
+              bio: fallbackIdentity.bio || ''
+            };
           }
 
-          await deleteDoc(doc(db, 'identities', identityId));
+          atomicUpdates[`identities/${identityId}`] = null;
+          if (cleanUsername) {
+            atomicUpdates[`usernameIndex/${cleanUsername}`] = null;
+          }
+
+          await update(ref(db), atomicUpdates);
+
           if (state.activeIdentityId === identityId) {
             state.activeIdentityId = fallbackIdentity.identityId;
           }
-          showToast(`Deleted identity @${target.username}`, 'info');
+          showToast(`Deleted @${target.username} and removed from usernameIndex`, 'info');
         } catch (err) {
           showToast(friendlyFirebaseError(err), 'error');
         }
@@ -1626,111 +1708,170 @@ service firebase.storage {
     }
 
     /*************************************************************************
-     * MODULE 4: USER SEARCH & PUBLIC DIRECTORY DISCOVERY
+     * MODULE 4: REAL-TIME PREFIX USERNAME SEARCH (`usernameIndex`)
      *************************************************************************/
-    async function searchPublicIdentities(searchTerm = '') {
+    function cleanupSearchListener() {
+      if (state.unsubSearch) {
+        state.unsubSearch();
+        state.unsubSearch = null;
+      }
+    }
+
+    // Exact implementation of the requested `searchUsers(searchText)` using `usernameIndex`
+    function searchUsers(searchText) {
+      cleanupSearchListener();
+
+      const username = (searchText || '').trim().toLowerCase().replace(/^@/, '');
       const resultsContainer = document.getElementById('directory-results-list');
+      const includeOwn = document.getElementById('search-include-own-toggle')?.checked;
+
+      // If search input is blank, show first 20 indexed usernames so user can browse or type a prefix
+      const searchQuery = username
+        ? query(
+            ref(db, 'usernameIndex'),
+            orderByKey(),
+            startAt(username),
+            endAt(username + '\uf8ff'),
+            limitToFirst(20)
+          )
+        : query(
+            ref(db, 'usernameIndex'),
+            orderByKey(),
+            limitToFirst(20)
+          );
+
       resultsContainer.innerHTML = `
         <div class="p-6 text-center text-xs text-[var(--text-muted)]">
-          <i class="fa-solid fa-circle-notch fa-spin text-cyan-400 mr-2"></i>Searching public GTX directory...
+          <i class="fa-solid fa-circle-notch fa-spin text-cyan-400 mr-2"></i>Querying <code class="text-cyan-400">usernameIndex</code> for prefix "${escapeHtml(username || '*')}"...
         </div>
       `;
 
-      try {
-        const cleanQuery = searchTerm.trim().toLowerCase().replace(/^@/, '');
-        const q = query(collection(db, 'identities'), where('isPublic', '==', true));
-        const snap = await getDocs(q);
+      state.unsubSearch = onValue(searchQuery, (snapshot) => {
+        const results = [];
 
-        const matches = [];
-        snap.forEach(docSnap => {
-          const data = docSnap.data();
-          // Exclude current user's own identities from "Start Chat with others"
-          if (data.ownerUid === state.currentUser?.uid) return;
-          if (
-            !cleanQuery ||
-            (data.username && data.username.toLowerCase().includes(cleanQuery)) ||
-            (data.displayName && data.displayName.toLowerCase().includes(cleanQuery))
-          ) {
-            matches.push({ identityId: docSnap.id, ...data });
+        snapshot.forEach((child) => {
+          const user = child.val();
+          if (user && (includeOwn || user.ownerUid !== auth.currentUser?.uid)) {
+            results.push({
+              username: child.key,
+              ...user
+            });
           }
         });
 
-        if (matches.length === 0) {
-          resultsContainer.innerHTML = `
-            <div class="p-6 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] text-center text-xs text-[var(--text-muted)]">
-              No other public identities found matching "${escapeHtml(searchTerm)}".
-              <span class="block mt-1 text-[11px]">Tip: Open an incognito window and register a second test account to chat between multiple accounts in real time!</span>
-            </div>
-          `;
-          return;
-        }
+        state.lastSearchResults = results;
+        renderSearchResults(results, username);
+      }, (error) => {
+        console.error('Search error:', error);
+        resultsContainer.innerHTML = `
+          <div class="p-4 rounded-2xl bg-red-500/10 border border-red-500/30 text-xs text-red-300">
+            ${escapeHtml(friendlyFirebaseError(error))}
+          </div>
+        `;
+      });
 
-        resultsContainer.innerHTML = matches.map(person => `
+      return state.unsubSearch;
+    }
+
+    function renderSearchResults(results, searchedPrefix = '') {
+      const resultsContainer = document.getElementById('directory-results-list');
+
+      if (!results || results.length === 0) {
+        resultsContainer.innerHTML = `
+          <div class="p-6 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] text-center text-xs text-[var(--text-muted)] space-y-2">
+            <div>No other users' identities found in <code class="text-cyan-400">usernameIndex</code> matching prefix <strong>"${escapeHtml(searchedPrefix || '*')}"</strong>.</div>
+            <div class="text-[11px] text-slate-400">
+              Tip: Open an Incognito window to register a second account and search between both accounts in real time, or check <strong>"Show my own indexed personas"</strong> above to inspect your own <code class="text-cyan-400">usernameIndex</code> entries.
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      resultsContainer.innerHTML = results.map(person => {
+        const isOwn = person.ownerUid === auth.currentUser?.uid;
+        return `
           <div class="p-3.5 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] hover:border-cyan-500/40 transition flex items-center justify-between gap-3">
-            <div class="flex items-center gap-3 min-w-0 cursor-pointer" data-view-profile="${escapeHtml(person.identityId)}">
+            <div class="flex items-center gap-3 min-w-0 cursor-pointer" data-view-username="${escapeHtml(person.username)}">
               <img src="${escapeHtml(person.photoURL || getDiceBearUrl(person.displayName))}" alt="${escapeHtml(person.displayName)}"
                 class="w-11 h-11 rounded-xl object-cover bg-slate-800 border border-[var(--border-color)] flex-shrink-0" />
               <div class="min-w-0">
-                <div class="font-semibold text-xs truncate">${escapeHtml(person.displayName)}</div>
+                <div class="flex items-center gap-2">
+                  <span class="font-semibold text-xs truncate">${escapeHtml(person.displayName)}</span>
+                  ${isOwn ? `<span class="px-1.5 py-0.5 rounded bg-blue-500/15 text-cyan-300 text-[9px] font-bold uppercase">Your Persona</span>` : ''}
+                </div>
                 <div class="text-[11px] text-cyan-400 truncate">@${escapeHtml(person.username)}</div>
-                <div class="text-[10px] text-[var(--text-muted)] truncate">${escapeHtml(person.bio || 'GTX Messenger Persona')}</div>
+                <div class="text-[10px] text-[var(--text-muted)] truncate">${escapeHtml(person.bio || 'Indexed in usernameIndex')}</div>
               </div>
             </div>
             <div class="flex items-center gap-2 flex-shrink-0">
-              <button type="button" data-view-profile="${escapeHtml(person.identityId)}"
+              <button type="button" data-view-username="${escapeHtml(person.username)}"
                 class="px-3 py-2 rounded-xl bg-[var(--bg-panel)] border border-[var(--border-color)] text-xs hover:border-cyan-400 transition">
-                Profile
+                View Profile
               </button>
-              <button type="button" data-start-chat="${escapeHtml(person.identityId)}"
-                class="px-3.5 py-2 rounded-xl gtx-gradient text-white font-semibold text-xs shadow transition flex items-center gap-1.5">
-                <i class="fa-solid fa-paper-plane text-[10px]"></i>
-                <span>Start Chat</span>
-              </button>
+              ${!isOwn ? `
+                <button type="button" data-start-chat-username="${escapeHtml(person.username)}"
+                  class="px-3.5 py-2 rounded-xl gtx-gradient text-white font-semibold text-xs shadow transition flex items-center gap-1.5">
+                  <i class="fa-solid fa-paper-plane text-[10px]"></i>
+                  <span>Start Chat</span>
+                </button>
+              ` : ''}
             </div>
           </div>
-        `).join('');
+        `;
+      }).join('');
 
-        // Bind profile view & start chat clicks
-        resultsContainer.querySelectorAll('[data-view-profile]').forEach(el => {
-          el.onclick = () => {
-            const id = el.getAttribute('data-view-profile');
-            const person = matches.find(m => m.identityId === id);
-            if (person) showPublicProfileModal(person, true);
-          };
-        });
+      resultsContainer.querySelectorAll('[data-view-username]').forEach(el => {
+        el.onclick = () => {
+          const uname = el.getAttribute('data-view-username');
+          const person = state.lastSearchResults.find(r => r.username === uname);
+          if (person) showPublicProfileModal(person, true);
+        };
+      });
 
-        resultsContainer.querySelectorAll('[data-start-chat]').forEach(btn => {
-          btn.onclick = () => {
-            const id = btn.getAttribute('data-start-chat');
-            const person = matches.find(m => m.identityId === id);
-            const chosenMyIdentityId = document.getElementById('search-modal-my-identity-select').value;
-            if (person) startOrOpenConversation(person, chosenMyIdentityId);
-          };
-        });
-      } catch (err) {
-        resultsContainer.innerHTML = `<div class="p-4 text-xs text-red-400">${escapeHtml(friendlyFirebaseError(err))}</div>`;
-      }
+      resultsContainer.querySelectorAll('[data-start-chat-username]').forEach(btn => {
+        btn.onclick = () => {
+          const uname = btn.getAttribute('data-start-chat-username');
+          const person = state.lastSearchResults.find(r => r.username === uname);
+          const chosenMyIdentityId = document.getElementById('search-modal-my-identity-select').value;
+          if (person) startOrOpenConversation(person, chosenMyIdentityId);
+        };
+      });
     }
 
     function showPublicProfileModal(identityObj, allowStartChat = false) {
       document.getElementById('profile-modal-avatar').src = identityObj.photoURL || getDiceBearUrl(identityObj.displayName);
       document.getElementById('profile-modal-name').textContent = identityObj.displayName || 'Persona';
       document.getElementById('profile-modal-username').textContent = `@${identityObj.username}`;
-      document.getElementById('profile-modal-bio').textContent = identityObj.bio || 'No public biography provided.';
-      document.getElementById('profile-modal-created').textContent = identityObj.createdAt
-        ? `Created ${formatTime(identityObj.createdAt)}`
-        : 'Verified Persona';
+      document.getElementById('profile-modal-bio').textContent = identityObj.bio || 'Public GTX Messenger Identity.';
+      document.getElementById('profile-modal-created').textContent = `ID: ${identityObj.identityId?.slice(0, 8) || 'Indexed'}`;
 
       const actionArea = document.getElementById('profile-modal-action-area');
-      if (allowStartChat && identityObj.ownerUid !== state.currentUser?.uid) {
+      const isOwn = identityObj.ownerUid === state.currentUser?.uid;
+
+      if (allowStartChat && !isOwn) {
+        const active = getActiveIdentity();
+        const optionsHtml = state.identities.map(idObj => `
+          <option value="${escapeHtml(idObj.identityId)}" ${idObj.identityId === active?.identityId ? 'selected' : ''}>
+            ${escapeHtml(idObj.displayName)} (@${escapeHtml(idObj.username)})
+          </option>
+        `).join('');
+
         actionArea.innerHTML = `
-          <button id="profile-modal-start-btn" class="w-full py-3 rounded-xl gtx-gradient text-white font-semibold text-xs shadow-lg">
-            Start Conversation with @${escapeHtml(identityObj.username)}
+          <div class="p-3 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)]">
+            <label class="block text-[10px] font-bold uppercase tracking-wider text-cyan-400 mb-1">Choose Your Identity for This Chat</label>
+            <select id="profile-modal-identity-select" class="w-full px-3 py-2 rounded-xl bg-[var(--bg-panel)] border border-[var(--border-color)] text-xs font-semibold focus:outline-none">
+              ${optionsHtml}
+            </select>
+          </div>
+          <button id="profile-modal-start-btn" class="w-full py-3 rounded-xl gtx-gradient text-white font-semibold text-xs shadow-lg flex items-center justify-center gap-2">
+            <i class="fa-solid fa-comments"></i>
+            <span>Start Chat with @${escapeHtml(identityObj.username)}</span>
           </button>
         `;
         document.getElementById('profile-modal-start-btn').onclick = () => {
+          const chosenMyIdentityId = document.getElementById('profile-modal-identity-select')?.value || state.activeIdentityId;
           closeModal('profile-card-modal');
-          const chosenMyIdentityId = document.getElementById('search-modal-my-identity-select')?.value || state.activeIdentityId;
           startOrOpenConversation(identityObj, chosenMyIdentityId);
         };
       } else {
@@ -1741,8 +1882,12 @@ service firebase.storage {
     }
 
     /*************************************************************************
-     * MODULE 5: chat.js — Identity-Based Real-Time Conversations & Messaging
+     * MODULE 5: chat.js — RTDB Conversations, Members & Real-Time Messages
      *************************************************************************/
+    function getDeterministicConversationId(uidA, uidB) {
+      return [uidA, uidB].sort().join('_');
+    }
+
     async function startOrOpenConversation(targetIdentity, myIdentityId) {
       if (!state.currentUser || !targetIdentity) return;
 
@@ -1750,7 +1895,7 @@ service firebase.storage {
       const peerUid = targetIdentity.ownerUid;
 
       if (myUid === peerUid) {
-        showToast('You own this identity! Select another user to start a conversation.', 'info');
+        showToast('This is one of your own personas. Register a second account to test cross-account messaging!', 'info');
         return;
       }
 
@@ -1761,17 +1906,14 @@ service firebase.storage {
       }
 
       try {
-        // Check if a conversation between these two main accounts already exists
-        // (Avoid duplicate conversations between the same two main accounts)
-        const existingConv = state.conversations.find(
-          c => Array.isArray(c.participants) && c.participants.includes(myUid) && c.participants.includes(peerUid)
-        );
+        const conversationId = getDeterministicConversationId(myUid, peerUid);
+        const now = Date.now();
 
         const myPersonaSnapshot = {
           identityId: myPersona.identityId,
           displayName: myPersona.displayName,
           username: myPersona.username,
-          photoURL: myPersona.photoURL,
+          photoURL: myPersona.photoURL || getDiceBearUrl(myPersona.displayName),
           bio: myPersona.bio || ''
         };
 
@@ -1779,43 +1921,47 @@ service firebase.storage {
           identityId: targetIdentity.identityId,
           displayName: targetIdentity.displayName,
           username: targetIdentity.username,
-          photoURL: targetIdentity.photoURL,
+          photoURL: targetIdentity.photoURL || getDiceBearUrl(targetIdentity.displayName),
           bio: targetIdentity.bio || ''
         };
 
+        // 1. Ensure `conversationMembers/{conversationId}` has both UIDs set to `true`
+        await set(ref(db, `conversationMembers/${conversationId}`), {
+          [myUid]: true,
+          [peerUid]: true
+        });
+
+        // 2. Check if `conversations/{conversationId}` already exists
+        const existingConv = state.conversations.find(c => c.conversationId === conversationId);
         if (existingConv) {
-          // Update our selected identity for this conversation and the peer identity we clicked
-          await updateDoc(doc(db, 'conversations', existingConv.conversationId), {
-            [`selectedIdentities.${myUid}`]: myPersonaSnapshot,
-            [`selectedIdentities.${peerUid}`]: peerPersonaSnapshot,
-            updatedAt: Date.now()
+          await update(ref(db, `conversations/${conversationId}`), {
+            [`participantIdentities/${myUid}`]: myPersonaSnapshot,
+            [`participantIdentities/${peerUid}`]: peerPersonaSnapshot,
+            updatedAt: now
           });
           closeModal('search-modal');
-          selectConversation(existingConv.conversationId);
-          showToast(`Switched chat persona to @${myPersona.username}`, 'info');
+          selectConversation(conversationId);
+          showToast(`Opened conversation speaking as @${myPersona.username}`, 'info');
           return;
         }
 
-        // Create new conversation document
-        const convRef = doc(collection(db, 'conversations'));
-        const newConv = {
-          conversationId: convRef.id,
-          participants: [myUid, peerUid],
-          selectedIdentities: {
-            [myUid]: myPersonaSnapshot,
-            [peerUid]: peerPersonaSnapshot
-          },
+        // 3. Initialize `conversations/{conversationId}`
+        await set(ref(db, `conversations/${conversationId}`), {
+          conversationId,
+          createdAt: now,
+          updatedAt: now,
           lastMessage: '',
           lastMessageSenderName: '',
-          lastMessageAt: Date.now(),
-          createdAt: Date.now(),
-          updatedAt: Date.now()
-        };
+          lastMessageAt: now,
+          participantIdentities: {
+            [myUid]: myPersonaSnapshot,
+            [peerUid]: peerPersonaSnapshot
+          }
+        });
 
-        await setDoc(convRef, newConv);
         closeModal('search-modal');
-        selectConversation(convRef.id);
-        showToast(`Started conversation as @${myPersona.username}`, 'success');
+        selectConversation(conversationId);
+        showToast(`Started conversation with @${targetIdentity.username} as @${myPersona.username}`, 'success');
       } catch (err) {
         showToast(friendlyFirebaseError(err), 'error');
       }
@@ -1824,12 +1970,17 @@ service firebase.storage {
     function subscribeToConversations(uid) {
       if (state.unsubConversations) state.unsubConversations();
 
-      const q = query(collection(db, 'conversations'), where('participants', 'array-contains', uid));
-      state.unsubConversations = onSnapshot(q, (snapshot) => {
+      const convsRef = ref(db, 'conversations');
+      state.unsubConversations = onValue(convsRef, (snapshot) => {
         const list = [];
-        snapshot.forEach(docSnap => {
-          list.push({ conversationId: docSnap.id, ...docSnap.data() });
-        });
+        if (snapshot.exists()) {
+          snapshot.forEach(childSnap => {
+            const conv = childSnap.val();
+            if (conv && conv.participantIdentities && conv.participantIdentities[uid]) {
+              list.push({ conversationId: childSnap.key, ...conv });
+            }
+          });
+        }
         list.sort((a, b) => (b.updatedAt || b.lastMessageAt || 0) - (a.updatedAt || a.lastMessageAt || 0));
         state.conversations = list;
 
@@ -1840,27 +1991,29 @@ service firebase.storage {
           renderActiveConversationHeader();
         }
       }, (err) => {
-        console.error('Conversations listener error:', err);
+        console.error('Conversations RTDB listener error:', err);
       });
     }
 
     function getPeerIdentityFromConversation(conv) {
       if (!conv || !state.currentUser) return null;
-      const peerUid = (conv.participants || []).find(u => u !== state.currentUser.uid);
-      if (!peerUid) return null;
-      return conv.selectedIdentities?.[peerUid] || {
-        identityId: 'unknown',
-        displayName: 'GTX User',
-        username: 'user',
-        photoURL: getDiceBearUrl(peerUid)
-      };
+      const pMap = conv.participantIdentities || {};
+      const peerUid = Object.keys(pMap).find(u => u !== state.currentUser.uid);
+      if (!peerUid) {
+        return {
+          identityId: 'unknown',
+          displayName: 'GTX User',
+          username: 'user',
+          photoURL: getDiceBearUrl('Peer')
+        };
+      }
+      return { ownerUid: peerUid, ...pMap[peerUid] };
     }
 
     function getMySelectedIdentityForConversation(conv) {
       if (!conv || !state.currentUser) return getActiveIdentity();
-      const saved = conv.selectedIdentities?.[state.currentUser.uid];
+      const saved = conv.participantIdentities?.[state.currentUser.uid];
       if (saved) {
-        // Prefer live owned identity object if still present
         const live = state.identities.find(i => i.identityId === saved.identityId);
         if (live) return live;
         return saved;
@@ -1890,7 +2043,7 @@ service firebase.storage {
             <div class="w-12 h-12 rounded-2xl bg-[var(--bg-card)] border border-[var(--border-color)] flex items-center justify-center mx-auto text-cyan-400">
               <i class="fa-regular fa-paper-plane text-lg"></i>
             </div>
-            <p class="leading-relaxed">No conversations yet. Click <strong>Directory</strong> or the <strong>+</strong> icon above to search for a user and start chatting!</p>
+            <p class="leading-relaxed">No conversations yet. Click <strong>Directory</strong> or the <strong>+</strong> icon above to search <code class="text-cyan-400">usernameIndex</code> and start chatting!</p>
           </div>
         `;
         return;
@@ -1941,7 +2094,6 @@ service firebase.storage {
       state.activeConversationId = conversationId;
       renderConversationList();
 
-      // Responsive layout: on mobile, hide sidebar and show chat panel
       const sidebar = document.getElementById('sidebar-panel');
       const chatPanel = document.getElementById('chat-panel');
       sidebar.classList.add('hidden', 'md:flex');
@@ -1967,12 +2119,10 @@ service firebase.storage {
       document.getElementById('chat-header-peer-handle').textContent = `@${peer.username}`;
       document.getElementById('chat-header-peer-bio').textContent = peer.bio || 'Click to view public persona card';
 
-      // Click peer header to inspect their public profile card
       const openPeerCard = () => showPublicProfileModal(peer, false);
       document.getElementById('chat-header-peer-avatar').onclick = openPeerCard;
       document.getElementById('chat-header-peer-info').onclick = openPeerCard;
 
-      // Populate per-conversation identity switcher dropdown
       const selectEl = document.getElementById('chat-conversation-identity-select');
       selectEl.innerHTML = state.identities.map(idObj => `
         <option value="${escapeHtml(idObj.identityId)}" ${idObj.identityId === myPersona?.identityId ? 'selected' : ''}>
@@ -1986,7 +2136,7 @@ service firebase.storage {
       }
     }
 
-    // Handle changing identity for the current conversation
+    // Switch identity for the current conversation without altering historical messages
     document.getElementById('chat-conversation-identity-select').addEventListener('change', async (e) => {
       const newIdentityId = e.target.value;
       const conv = state.conversations.find(c => c.conversationId === state.activeConversationId);
@@ -1994,14 +2144,12 @@ service firebase.storage {
       if (!conv || !chosen || !state.currentUser) return;
 
       try {
-        await updateDoc(doc(db, 'conversations', conv.conversationId), {
-          [`selectedIdentities.${state.currentUser.uid}`]: {
-            identityId: chosen.identityId,
-            displayName: chosen.displayName,
-            username: chosen.username,
-            photoURL: chosen.photoURL,
-            bio: chosen.bio || ''
-          }
+        await update(ref(db, `conversations/${conv.conversationId}/participantIdentities/${state.currentUser.uid}`), {
+          identityId: chosen.identityId,
+          displayName: chosen.displayName,
+          username: chosen.username,
+          photoURL: chosen.photoURL,
+          bio: chosen.bio || ''
         });
         showToast(`Now speaking as @${chosen.username} in this chat`, 'info');
       } catch (err) {
@@ -2015,21 +2163,23 @@ service firebase.storage {
       const container = document.getElementById('messages-container');
       container.innerHTML = `
         <div class="p-8 text-center text-xs text-[var(--text-muted)]">
-          <i class="fa-solid fa-circle-notch fa-spin text-cyan-400 mr-2"></i>Loading encrypted persona message history...
+          <i class="fa-solid fa-circle-notch fa-spin text-cyan-400 mr-2"></i>Loading messages from <code class="text-cyan-400">messages/${escapeHtml(conversationId)}</code>...
         </div>
       `;
 
-      const messagesRef = collection(db, 'conversations', conversationId, 'messages');
-      state.unsubMessages = onSnapshot(messagesRef, (snapshot) => {
+      const messagesRef = ref(db, `messages/${conversationId}`);
+      state.unsubMessages = onValue(messagesRef, (snapshot) => {
         const list = [];
-        snapshot.forEach(docSnap => {
-          list.push({ messageId: docSnap.id, ...docSnap.data() });
-        });
+        if (snapshot.exists()) {
+          snapshot.forEach(childSnap => {
+            list.push({ messageId: childSnap.key, ...childSnap.val() });
+          });
+        }
         list.sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
         state.messages = list;
         renderMessages();
       }, (err) => {
-        console.error('Messages listener error:', err);
+        console.error('Messages RTDB listener error:', err);
         container.innerHTML = `<div class="p-6 text-center text-xs text-red-400">${escapeHtml(friendlyFirebaseError(err))}</div>`;
       });
     }
@@ -2065,7 +2215,6 @@ service firebase.storage {
             ` : ''}
 
             <div class="max-w-[78%] sm:max-w-[65%] flex flex-col ${isMine ? 'items-end' : 'items-start'}">
-              <!-- Sender Identity Snapshot Badge (Preserved per message!) -->
               <div class="flex items-center gap-1.5 mb-1 px-1">
                 <span class="text-[11px] font-semibold ${isMine ? 'text-cyan-400' : 'text-[var(--text-main)]'}">
                   ${escapeHtml(msg.senderDisplayName || 'User')}
@@ -2082,7 +2231,6 @@ service firebase.storage {
                 ` : ''}
               </div>
 
-              <!-- Message Bubble -->
               <div class="px-4 py-2.5 rounded-2xl text-xs sm:text-sm leading-relaxed break-words shadow-sm ${
                 isDeleted
                   ? 'bg-[var(--bg-card)]/50 border border-[var(--border-color)] italic text-slate-500'
@@ -2104,16 +2252,14 @@ service firebase.storage {
         `;
       }).join('');
 
-      // Bind message delete buttons
       container.querySelectorAll('[data-delete-msg]').forEach(btn => {
         btn.onclick = () => handleDeleteMessage(btn.getAttribute('data-delete-msg'));
       });
 
-      // Auto-scroll to bottom
       container.scrollTop = container.scrollHeight;
     }
 
-    // Send Message Handler
+    // Send Message Handler — Writes to `messages/{conversationId}/{messageId}` & updates `conversations/{conversationId}`
     async function sendMessage() {
       const input = document.getElementById('message-input');
       const text = input.value.trim();
@@ -2123,8 +2269,10 @@ service firebase.storage {
       if (!conv) return;
 
       const myPersona = getMySelectedIdentityForConversation(conv);
-      if (!myPersona) {
-        showToast('Please select an identity before sending a message.', 'error');
+      // Verify that the selected identity belongs to current user before sending
+      const ownedPersona = state.identities.find(i => i.identityId === myPersona?.identityId);
+      if (!ownedPersona || ownedPersona.ownerUid !== state.currentUser.uid) {
+        showToast('Security error: You can only send messages using an identity you own.', 'error');
         return;
       }
 
@@ -2132,27 +2280,28 @@ service firebase.storage {
       document.getElementById('message-char-counter').textContent = '0 / 1000';
 
       try {
-        const msgRef = doc(collection(db, 'conversations', state.activeConversationId, 'messages'));
+        const newMsgRef = push(ref(db, `messages/${state.activeConversationId}`));
+        const messageId = newMsgRef.key;
         const now = Date.now();
 
-        // Store immutable identity snapshot on the message document so future identity switches never alter historical messages
-        await setDoc(msgRef, {
-          messageId: msgRef.id,
+        const messagePayload = {
+          messageId,
           conversationId: state.activeConversationId,
           senderUid: state.currentUser.uid,
-          senderIdentityId: myPersona.identityId,
-          senderDisplayName: myPersona.displayName,
-          senderUsername: myPersona.username,
-          senderPhotoURL: myPersona.photoURL || getDiceBearUrl(myPersona.displayName),
+          senderIdentityId: ownedPersona.identityId,
+          senderDisplayName: ownedPersona.displayName,
+          senderUsername: ownedPersona.username,
+          senderPhotoURL: ownedPersona.photoURL || getDiceBearUrl(ownedPersona.displayName),
           text: text.slice(0, 1000),
           createdAt: now,
           deleted: false
-        });
+        };
 
-        // Update conversation preview & ensure our active persona is synced
-        await updateDoc(doc(db, 'conversations', state.activeConversationId), {
+        await set(newMsgRef, messagePayload);
+
+        await update(ref(db, `conversations/${state.activeConversationId}`), {
           lastMessage: text.slice(0, 120),
-          lastMessageSenderName: myPersona.displayName,
+          lastMessageSenderName: ownedPersona.displayName,
           lastMessageAt: now,
           updatedAt: now
         });
@@ -2164,7 +2313,7 @@ service firebase.storage {
     async function handleDeleteMessage(messageId) {
       if (!state.activeConversationId || !messageId) return;
       try {
-        await updateDoc(doc(db, 'conversations', state.activeConversationId, 'messages', messageId), {
+        await update(ref(db, `messages/${state.activeConversationId}/${messageId}`), {
           deleted: true,
           text: ''
         });
@@ -2181,6 +2330,7 @@ service firebase.storage {
       if (state.unsubIdentities) { state.unsubIdentities(); state.unsubIdentities = null; }
       if (state.unsubConversations) { state.unsubConversations(); state.unsubConversations = null; }
       if (state.unsubMessages) { state.unsubMessages(); state.unsubMessages = null; }
+      cleanupSearchListener();
     }
 
     // Monitor Firebase Authentication State
@@ -2196,13 +2346,18 @@ service firebase.storage {
         document.getElementById('settings-user-uid').textContent = user.uid;
 
         try {
-          const userSnap = await getDoc(doc(db, 'users', user.uid));
+          const userSnap = await get(ref(db, `users/${user.uid}`));
           if (userSnap.exists()) {
-            state.userProfile = userSnap.data();
+            state.userProfile = userSnap.val();
             state.activeIdentityId = state.userProfile.defaultIdentityId || null;
+          } else {
+            await set(ref(db, `users/${user.uid}`), {
+              email: user.email,
+              createdAt: Date.now()
+            });
           }
         } catch (e) {
-          console.warn('Could not fetch user profile doc:', e);
+          console.warn('Could not fetch user profile from RTDB:', e);
         }
 
         subscribeToUserIdentities(user.uid);
@@ -2227,7 +2382,6 @@ service firebase.storage {
     document.getElementById('show-forgot-btn').onclick = () => switchAuthMode('forgot');
     document.getElementById('back-to-login-btn').onclick = () => switchAuthMode('login');
 
-    // Password Visibility Toggles
     document.querySelectorAll('[data-toggle-pass]').forEach(btn => {
       btn.onclick = () => {
         const inputId = btn.getAttribute('data-toggle-pass');
@@ -2243,7 +2397,6 @@ service firebase.storage {
       };
     });
 
-    // Sidebar Active Identity Switcher
     document.getElementById('sidebar-identity-select').addEventListener('change', async (e) => {
       state.activeIdentityId = e.target.value;
       renderIdentitySelectors();
@@ -2271,7 +2424,7 @@ service firebase.storage {
     const openSearchDirectory = () => {
       renderIdentitySelectors();
       openModal('search-modal');
-      searchPublicIdentities(document.getElementById('directory-search-input').value);
+      searchUsers(document.getElementById('directory-search-input').value);
     };
     document.getElementById('open-search-modal-btn').onclick = openSearchDirectory;
     document.getElementById('sidebar-global-search-btn').onclick = openSearchDirectory;
@@ -2280,28 +2433,30 @@ service firebase.storage {
     document.getElementById('open-settings-modal-btn').onclick = () => openModal('settings-modal');
     document.getElementById('auth-open-guide-btn').onclick = () => openModal('settings-modal');
 
-    // Close Modal Buttons
     document.querySelectorAll('[data-close-modal]').forEach(btn => {
-      btn.onclick = () => closeModal(btn.getAttribute('data-close-modal'));
+      btn.onclick = () => {
+        const modalId = btn.getAttribute('data-close-modal');
+        if (modalId === 'search-modal') cleanupSearchListener();
+        closeModal(modalId);
+      };
     });
 
-    // Directory Search Trigger
+    // Live Prefix Search Triggers on `usernameIndex`
     document.getElementById('directory-search-btn').onclick = () => {
-      searchPublicIdentities(document.getElementById('directory-search-input').value);
+      searchUsers(document.getElementById('directory-search-input').value);
     };
-    document.getElementById('directory-search-input').addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        searchPublicIdentities(e.target.value);
-      }
+    document.getElementById('directory-search-input').addEventListener('input', (e) => {
+      searchUsers(e.target.value);
+    });
+    document.getElementById('search-include-own-toggle').addEventListener('change', () => {
+      searchUsers(document.getElementById('directory-search-input').value);
     });
 
-    // Sidebar Local Filter Input
     document.getElementById('sidebar-search-input').addEventListener('input', () => {
       renderConversationList();
     });
 
-    // Avatar Presets & Image Upload (Data URL fallback so no paid storage bucket is required)
+    // Avatar Presets & Image Upload
     document.querySelectorAll('#avatar-preset-buttons [data-seed]').forEach(btn => {
       btn.onclick = () => {
         const url = getDiceBearUrl(btn.getAttribute('data-seed'));
@@ -2324,7 +2479,6 @@ service firebase.storage {
       }
       const reader = new FileReader();
       reader.onload = () => {
-        // Compress via small canvas to keep Firestore document lightweight
         const img = new Image();
         img.onload = () => {
           const canvas = document.createElement('canvas');
@@ -2361,7 +2515,7 @@ service firebase.storage {
       sendMessage();
     });
 
-    // Mobile Back Button (From Chat to Conversation List)
+    // Mobile Back Button
     document.getElementById('mobile-back-btn').onclick = () => {
       state.activeConversationId = null;
       document.getElementById('sidebar-panel').classList.remove('hidden');
@@ -2383,7 +2537,7 @@ service firebase.storage {
       };
     });
 
-    // Copy Rules Buttons
+    // Copy Rules Button
     document.querySelectorAll('[data-copy-target]').forEach(btn => {
       btn.onclick = () => {
         const targetId = btn.getAttribute('data-copy-target');
@@ -2394,11 +2548,11 @@ service firebase.storage {
         temp.select();
         document.execCommand('copy');
         temp.remove();
-        showToast('Copied security rules to clipboard!', 'success');
+        showToast('Copied database.rules.json to clipboard!', 'success');
       };
     });
 
-    // Theme Toggle (Dark / Light)
+    // Theme Toggle
     document.getElementById('theme-toggle-btn').onclick = () => {
       const htmlEl = document.documentElement;
       const isDark = htmlEl.classList.contains('dark');
@@ -2411,7 +2565,6 @@ service firebase.storage {
       }
     };
 
-    // Logout Button
     document.getElementById('sidebar-logout-btn').onclick = handleLogout;
   </script>
 </body>
