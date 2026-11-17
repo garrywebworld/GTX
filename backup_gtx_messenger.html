@@ -313,6 +313,83 @@
       input, select, textarea {
         font-size: 16px !important;
       }
+
+      /* Keep the active chat inside the actual iPhone viewport. */
+      #appDashboard, #chatPanel, #activeChatView {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow-x: hidden;
+      }
+      #activeChatView > header {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        padding-left: 10px;
+        padding-right: 10px;
+        gap: 6px;
+      }
+      #activeChatView .chat-header-main {
+        flex: 1 1 0%;
+        min-width: 0;
+        overflow: hidden;
+      }
+      #activeChatView .chat-header-actions {
+        flex: 0 1 auto;
+        min-width: 0;
+        max-width: 42%;
+        gap: 5px;
+      }
+      #chatPersonaSelect {
+        width: 76px;
+        max-width: 76px;
+        min-width: 0;
+        padding-left: 5px;
+        padding-right: 5px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-size: 11px !important;
+      }
+      #messagesContainer {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+        overflow-x: hidden;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      #messagesContainer .chat-message-row {
+        width: 100%;
+        min-width: 0;
+        max-width: 100%;
+      }
+      #messagesContainer .chat-message-bubble {
+        min-width: 0;
+        max-width: min(82%, calc(100% - 2.6rem));
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+      #messagesContainer .chat-message-meta,
+      #messagesContainer .chat-message-actions {
+        min-width: 0;
+        flex-wrap: wrap;
+        row-gap: 3px;
+      }
+      #messagesContainer .chat-message-meta > div {
+        min-width: 0;
+        flex-wrap: wrap;
+        overflow-wrap: anywhere;
+      }
+      #messagesContainer .chat-message-bubble > .message-body {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+      }
+      #emojiQuickBar, #emojiPickerDrawer {
+        max-width: 100%;
+        min-width: 0;
+      }
     }
 
     @keyframes pulseRing {
@@ -694,7 +771,7 @@
       <div id="activeChatView" class="hidden flex-1 flex flex-col h-full min-h-0">
         <!-- Layered Transparent Frosted Glass Header -->
         <header class="px-3 sm:px-4 py-2.5 gtx-panel border-b flex items-center justify-between gap-2 shrink-0 z-20">
-          <div class="flex items-center gap-2.5 min-w-0">
+          <div class="chat-header-main flex items-center gap-2.5 min-w-0">
             <button type="button" onclick="closeMobileChat()" class="md:hidden w-9 h-9 rounded-2xl gtx-card flex items-center justify-center shrink-0 active:scale-95 transition">
               <i class="fa-solid fa-chevron-left text-sm"></i>
             </button>
@@ -715,8 +792,8 @@
             </div>
           </div>
 
-          <div class="flex items-center gap-1.5 shrink-0">
-            <div class="flex flex-col items-end">
+          <div class="chat-header-actions flex items-center gap-1.5 shrink-0">
+            <div class="flex flex-col items-end min-w-0">
               <span class="text-[10px] opacity-70 hidden sm:inline">Speaking As:</span>
               <select id="chatPersonaSelect" onchange="handleChangeConversationPersona(this.value)" class="gtx-pill-input rounded-xl px-2.5 py-1.5 text-xs gtx-accent-text font-bold focus:outline-none max-w-[130px] sm:max-w-[175px] truncate"></select>
             </div>
@@ -3193,10 +3270,10 @@
         const safeSnippet = escapeHtml((m.text || "").slice(0, 50)).replace(/'/g, "\\'");
 
         return `
-          <div class="group flex items-end gap-2.5 ${isMine ? "justify-end" : "justify-start"}">
+          <div class="chat-message-row group flex items-end gap-2.5 ${isMine ? "justify-end" : "justify-start"}">
             ${!isMine ? `<img src="${getAvatar(m.senderPhotoURL, m.senderUsername)}" class="w-8 h-8 rounded-full object-cover border-2 gtx-accent-border bg-slate-800 shrink-0" />` : ""}
-            <div class="max-w-[82%] sm:max-w-[72%] rounded-2xl px-3.5 py-2.5 shadow-md ${isMine ? "gtx-accent-bg rounded-br-none" : "gtx-card rounded-bl-none"}">
-              <div class="flex items-center justify-between gap-2 mb-1">
+            <div class="chat-message-bubble max-w-[82%] sm:max-w-[72%] rounded-2xl px-3.5 py-2.5 shadow-md ${isMine ? "gtx-accent-bg rounded-br-none" : "gtx-card rounded-bl-none"}">
+              <div class="chat-message-meta flex items-center justify-between gap-2 mb-1">
                 <div class="flex items-center gap-1.5">
                   <span class="font-extrabold text-xs tracking-wide ${isMine ? "underline decoration-black/25" : "gtx-accent-text"}">
                     ${escapeHtml(m.senderDisplayName || "User")}
@@ -3213,9 +3290,9 @@
                 </div>
               ` : ""}
 
-              <div class="text-xs sm:text-sm whitespace-pre-wrap break-words leading-relaxed ${m.deleted ? "italic opacity-60" : ""}">${escapeHtml(m.text)}</div>
+              <div class="message-body text-xs sm:text-sm whitespace-pre-wrap break-words leading-relaxed ${m.deleted ? "italic opacity-60" : ""}">${escapeHtml(m.text)}</div>
 
-              <div class="mt-1.5 pt-1 border-t border-black/10 flex items-center justify-between gap-2 text-[10px]">
+              <div class="chat-message-actions mt-1.5 pt-1 border-t border-black/10 flex items-center justify-between gap-2 text-[10px]">
                 <div class="flex items-center gap-1">
                   <button type="button" onclick="handleReaction('${m.messageId}', '🔥')" class="hover:scale-125 transition">🔥</button>
                   <button type="button" onclick="handleReaction('${m.messageId}', '❤️')" class="hover:scale-125 transition">❤️</button>
