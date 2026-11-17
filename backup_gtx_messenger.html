@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-  <meta charset="UTt" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>GTX MESSENGER </title>
-  <script src="https://cdn.tailF-8" />
-  <meta name="viewporwindcss.com"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>GTX MESSENGER</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-<link
-  rel="icon"
-  type="image/png"
-  href="https://garrywebworld.github.io/GTX/dataset3453.png">
-<link
-  rel="apple-touch-icon"
-  href="https://garrywebworld.github.io/GTX/dataset3453.png">
-<meta name="theme-color" content="#050505">
-<style>
+  <link rel="icon" type="image/png" href="https://garrywebworld.github.io/GTX/dataset3453.png">
+  <link rel="apple-touch-icon" href="https://garrywebworld.github.io/GTX/dataset3453.png">
+  <meta name="theme-color" content="#050505">
+  <style>
     :root {
       --bg-deep: #05070c;
       --bg-panel: #0b0f19;
@@ -220,7 +215,6 @@
     </div>
 
     <div class="max-w-md w-full flex flex-col items-center my-auto">
-      <!-- Animated GTX Emblem -->
       <div class="relative w-24 h-24 mb-6 flex items-center justify-center">
         <div class="absolute inset-0 rounded-3xl border-2 border-sky-400/50 gtx-glow preloader-ring"></div>
         <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-sky-500/25 to-purple-600/25 border border-sky-400/60 flex items-center justify-center shadow-2xl">
@@ -231,7 +225,7 @@
       </div>
 
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-500/10 border border-sky-400/30 text-[11px] font-semibold text-sky-300 uppercase tracking-widest mb-3">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Multi-Identity Real-Time Hub
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Multi-Identity & Group Real-Time Hub
       </div>
 
       <h1 class="text-3xl sm:text-4xl font-black tracking-tight mb-2">
@@ -239,21 +233,19 @@
       </h1>
 
       <p class="text-xs sm:text-sm text-slate-300 max-w-sm leading-relaxed mb-5">
-        Thank you for using this web application for chatting with friends. Connect seamlessly across multiple personas on mobile and PC.
+        Connect seamlessly across multiple personas, private chats, and group communities on mobile and PC.
       </p>
 
-      <!-- Creator Credit Badge -->
       <div class="w-full p-3.5 rounded-2xl bg-slate-900/90 border border-sky-500/30 shadow-lg mb-6">
         <div class="text-xs font-extrabold tracking-wide text-white flex items-center justify-center gap-2">
           <i class="fa-solid fa-crown text-amber-400"></i>
           <span>Project Made by <span class="text-sky-400 underline decoration-sky-500/50">Garry</span></span>
         </div>
         <div class="text-[11px] text-slate-400 mt-0.5">
-          Built for Friends &amp; Community &bull; Thanks you for using our web application
+          Built for Friends & Community • Upgraded with Google Auth & Group Chats
         </div>
       </div>
 
-      <!-- Progress Bar -->
       <div class="w-64 h-1.5 bg-slate-800 rounded-full overflow-hidden mb-5">
         <div id="preloaderBar" class="h-full bg-gradient-to-r from-sky-400 via-cyan-300 to-purple-500 transition-all duration-300" style="width: 15%"></div>
       </div>
@@ -264,11 +256,11 @@
     </div>
 
     <div class="text-[11px] text-slate-500">
-      GTX MESSENGER &bull; Crafted by Garry for Mobile &amp; Desktop
+      GTX MESSENGER • Upgraded Edition by Garry
     </div>
   </div>
 
-  <!-- TOP PERMISSION / RULES BANNER (HIDDEN UNLESS ERROR OCCURS) -->
+  <!-- TOP PERMISSION / RULES BANNER -->
   <div id="permissionErrorBanner" class="hidden bg-red-950/95 border-b border-red-500/50 px-3 py-2 text-xs text-red-100 flex flex-wrap items-center justify-between gap-2 z-50 shrink-0">
     <div class="flex items-center gap-2">
       <i class="fa-solid fa-triangle-exclamation text-red-400"></i>
@@ -295,7 +287,7 @@
           </div>
           <div>
             <h1 class="font-black text-base sm:text-lg tracking-wide gtx-brand-highlight">GTX MESSENGER</h1>
-            <p class="text-[11px] text-slate-400">Made by Garry &bull; Friends &amp; Multi-Identity Chat</p>
+            <p class="text-[11px] text-slate-400">Made by Garry • Multi-Identity & Groups</p>
           </div>
         </div>
         <div class="flex items-center gap-1.5">
@@ -315,6 +307,23 @@
       </div>
 
       <div id="authAlert" class="hidden mb-4 p-3 rounded-xl text-xs border"></div>
+
+      <!-- GOOGLE AUTH BUTTON -->
+      <button type="button" onclick="handleGoogleLogin()" class="w-full mb-3.5 py-3 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2.5 shadow-md transition">
+        <svg class="w-4 h-4" viewBox="0 0 24 24">
+          <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+          <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.15v3.14C3.15 21.32 7.23 24 12 24z"/>
+          <path fill="#FBBC05" d="M5.27 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.62H1.15C.42 8.1 0 9.99 0 12s.42 3.9 1.15 5.38l4.12-3.14z"/>
+          <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.23 0 3.15 2.68 1.15 6.62l4.12 3.14c.95-2.85 3.6-4.96 6.73-4.96z"/>
+        </svg>
+        Continue with Google
+      </button>
+
+      <div class="flex items-center my-3 text-slate-500 text-xs">
+        <div class="flex-1 border-t border-slate-800"></div>
+        <span class="px-2">or email</span>
+        <div class="flex-1 border-t border-slate-800"></div>
+      </div>
 
       <!-- LOGIN FORM -->
       <form id="loginForm" class="space-y-3.5">
@@ -338,7 +347,7 @@
         </div>
       </form>
 
-      <!-- REGISTER FORM WITH AVATAR UPLOAD / URL / PRESETS -->
+      <!-- REGISTER FORM -->
       <form id="registerForm" class="hidden space-y-3">
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
           <div>
@@ -364,18 +373,17 @@
             </div>
           </div>
 
-          <!-- Profile Picture Picker in Registration -->
           <div class="p-2.5 rounded-xl gtx-card space-y-2">
             <div class="flex items-center gap-3">
               <img id="regAvatarPreview" src="https://api.dicebear.com/7.x/bottts-neutral/svg?seed=gtx" alt="Preview" class="w-12 h-12 rounded-full object-cover border-2 gtx-accent-border bg-slate-800 shrink-0" />
               <div class="flex-1 min-w-0">
-                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Profile Picture (Upload Photo or Paste URL)</label>
+                <label class="block text-[11px] font-semibold text-slate-300 mb-1">Profile Picture</label>
                 <div class="flex items-center gap-1.5">
                   <label class="cursor-pointer px-2.5 py-1.5 rounded-lg bg-sky-500/20 hover:bg-sky-500/30 text-sky-300 text-xs font-semibold transition shrink-0">
                     <i class="fa-solid fa-camera mr-1"></i>Upload Photo
                     <input type="file" accept="image/*" class="hidden" onchange="handleAvatarFileUpload(event, 'regPhotoURL', 'regAvatarPreview')" />
                   </label>
-                  <input id="regPhotoURL" type="text" oninput="updateAvatarPreview(this.value, 'regAvatarPreview', 'gtx')" placeholder="Or paste image URL..." class="w-full px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none" />
+                  <input id="regPhotoURL" type="text" oninput="updateAvatarPreview(this.value, 'regAvatarPreview', 'gtx')" placeholder="Or image URL..." class="w-full px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none" />
                 </div>
               </div>
             </div>
@@ -383,22 +391,17 @@
         </div>
 
         <button type="submit" id="registerSubmitBtn" class="w-full py-3 rounded-xl gtx-accent-bg font-extrabold text-sm transition gtx-glow">
-          Create Account &amp; Launch GTX
+          Create Account & Launch GTX
         </button>
       </form>
-
-      <div class="mt-5 pt-3 border-t border-white/10 text-center text-[11px] text-slate-400">
-        Thank you for using <span class="font-bold gtx-accent-text">GTX MESSENGER</span> &bull; Made by <span class="font-bold text-white">Garry</span> for Friends and for the people who want to chat with each and made it for the fun, yrr maja aa raha hai ese apps banane me follow the garrywebworld on the github for the more web based applications
-      </div>
     </div>
   </div>
 
   <!-- MAIN MESSAGING DASHBOARD -->
   <div id="appDashboard" class="hidden flex-1 min-h-0 flex overflow-hidden">
 
-    <!-- LEFT SIDEBAR (CONVERSATION LIST & CONTROLS) -->
+    <!-- LEFT SIDEBAR -->
     <aside id="sidebarPanel" class="w-full md:w-80 lg:w-96 gtx-panel border-r flex flex-col h-full min-h-0 shrink-0">
-      <!-- Brand Header -->
       <div class="p-3 border-b border-white/10 flex items-center justify-between gap-2 shrink-0">
         <div class="flex items-center gap-2.5 min-w-0">
           <div class="w-9 h-9 rounded-xl bg-sky-500/15 border border-sky-400/50 flex items-center justify-center gtx-glow shrink-0">
@@ -410,15 +413,17 @@
           </div>
         </div>
 
-        <!-- Top Action Bar -->
         <div class="flex items-center gap-1 shrink-0">
           <button onclick="openModal('searchModal')" title="Search Public @usernames" class="w-8 h-8 rounded-lg gtx-card hover:opacity-80 flex items-center justify-center transition">
             <i class="fa-solid fa-magnifying-glass text-xs"></i>
           </button>
+          <button onclick="openModal('createGroupModal')" title="Create Group Chat" class="w-8 h-8 rounded-lg gtx-card text-sky-400 hover:opacity-80 flex items-center justify-center transition">
+            <i class="fa-solid fa-users text-xs"></i>
+          </button>
           <button onclick="openModal('identitiesModal')" title="Multi-Identity Studio" class="w-8 h-8 rounded-lg gtx-card gtx-accent-text hover:opacity-80 flex items-center justify-center transition">
             <i class="fa-solid fa-masks-theater text-xs"></i>
           </button>
-          <button onclick="openModal('themeModal')" title="Theme & Chat Wallpaper" class="w-8 h-8 rounded-lg gtx-card text-amber-400 hover:opacity-80 flex items-center justify-center transition">
+          <button onclick="openModal('themeModal')" title="Theme & Wallpaper" class="w-8 h-8 rounded-lg gtx-card text-amber-400 hover:opacity-80 flex items-center justify-center transition">
             <i class="fa-solid fa-palette text-xs"></i>
           </button>
           <button onclick="toggleSoundEffects()" id="soundToggleBtn" title="Toggle Sound Effects" class="w-8 h-8 rounded-lg gtx-card text-emerald-400 hover:opacity-80 flex items-center justify-center transition">
@@ -430,25 +435,25 @@
         </div>
       </div>
 
-      <!-- Active Default Persona Switcher -->
       <div class="px-3 py-2 bg-black/20 border-b border-white/5 flex items-center justify-between gap-2 shrink-0">
         <span class="text-[11px] font-medium text-slate-400 shrink-0">My Persona:</span>
         <select id="sidebarIdentitySelect" onchange="handleSwitchDefaultIdentity(this.value)" class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-2 py-1 text-xs text-white focus:outline-none"></select>
         <button onclick="openModal('identitiesModal')" class="text-[11px] px-2.5 py-1 rounded-lg gtx-accent-bg font-bold shrink-0">+ Studio</button>
       </div>
 
-      <!-- Directory Search Bar -->
-      <div class="p-2.5 border-b border-white/5 shrink-0">
-        <button onclick="openModal('searchModal')" class="w-full px-3 py-2 rounded-xl gtx-card hover:border-sky-400/50 text-left text-xs text-slate-400 flex items-center justify-between transition">
+      <div class="p-2.5 border-b border-white/5 shrink-0 flex gap-1.5">
+        <button onclick="openModal('searchModal')" class="flex-1 px-3 py-2 rounded-xl gtx-card hover:border-sky-400/50 text-left text-xs text-slate-400 flex items-center justify-between transition">
           <span><i class="fa-solid fa-user-plus mr-2 gtx-accent-text"></i>Find friends by @username...</span>
           <span class="px-2 py-0.5 rounded-md bg-sky-500/15 gtx-accent-text font-semibold text-[10px]">Search</span>
         </button>
+        <button onclick="openModal('createGroupModal')" class="px-3 py-2 rounded-xl gtx-accent-bg text-xs font-bold flex items-center gap-1 shrink-0" title="Create Group">
+          <i class="fa-solid fa-users"></i>
+          <span class="hidden sm:inline">New Group</span>
+        </button>
       </div>
 
-      <!-- Conversation List (Touch Scrollable) -->
       <div id="conversationList" class="flex-1 min-h-0 touch-scroll divide-y divide-white/5"></div>
 
-      <!-- Sidebar Footer Credit -->
       <div class="px-3 py-2 border-t border-white/5 flex items-center justify-between text-[11px] text-slate-400 shrink-0">
         <span><i class="fa-solid fa-code gtx-accent-text mr-1"></i>Made by <strong class="text-white">Gary</strong></span>
         <button onclick="replayPreloader()" class="hover:underline gtx-accent-text">About GTX</button>
@@ -457,7 +462,6 @@
 
     <!-- MAIN CHAT PANEL -->
     <main id="chatPanel" class="hidden md:flex flex-1 flex-col h-full min-h-0 chat-wp-void relative">
-      <!-- Empty Welcome Screen (Desktop Default) -->
       <div id="emptyChatState" class="flex-1 flex flex-col items-center justify-center p-6 text-center">
         <div class="w-16 h-16 rounded-2xl bg-sky-500/15 border border-sky-400/40 flex items-center justify-center mb-4 gtx-glow">
           <i class="fa-solid fa-comments text-2xl gtx-accent-text"></i>
@@ -466,7 +470,7 @@
           Welcome to <span class="gtx-brand-highlight">GTX MESSENGER</span>
         </h2>
         <p class="text-xs text-slate-400 max-w-sm mb-2">
-          Thank you for using this web application for chatting with friends. Select a chat on the left or search a public @username to start messaging!
+          Select a chat on the left or create a group / find friends to start messaging in real time!
         </p>
         <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] text-slate-300 mb-5">
           <i class="fa-solid fa-star text-amber-400"></i> Project Made by <strong class="text-white">Gary</strong>
@@ -475,18 +479,17 @@
           <button onclick="openModal('searchModal')" class="px-4 py-2.5 rounded-xl gtx-accent-bg font-bold text-xs transition gtx-glow">
             <i class="fa-solid fa-magnifying-glass mr-1.5"></i>Find Friends
           </button>
+          <button onclick="openModal('createGroupModal')" class="px-4 py-2.5 rounded-xl bg-sky-600 font-bold text-xs hover:opacity-90 transition">
+            <i class="fa-solid fa-users mr-1.5"></i>Create Group
+          </button>
           <button onclick="openModal('identitiesModal')" class="px-4 py-2.5 rounded-xl gtx-card font-bold text-xs hover:opacity-90 transition">
             <i class="fa-solid fa-masks-theater mr-1.5 gtx-accent-text"></i>Manage Identities
-          </button>
-          <button onclick="openModal('themeModal')" class="px-4 py-2.5 rounded-xl gtx-card font-bold text-xs hover:opacity-90 transition">
-            <i class="fa-solid fa-palette mr-1.5 text-amber-400"></i>Themes &amp; Wallpaper
           </button>
         </div>
       </div>
 
       <!-- Active Conversation View -->
       <div id="activeChatView" class="hidden flex-1 flex flex-col h-full min-h-0">
-        <!-- Enhanced Chat Header with Highlighted Display Name -->
         <header class="px-3 sm:px-4 py-2.5 gtx-panel border-b flex items-center justify-between gap-2 shrink-0 z-10">
           <div class="flex items-center gap-2.5 min-w-0">
             <button type="button" onclick="closeMobileChat()" class="md:hidden w-9 h-9 rounded-xl gtx-card flex items-center justify-center shrink-0 active:scale-95 transition">
@@ -494,39 +497,50 @@
             </button>
             <div class="relative shrink-0">
               <img id="chatHeaderAvatar" src="" alt="Avatar" class="w-10 h-10 sm:w-11 sm:h-11 rounded-full object-cover border-2 gtx-accent-border bg-slate-800" />
-              <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 ring-2 ring-slate-950" title="Verified GTX Identity"></span>
+              <span id="chatHeaderStatusDot" class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-400 ring-2 ring-slate-950" title="Online"></span>
             </div>
-            <div class="min-w-0">
+            <div class="min-w-0 cursor-pointer" onclick="handleHeaderTitleClick()">
               <div class="flex items-center gap-1.5">
                 <span id="chatHeaderName" class="font-extrabold text-sm sm:text-base truncate">Participant</span>
-                <span class="px-1.5 py-0.5 rounded-md bg-sky-500/15 border border-sky-400/30 text-[10px] font-bold gtx-accent-text shrink-0">
-                  <i class="fa-solid fa-check-double mr-0.5"></i>GTX ID
-                </span>
+                <span id="chatHeaderBadge" class="px-1.5 py-0.5 rounded-md bg-sky-500/15 border border-sky-400/30 text-[10px] font-bold gtx-accent-text shrink-0">GTX ID</span>
               </div>
               <div class="flex items-center gap-2 text-xs text-slate-400 truncate">
                 <span id="chatHeaderUsername" class="gtx-accent-text font-semibold truncate">@username</span>
-                <span>&bull;</span>
-                <span class="text-[11px] text-emerald-400">Real-Time Chatting</span>
+                <span>•</span>
+                <span id="chatHeaderTyping" class="text-[11px] text-emerald-400">Real-Time Chatting</span>
               </div>
             </div>
           </div>
 
-          <!-- Right Controls: Speaking As + Wallpaper Shortcut -->
           <div class="flex items-center gap-1.5 shrink-0">
             <div class="flex flex-col items-end">
-              <span class="text-[10px] text-slate-400 hidden sm:inline">Speaking As Persona:</span>
+              <span class="text-[10px] text-slate-400 hidden sm:inline">Speaking As:</span>
               <select id="chatPersonaSelect" onchange="handleChangeConversationPersona(this.value)" class="bg-slate-900 border border-sky-500/40 rounded-xl px-2 py-1.5 text-xs text-sky-300 font-semibold focus:outline-none max-w-[135px] sm:max-w-[180px] truncate"></select>
             </div>
-            <button type="button" onclick="openModal('themeModal')" title="Change Chat Background" class="w-9 h-9 rounded-xl gtx-card text-amber-400 flex items-center justify-center hover:opacity-80 transition">
-              <i class="fa-solid fa-image text-xs"></i>
-            </button>
+            <!-- Conversation Options Dropdown / Button -->
+            <div class="relative">
+              <button type="button" onclick="toggleChatOptionsMenu()" title="Chat Options" class="w-9 h-9 rounded-xl gtx-card text-slate-300 hover:text-white flex items-center justify-center transition">
+                <i class="fa-solid fa-ellipsis-vertical text-xs"></i>
+              </button>
+              <div id="chatOptionsMenu" class="hidden absolute right-0 top-11 w-48 rounded-xl gtx-panel border shadow-2xl py-1 z-30">
+                <button onclick="handleDeleteChatForMe()" class="w-full px-4 py-2 text-left text-xs hover:bg-white/5 text-slate-200 flex items-center gap-2">
+                  <i class="fa-solid fa-trash-can text-red-400"></i> Delete Chat for Me
+                </button>
+                <button id="menuRemoveFriendBtn" onclick="handleRemoveFriend()" class="w-full px-4 py-2 text-left text-xs hover:bg-white/5 text-slate-200 flex items-center gap-2">
+                  <i class="fa-solid fa-user-xmark text-amber-400"></i> Remove Friend
+                </button>
+                <button onclick="openModal('themeModal')" class="w-full px-4 py-2 text-left text-xs hover:bg-white/5 text-slate-200 flex items-center gap-2">
+                  <i class="fa-solid fa-image text-sky-400"></i> Change Wallpaper
+                </button>
+              </div>
+            </div>
           </div>
         </header>
 
-        <!-- Messages Container (Touch Scrollable) -->
+        <!-- Messages Container -->
         <div id="messagesContainer" class="flex-1 min-h-0 touch-scroll p-3 sm:p-4 space-y-3"></div>
 
-        <!-- Reply Quote Preview Bar (Hidden unless replying) -->
+        <!-- Reply Preview Bar -->
         <div id="replyPreviewBar" class="hidden px-3.5 py-2 bg-slate-900/95 border-t border-sky-500/30 flex items-center justify-between gap-2 shrink-0">
           <div class="min-w-0 border-l-2 gtx-accent-border pl-2.5 text-xs">
             <div id="replyPreviewSender" class="font-bold gtx-accent-text truncate">Replying to @user</div>
@@ -537,7 +551,7 @@
           </button>
         </div>
 
-        <!-- Quick Emoji Insert Strip -->
+        <!-- Quick Emoji Strip -->
         <div id="emojiQuickBar" class="hidden px-3 py-1.5 gtx-panel border-t flex items-center gap-1.5 overflow-x-auto shrink-0">
           <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="insertEmoji('🔥')" class="px-2.5 py-1 rounded-lg gtx-card text-sm hover:scale-110 transition">🔥</button>
           <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="insertEmoji('❤️')" class="px-2.5 py-1 rounded-lg gtx-card text-sm hover:scale-110 transition">❤️</button>
@@ -547,22 +561,12 @@
           <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="insertEmoji('😎')" class="px-2.5 py-1 rounded-lg gtx-card text-sm hover:scale-110 transition">😎</button>
           <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="insertEmoji('🚀')" class="px-2.5 py-1 rounded-lg gtx-card text-sm hover:scale-110 transition">🚀</button>
           <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="insertEmoji('💯')" class="px-2.5 py-1 rounded-lg gtx-card text-sm hover:scale-110 transition">💯</button>
-          <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="insertEmoji('🎉')" class="px-2.5 py-1 rounded-lg gtx-card text-sm hover:scale-110 transition">🎉</button>
-          <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="insertEmoji('🤝')" class="px-2.5 py-1 rounded-lg gtx-card text-sm hover:scale-110 transition">🤝</button>
         </div>
 
-        <!-- 2. PERSISTENT MOBILE KEYBOARD MESSAGE INPUT BAR -->
+        <!-- Persistent Keyboard Message Input Bar -->
         <div class="p-2.5 sm:p-3 gtx-panel border-t shrink-0" style="padding-bottom: max(0.65rem, env(safe-area-inset-bottom));">
           <div class="flex items-end gap-2">
-            <button
-              type="button"
-              onpointerdown="preventBlur(event)"
-              ontouchstart="preventBlur(event)"
-              onmousedown="preventBlur(event)"
-              onclick="toggleEmojiBar()"
-              class="w-10 h-10 rounded-xl gtx-card text-amber-400 flex items-center justify-center shrink-0 hover:opacity-80 transition"
-              title="Quick Emojis"
-            >
+            <button type="button" onpointerdown="preventBlur(event)" ontouchstart="preventBlur(event)" onclick="toggleEmojiBar()" class="w-10 h-10 rounded-xl gtx-card text-amber-400 flex items-center justify-center shrink-0 hover:opacity-80 transition" title="Quick Emojis">
               <i class="fa-regular fa-face-smile text-base"></i>
             </button>
 
@@ -574,11 +578,10 @@
               autocomplete="off"
               autocorrect="on"
               placeholder="Message as your selected persona..."
-              oninput="autoResizeTextarea(this)"
+              oninput="handleInputTyping(this)"
               class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-900/95 border border-slate-700/80 text-base sm:text-sm text-white resize-none max-h-28 focus:outline-none focus:border-sky-400"
             ></textarea>
 
-            <!-- CRITICAL MOBILE KEYBOARD PRESERVATION BUTTON -->
             <button
               id="sendMsgBtn"
               type="button"
@@ -597,19 +600,18 @@
     </main>
   </div>
 
-  <!-- 3. MODAL: THEME & CHAT WALLPAPER STUDIO -->
+  <!-- MODAL: THEME & WALLPAPER STUDIO -->
   <div id="themeModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="w-full max-w-lg gtx-panel border rounded-2xl p-5 shadow-2xl max-h-[90dvh] flex flex-col">
       <div class="flex items-center justify-between mb-4 shrink-0">
         <div>
-          <h3 class="font-extrabold text-base"><i class="fa-solid fa-palette gtx-accent-text mr-1.5"></i>GTX Theme &amp; Wallpaper Studio</h3>
-          <p class="text-xs text-slate-400">Customize your accent colors and chat background</p>
+          <h3 class="font-extrabold text-base"><i class="fa-solid fa-palette gtx-accent-text mr-1.5"></i>GTX Theme & Wallpaper Studio</h3>
+          <p class="text-xs text-slate-400">Customize accent colors and chat background</p>
         </div>
-        <button onclick="closeModal('themeModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">&times;</button>
+        <button onclick="closeModal('themeModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">×</button>
       </div>
 
       <div class="space-y-5 touch-scroll pr-1">
-        <!-- Accent Themes -->
         <div>
           <label class="block text-xs font-bold uppercase tracking-wider gtx-accent-text mb-2">1. Application Color Theme</label>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -651,33 +653,21 @@
           </div>
         </div>
 
-        <!-- Chat Wallpapers -->
         <div>
           <label class="block text-xs font-bold uppercase tracking-wider gtx-accent-text mb-2">2. Chat Background Wallpaper</label>
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 mb-3">
-            <button onclick="applyWallpaper('void')" class="p-2.5 rounded-xl border border-white/10 chat-wp-void text-xs font-semibold text-white text-center h-16 flex items-center justify-center">
-              Obsidian Void
-            </button>
-            <button onclick="applyWallpaper('grid')" class="p-2.5 rounded-xl border border-white/10 chat-wp-grid text-xs font-semibold text-white text-center h-16 flex items-center justify-center">
-              Cyber Grid
-            </button>
-            <button onclick="applyWallpaper('nebula')" class="p-2.5 rounded-xl border border-white/10 chat-wp-nebula text-xs font-semibold text-white text-center h-16 flex items-center justify-center">
-              Starfield Nebula
-            </button>
-            <button onclick="applyWallpaper('aurora')" class="p-2.5 rounded-xl border border-white/10 chat-wp-aurora text-xs font-semibold text-white text-center h-16 flex items-center justify-center">
-              Emerald Aurora
-            </button>
-            <button onclick="applyWallpaper('sunset')" class="p-2.5 rounded-xl border border-white/10 chat-wp-sunset text-xs font-semibold text-white text-center h-16 flex items-center justify-center">
-              Sunset Dusk
-            </button>
+            <button onclick="applyWallpaper('void')" class="p-2.5 rounded-xl border border-white/10 chat-wp-void text-xs font-semibold text-white text-center h-16 flex items-center justify-center">Obsidian Void</button>
+            <button onclick="applyWallpaper('grid')" class="p-2.5 rounded-xl border border-white/10 chat-wp-grid text-xs font-semibold text-white text-center h-16 flex items-center justify-center">Cyber Grid</button>
+            <button onclick="applyWallpaper('nebula')" class="p-2.5 rounded-xl border border-white/10 chat-wp-nebula text-xs font-semibold text-white text-center h-16 flex items-center justify-center">Starfield Nebula</button>
+            <button onclick="applyWallpaper('aurora')" class="p-2.5 rounded-xl border border-white/10 chat-wp-aurora text-xs font-semibold text-white text-center h-16 flex items-center justify-center">Emerald Aurora</button>
+            <button onclick="applyWallpaper('sunset')" class="p-2.5 rounded-xl border border-white/10 chat-wp-sunset text-xs font-semibold text-white text-center h-16 flex items-center justify-center">Sunset Dusk</button>
             <label class="cursor-pointer p-2.5 rounded-xl border border-dashed border-sky-400/50 bg-sky-500/10 text-xs font-semibold text-sky-300 text-center h-16 flex flex-col items-center justify-center">
               <span><i class="fa-solid fa-upload mr-1"></i>Upload BG</span>
               <input type="file" accept="image/*" class="hidden" onchange="handleCustomWallpaperFile(event)" />
             </label>
           </div>
-
           <div class="flex gap-2">
-            <input id="customWallpaperUrlInput" type="url" placeholder="Or paste any image URL for chat background..." class="flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none" />
+            <input id="customWallpaperUrlInput" type="url" placeholder="Or paste image URL..." class="flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white focus:outline-none" />
             <button onclick="applyCustomWallpaperUrl()" class="px-3.5 py-2 rounded-xl gtx-accent-bg font-bold text-xs shrink-0">Apply URL</button>
           </div>
         </div>
@@ -685,7 +675,7 @@
     </div>
   </div>
 
-  <!-- 4. MODAL: MULTI-IDENTITY STUDIO (WITH PHOTO FILE UPLOAD + URL + PRESETS) -->
+  <!-- MODAL: MULTI-IDENTITY STUDIO -->
   <div id="identitiesModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-40 flex items-center justify-center p-4">
     <div class="w-full max-w-2xl gtx-panel border rounded-2xl p-5 shadow-2xl max-h-[90dvh] flex flex-col">
       <div class="flex items-center justify-between mb-4 shrink-0">
@@ -693,11 +683,10 @@
           <h3 class="font-extrabold text-base"><i class="fa-solid fa-masks-theater gtx-accent-text mr-1.5"></i>Multi-Identity Studio</h3>
           <p class="text-xs text-slate-400">Create multiple personas, upload profile pictures, or edit display names</p>
         </div>
-        <button onclick="closeModal('identitiesModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">&times;</button>
+        <button onclick="closeModal('identitiesModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">×</button>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 touch-scroll pr-1">
-        <!-- Create / Edit Identity Form -->
         <form id="identityForm" class="gtx-card rounded-xl p-4 space-y-3">
           <div class="flex items-center justify-between">
             <h4 id="identityFormTitle" class="text-xs font-extrabold uppercase tracking-wider gtx-accent-text">Create New Persona</h4>
@@ -705,7 +694,6 @@
           </div>
           <input type="hidden" id="editIdentityId" value="" />
 
-          <!-- Live Avatar Preview & Upload -->
           <div class="p-3 rounded-xl bg-black/25 border border-white/5 flex items-center gap-3">
             <img id="studioAvatarPreview" src="https://api.dicebear.com/7.x/bottts-neutral/svg?seed=shadow" alt="Avatar" class="w-14 h-14 rounded-full object-cover border-2 gtx-accent-border bg-slate-800 shrink-0" />
             <div class="flex-1 min-w-0 space-y-1.5">
@@ -713,13 +701,12 @@
                 <i class="fa-solid fa-cloud-arrow-up mr-1.5"></i>Upload Picture
                 <input type="file" accept="image/*" class="hidden" onchange="handleAvatarFileUpload(event, 'identityPhotoURL', 'studioAvatarPreview')" />
               </label>
-              <div class="text-[10px] text-slate-400">Auto-optimizes photo for instant cloud sync</div>
+              <div class="text-[10px] text-slate-400">Auto-optimizes photo for cloud sync</div>
             </div>
           </div>
 
-          <!-- Preset Avatar Chips -->
           <div>
-            <span class="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Or Pick Quick Avatar Style:</span>
+            <span class="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Quick Avatar Style:</span>
             <div class="flex flex-wrap gap-1.5">
               <button type="button" onclick="selectPresetAvatar('https://api.dicebear.com/7.x/bottts-neutral/svg?seed=cyberbot')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-200">🤖 CyberBot</button>
               <button type="button" onclick="selectPresetAvatar('https://api.dicebear.com/7.x/adventurer/svg?seed=shadow')" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-200">🥷 Ninja</button>
@@ -729,7 +716,7 @@
           </div>
 
           <div>
-            <label class="block text-xs text-slate-300 mb-1">Direct Image URL ( or uploaded data)</label>
+            <label class="block text-xs text-slate-300 mb-1">Image URL</label>
             <input id="identityPhotoURL" type="text" oninput="updateAvatarPreview(this.value, 'studioAvatarPreview', 'shadow')" placeholder="https://..." class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
           </div>
 
@@ -759,31 +746,30 @@
           </button>
         </form>
 
-        <!-- Owned Identities List -->
         <div class="space-y-2.5 touch-scroll max-h-96" id="myIdentitiesList"></div>
       </div>
     </div>
   </div>
 
-  <!-- MODAL: SEARCH PUBLIC IDENTITIES (usernameIndex) -->
+  <!-- MODAL: SEARCH PUBLIC IDENTITIES -->
   <div id="searchModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-40 flex items-center justify-center p-4">
     <div class="w-full max-w-lg gtx-panel border rounded-2xl p-5 shadow-2xl max-h-[90dvh] flex flex-col">
       <div class="flex items-center justify-between mb-3 shrink-0">
         <div>
-          <h3 class="font-extrabold text-base">Find Friends &amp; Public Identities</h3>
+          <h3 class="font-extrabold text-base">Find Friends & Public Identities</h3>
           <p class="text-xs text-slate-400">Live prefix search powered by <code class="gtx-accent-text">/usernameIndex</code></p>
         </div>
-        <button onclick="closeModal('searchModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">&times;</button>
+        <button onclick="closeModal('searchModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">×</button>
       </div>
 
       <div class="mb-3 shrink-0">
-        <input id="searchUsernameInput" type="text" oninput="handleSearchInput(this.value)" placeholder="Search @username (e.g. alex, shadow, gary)..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-base sm:text-sm text-white focus:outline-none focus:border-sky-400" />
+        <input id="searchUsernameInput" type="text" oninput="handleSearchInput(this.value)" placeholder="Search @username..." class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-base sm:text-sm text-white focus:outline-none focus:border-sky-400" />
       </div>
 
       <div class="flex items-center justify-between mb-3 text-xs text-slate-400 shrink-0">
         <label class="flex items-center gap-2 cursor-pointer">
           <input id="includeOwnIdentitiesToggle" type="checkbox" onchange="handleSearchInput(document.getElementById('searchUsernameInput').value)" class="rounded bg-slate-900 border-slate-700" />
-          <span>Show my own personas (for solo test verification)</span>
+          <span>Show my own personas</span>
         </label>
       </div>
 
@@ -791,12 +777,60 @@
     </div>
   </div>
 
-  <!-- MODAL: START CONVERSATION WITH SELECTED PERSONA -->
+  <!-- MODAL: CREATE GROUP CHAT -->
+  <div id="createGroupModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-40 flex items-center justify-center p-4">
+    <div class="w-full max-w-lg gtx-panel border rounded-2xl p-5 shadow-2xl max-h-[90dvh] flex flex-col">
+      <div class="flex items-center justify-between mb-4 shrink-0">
+        <div>
+          <h3 class="font-extrabold text-base"><i class="fa-solid fa-users gtx-accent-text mr-1.5"></i>Create Group Chat</h3>
+          <p class="text-xs text-slate-400">Establish a group community with custom name, photo, and members</p>
+        </div>
+        <button onclick="closeModal('createGroupModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">×</button>
+      </div>
+
+      <form id="createGroupForm" class="space-y-4 touch-scroll pr-1 flex-1">
+        <div class="flex items-center gap-3 p-3 rounded-xl bg-black/25 border border-white/5">
+          <img id="groupAvatarPreview" src="https://api.dicebear.com/7.x/identicon/svg?seed=gtxgroup" alt="Group Avatar" class="w-14 h-14 rounded-full object-cover border-2 gtx-accent-border bg-slate-800 shrink-0" />
+          <div class="flex-1 min-w-0 space-y-1.5">
+            <label class="cursor-pointer inline-flex items-center px-3 py-1.5 rounded-lg gtx-accent-bg text-xs font-bold transition">
+              <i class="fa-solid fa-camera mr-1.5"></i>Group Picture
+              <input type="file" accept="image/*" class="hidden" onchange="handleAvatarFileUpload(event, 'groupPhotoURL', 'groupAvatarPreview')" />
+            </label>
+            <input id="groupPhotoURL" type="text" oninput="updateAvatarPreview(this.value, 'groupAvatarPreview', 'gtxgroup')" placeholder="Or image URL..." class="w-full px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-700 text-xs text-white" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-300 mb-1">Group Name</label>
+          <input id="groupNameInput" type="text" required placeholder="Garry's Tech Squad" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-sky-400" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-300 mb-1">Group Description</label>
+          <input id="groupDescInput" type="text" placeholder="Discussing web apps, coding & gaming" class="w-full px-3.5 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-sm text-white focus:outline-none focus:border-sky-400" />
+        </div>
+
+        <div>
+          <label class="block text-xs font-medium text-slate-300 mb-1">Select Members (search @username or choose friends)</label>
+          <div class="flex gap-2 mb-2">
+            <input id="groupMemberSearchInput" type="text" oninput="filterGroupMemberCandidates(this.value)" placeholder="Search users by @username..." class="flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white" />
+          </div>
+          <div id="groupMemberCandidatesList" class="max-h-40 touch-scroll rounded-xl gtx-card p-2 space-y-1.5"></div>
+        </div>
+
+        <button type="submit" class="w-full py-3 rounded-xl gtx-accent-bg font-extrabold text-sm transition gtx-glow">
+          Create Group Community
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MODAL: START CONVERSATION -->
   <div id="startChatModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="w-full max-w-md gtx-panel border rounded-2xl p-5 shadow-2xl">
       <div class="flex items-center justify-between mb-4">
         <h3 class="font-extrabold text-base">Start Identity Chat</h3>
-        <button onclick="closeModal('startChatModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">&times;</button>
+        <button onclick="closeModal('startChatModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">×</button>
       </div>
       <div id="targetProfileSummary" class="p-3.5 rounded-xl gtx-card mb-4 flex items-center gap-3"></div>
       <div class="mb-4">
@@ -809,15 +843,38 @@
     </div>
   </div>
 
+  <!-- MODAL: GROUP INFO / SETTINGS -->
+  <div id="groupInfoModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="w-full max-w-lg gtx-panel border rounded-2xl p-5 shadow-2xl max-h-[90dvh] flex flex-col">
+      <div class="flex items-center justify-between mb-3 shrink-0">
+        <h3 class="font-bold text-base"><i class="fa-solid fa-users gtx-accent-text mr-1.5"></i>Group Information & Settings</h3>
+        <button onclick="closeModal('groupInfoModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">×</button>
+      </div>
+      <div id="groupInfoContent" class="flex-1 touch-scroll space-y-4 pr-1"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: FORWARD MESSAGE -->
+  <div id="forwardModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+    <div class="w-full max-w-md gtx-panel border rounded-2xl p-5 shadow-2xl max-h-[90dvh] flex flex-col">
+      <div class="flex items-center justify-between mb-3 shrink-0">
+        <h3 class="font-bold text-base"><i class="fa-solid fa-share gtx-accent-text mr-1.5"></i>Forward Message</h3>
+        <button onclick="closeModal('forwardModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">×</button>
+      </div>
+      <p class="text-xs text-slate-400 mb-3">Select a conversation or group to forward this message to:</p>
+      <div id="forwardConversationsList" class="flex-1 touch-scroll space-y-2 pr-1"></div>
+    </div>
+  </div>
+
   <!-- MODAL: RTDB SECURITY RULES -->
   <div id="rulesModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
     <div class="w-full max-w-3xl gtx-panel border rounded-2xl p-5 shadow-2xl max-h-[90dvh] flex flex-col">
       <div class="flex items-center justify-between mb-3 shrink-0">
         <div>
           <h3 class="font-bold text-base">Firebase Realtime Database Rules (<code class="gtx-accent-text">database.rules.json</code>)</h3>
-          <p class="text-xs text-slate-400">Paste into Firebase Console &rarr; Realtime Database &rarr; Rules &rarr; Publish</p>
+          <p class="text-xs text-slate-400">Paste into Firebase Console → Realtime Database → Rules → Publish</p>
         </div>
-        <button onclick="closeModal('rulesModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">&times;</button>
+        <button onclick="closeModal('rulesModal')" class="w-8 h-8 rounded-lg gtx-card text-slate-400 hover:text-white">×</button>
       </div>
       <pre id="rulesCodeBlock" class="flex-1 min-h-0 touch-scroll p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-[11px] text-emerald-300 font-mono select-all"></pre>
       <div class="mt-3 flex justify-end gap-2 shrink-0">
@@ -828,7 +885,7 @@
     </div>
   </div>
 
-  <!-- FIREBASE REALTIME DATABASE APPLICATION LOGIC -->
+  <!-- FIREBASE APPLICATION SCRIPT -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
     import {
@@ -836,6 +893,8 @@
       onAuthStateChanged,
       createUserWithEmailAndPassword,
       signInWithEmailAndPassword,
+      signInWithPopup,
+      GoogleAuthProvider,
       signOut,
       sendPasswordResetEmail
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
@@ -851,7 +910,9 @@
       startAt,
       endAt,
       limitToFirst,
-      onValue
+      onValue,
+      onDisconnect,
+      serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
     const firebaseConfig = {
@@ -868,7 +929,7 @@
     const auth = getAuth(app);
     const db = getDatabase(app);
 
-    // 1. PRELOADER INITIALIZATION
+    // PRELOADER
     const barEl = document.getElementById("preloaderBar");
     setTimeout(() => { if (barEl) barEl.style.width = "65%"; }, 250);
     setTimeout(() => { if (barEl) barEl.style.width = "100%"; }, 950);
@@ -885,7 +946,7 @@
       if (el) el.classList.remove("preloader-hidden");
     };
 
-    // SOUND EFFECTS SYNTHESIZER (Web Audio API)
+    // SOUND EFFECTS SYNTHESIZER
     let soundEnabled = true;
     let audioCtx = null;
 
@@ -910,7 +971,7 @@
       soundEnabled = !soundEnabled;
       const icon = document.getElementById("soundToggleIcon");
       icon.className = soundEnabled ? "fa-solid fa-volume-high text-xs" : "fa-solid fa-volume-xmark text-xs text-slate-500";
-      showToast(soundEnabled ? "Chat sound effects enabled" : "Chat sound effects muted");
+      showToast(soundEnabled ? "Sound effects enabled" : "Sound effects muted");
     };
 
     function showToast(msg) {
@@ -920,7 +981,7 @@
       setTimeout(() => banner.classList.add("hidden"), 2400);
     }
 
-    // THEME & WALLPAPER STUDIO ENGINE
+    // THEME & WALLPAPER STUDIO
     let currentTheme = "cyber";
     let currentWallpaper = "void";
 
@@ -939,7 +1000,7 @@
         panel.classList.remove("hidden");
         panel.classList.add("flex");
       }
-      showToast(`Wallpaper updated`);
+      showToast("Wallpaper updated");
     };
 
     window.applyCustomWallpaperUrl = () => {
@@ -952,9 +1013,7 @@
       const file = event.target.files?.[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = (e) => {
-        setCustomChatBackground(e.target.result);
-      };
+      reader.onload = (e) => setCustomChatBackground(e.target.result);
       reader.readAsDataURL(file);
     };
 
@@ -979,17 +1038,14 @@
           canvas.width = MAX_SIZE;
           canvas.height = MAX_SIZE;
           const ctx = canvas.getContext("2d");
-
-          // Center square crop
           const minSide = Math.min(img.width, img.height);
           const sx = (img.width - minSide) / 2;
           const sy = (img.height - minSide) / 2;
           ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, MAX_SIZE, MAX_SIZE);
-
           const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.78);
           document.getElementById(targetInputId).value = compressedDataUrl;
           document.getElementById(previewImgId).src = compressedDataUrl;
-          showToast("Profile picture ready!");
+          showToast("Picture ready!");
         };
         img.src = e.target.result;
       };
@@ -1007,7 +1063,7 @@
       document.getElementById("studioAvatarPreview").src = presetUrl;
     };
 
-    // Populate Rules Modal
+    // RTDB RULES
     const RTDB_RULES_JSON = `{
   "rules": {
     ".read": false,
@@ -1020,7 +1076,7 @@
         "conversations": {
           "$conversationId": {
             ".read": "auth != null && auth.uid === $uid",
-            ".write": "auth != null && (auth.uid === $uid || root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true || newData.parent().parent().parent().parent().child('conversationMembers').child($conversationId).child(auth.uid).val() === true)"
+            ".write": "auth != null && auth.uid === $uid"
           }
         }
       }
@@ -1051,16 +1107,16 @@
 
     "conversations": {
       "$conversationId": {
-        ".read": "auth != null && (!data.exists() || data.child('participants').child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).child('active').val() === true)",
-        ".write": "auth != null && ((!data.exists() && newData.child('participants').child(auth.uid).val() === true) || (data.exists() && (data.child('participants').child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).child('active').val() === true)))"
+        ".read": "auth != null && (!data.exists() || data.child('participants').child(auth.uid).val() === true || data.child('members').child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true)",
+        ".write": "auth != null && ((!data.exists() && (newData.child('participants').child(auth.uid).val() === true || newData.child('members').child(auth.uid).val() === true)) || (data.exists() && (data.child('participants').child(auth.uid).val() === true || data.child('members').child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true)))"
       }
     },
 
     "messages": {
       "$conversationId": {
-        ".read": "auth != null && (root.child('conversations').child($conversationId).child('participants').child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).child('active').val() === true)",
+        ".read": "auth != null && (root.child('conversations').child($conversationId).child('participants').child(auth.uid).val() === true || root.child('conversations').child($conversationId).child('members').child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true)",
         "$messageId": {
-          ".write": "auth != null && (root.child('conversations').child($conversationId).child('participants').child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).child('active').val() === true)"
+          ".write": "auth != null && (root.child('conversations').child($conversationId).child('participants').child(auth.uid).val() === true || root.child('conversations').child($conversationId).child('members').child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true)"
         }
       }
     }
@@ -1068,7 +1124,7 @@
 }`;
     document.getElementById("rulesCodeBlock").textContent = RTDB_RULES_JSON;
 
-    // Application State
+    // APPLICATION STATE
     let currentUser = null;
     let isRegistering = false;
     let myIdentities = {};
@@ -1080,6 +1136,8 @@
     let activeListeners = [];
     let activeMessageUnsub = null;
     let activeSearchUnsub = null;
+    let typingTimeout = null;
+    let groupCandidateUsers = [];
 
     function reportDatabaseError(context, err) {
       console.error(`[GTX RTDB Error - ${context}]`, err);
@@ -1092,9 +1150,7 @@
     }
 
     function clearAllListeners() {
-      activeListeners.forEach((unsub) => {
-        if (typeof unsub === "function") unsub();
-      });
+      activeListeners.forEach((unsub) => { if (typeof unsub === "function") unsub(); });
       activeListeners = [];
       if (activeMessageUnsub) {
         activeMessageUnsub();
@@ -1113,7 +1169,7 @@
       return `https://api.dicebear.com/7.x/bottts-neutral/svg?seed=${encodeURIComponent(seed || "gtx")}`;
     }
 
-    // AUTHENTICATION STATE OBSERVER (NON-DESTRUCTIVE UPDATE)
+    // AUTHENTICATION STATE OBSERVER
     onAuthStateChanged(auth, async (user) => {
       clearAllListeners();
       currentUser = user;
@@ -1135,20 +1191,48 @@
         const userSnap = await get(userRef);
 
         if (!userSnap.exists()) {
-          // Non-destructive update so existing child nodes are never wiped
-          await update(userRef, {
-            email: user.email,
-            createdAt: Date.now()
-          });
+          // Check if Google user: automatically create default identity from Google profile
+          const emailPrefix = cleanUsername(user.email.split("@")[0]) || "user";
+          const displayName = user.displayName || "GTX User";
+          const photoURL = user.photoURL || getAvatar(null, emailPrefix);
+          const identityId = push(ref(db, "identities")).key;
+          const now = Date.now();
+
+          const updates = {};
+          updates[`users/${user.uid}/email`] = user.email;
+          updates[`users/${user.uid}/createdAt`] = now;
+          updates[`users/${user.uid}/defaultIdentityId`] = identityId;
+          updates[`users/${user.uid}/identities/${identityId}`] = true;
+
+          updates[`identities/${identityId}`] = {
+            identityId,
+            ownerUid: user.uid,
+            username: emailPrefix,
+            displayName,
+            photoURL,
+            bio: "Google Connected GTX Identity",
+            isPublic: true,
+            createdAt: now
+          };
+          updates[`usernameIndex/${emailPrefix}`] = {
+            identityId,
+            ownerUid: user.uid,
+            displayName,
+            photoURL
+          };
+
+          await update(ref(db), updates);
+          defaultIdentityId = identityId;
         } else {
           defaultIdentityId = userSnap.val().defaultIdentityId || null;
-          await update(userRef, {
-            email: user.email,
-            lastSeen: Date.now()
-          });
+          await update(userRef, { email: user.email, lastSeen: Date.now() });
         }
+
+        // Setup Presence
+        setupUserPresence(user.uid);
         subscribeToMyIdentities(user.uid);
         subscribeToMyConversations(user.uid);
+        loadGroupCandidateUsers();
       } catch (err) {
         reportDatabaseError(`users/${user.uid}`, err);
         subscribeToMyIdentities(user.uid);
@@ -1156,7 +1240,28 @@
       }
     }
 
-    // SUBSCRIBE TO MY IDENTITIES WITH SELF-HEALING RECOVERY
+    function setupUserPresence(uid) {
+      const myStatusRef = ref(db, `users/${uid}/status`);
+      const connectedRef = ref(db, ".info/connected");
+      onValue(connectedRef, (snap) => {
+        if (snap.val() === true) {
+          set(myStatusRef, { state: "online", lastChanged: serverTimestamp() });
+          onDisconnect(myStatusRef).set({ state: "offline", lastChanged: serverTimestamp() });
+        }
+      });
+    }
+
+    // GOOGLE AUTHENTICATION INTEGRATION
+    window.handleGoogleLogin = async () => {
+      try {
+        const provider = new GoogleAuthProvider();
+        await signInWithPopup(auth, provider);
+      } catch (err) {
+        showAuthAlert(err.message, true);
+      }
+    };
+
+    // SUBSCRIBE TO IDENTITIES
     function subscribeToMyIdentities(uid) {
       const userIdentitiesRef = ref(db, `users/${uid}/identities`);
       const unsub = onValue(userIdentitiesRef, async (snap) => {
@@ -1175,7 +1280,6 @@
           }
         }
 
-        // Self-healing if user has identities in usernameIndex but missing link
         if (Object.keys(loaded).length === 0) {
           try {
             const idxSnap = await get(query(ref(db, "usernameIndex"), limitToFirst(100)));
@@ -1206,7 +1310,7 @@
       activeListeners.push(unsub);
     }
 
-    // CREATE / UPDATE / DELETE IDENTITIES
+    // CREATE / UPDATE / DELETE IDENTITY
     document.getElementById("identityForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       if (!currentUser) return;
@@ -1251,7 +1355,6 @@
           isPublic,
           createdAt: editId && myIdentities[editId] ? myIdentities[editId].createdAt : Date.now()
         };
-
         updates[`users/${currentUser.uid}/identities/${identityId}`] = true;
 
         if (isPublic) {
@@ -1292,47 +1395,32 @@
       }
     };
 
-    // REAL-TIME PREFIX USERNAME SEARCH
+    // PREFIX USERNAME SEARCH
     function searchUsers(searchText) {
       if (activeSearchUnsub) {
         activeSearchUnsub();
         activeSearchUnsub = null;
       }
-
       const username = cleanUsername(searchText);
       const listEl = document.getElementById("searchResultsList");
 
       if (!username) {
-        listEl.innerHTML = `<div class="text-xs text-slate-400 text-center py-6">Type a username prefix above to search <code class="gtx-accent-text">usernameIndex</code> in real time.</div>`;
+        listEl.innerHTML = `<div class="text-xs text-slate-400 text-center py-6">Type a username prefix above to search <code class="gtx-accent-text">usernameIndex</code>.</div>`;
         return;
       }
 
-      const searchQuery = query(
-        ref(db, "usernameIndex"),
-        orderByKey(),
-        startAt(username),
-        endAt(username + "\uf8ff"),
-        limitToFirst(20)
-      );
-
+      const searchQuery = query(ref(db, "usernameIndex"), orderByKey(), startAt(username), endAt(username + "\uf8ff"), limitToFirst(20));
       activeSearchUnsub = onValue(searchQuery, (snapshot) => {
         const results = [];
         const showOwn = document.getElementById("includeOwnIdentitiesToggle").checked;
-
         snapshot.forEach((child) => {
           const user = child.val();
           if (showOwn || user.ownerUid !== auth.currentUser.uid) {
-            results.push({
-              username: child.key,
-              ...user
-            });
+            results.push({ username: child.key, ...user });
           }
         });
-
         renderSearchResults(results);
-      }, (error) => {
-        reportDatabaseError("usernameIndex prefix search", error);
-      });
+      }, (error) => reportDatabaseError("usernameIndex search", error));
     }
 
     window.handleSearchInput = (val) => searchUsers(val);
@@ -1352,17 +1440,16 @@
               <div class="text-xs gtx-accent-text font-semibold truncate">@${escapeHtml(item.username)}</div>
             </div>
           </div>
-          <button onclick='openStartChatModal(${JSON.stringify(item).replace(/'/g, "&#39;")})' class="px-3.5 py-2 rounded-xl gtx-accent-bg font-bold text-xs transition shrink-0">
+          <button onclick='openStartChatModal(${JSON.stringify(item).replace(/'/g, "'")})' class="px-3.5 py-2 rounded-xl gtx-accent-bg font-bold text-xs transition shrink-0">
             Start Chat
           </button>
         </div>
       `).join("");
     }
 
-    // START OR OPEN IDENTITY-BASED CONVERSATION
     window.openStartChatModal = (targetUser) => {
       if (targetUser.ownerUid === currentUser.uid) {
-        showToast("That is your own persona! Open an Incognito window to chat between two accounts.");
+        showToast("That is your own persona!");
         return;
       }
       selectedTargetIdentity = targetUser;
@@ -1406,6 +1493,7 @@
 
           await set(ref(db, `conversations/${convId}`), {
             conversationId: convId,
+            isGroup: false,
             createdAt: now,
             updatedAt: now,
             lastMessage: "Conversation started",
@@ -1450,6 +1538,107 @@
       }
     };
 
+    // GROUP CHAT FUNCTIONALITY
+    async function loadGroupCandidateUsers() {
+      try {
+        const snap = await get(query(ref(db, "usernameIndex"), limitToFirst(50)));
+        groupCandidateUsers = [];
+        snap.forEach((child) => {
+          if (child.val().ownerUid !== auth.currentUser.uid) {
+            groupCandidateUsers.push({ username: child.key, ...child.val() });
+          }
+        });
+        renderGroupMemberCandidates(groupCandidateUsers);
+      } catch (e) {
+        reportDatabaseError("loadGroupCandidateUsers", e);
+      }
+    }
+
+    function renderGroupMemberCandidates(candidates) {
+      const container = document.getElementById("groupMemberCandidatesList");
+      if (!container) return;
+      if (candidates.length === 0) {
+        container.innerHTML = `<div class="text-[11px] text-slate-400 text-center py-2">No other users found. Search by username above.</div>`;
+        return;
+      }
+      container.innerHTML = candidates.map((c) => `
+        <label class="flex items-center justify-between p-2 rounded-lg bg-slate-900/80 hover:bg-slate-900 cursor-pointer">
+          <div class="flex items-center gap-2.5 min-w-0">
+            <img src="${getAvatar(c.photoURL, c.username)}" class="w-8 h-8 rounded-full object-cover border gtx-accent-border shrink-0" />
+            <div class="min-w-0">
+              <div class="font-bold text-xs truncate">${escapeHtml(c.displayName)}</div>
+              <div class="text-[10px] gtx-accent-text truncate">@${escapeHtml(c.username)}</div>
+            </div>
+          </div>
+          <input type="checkbox" name="groupMemberCheckbox" value="${c.ownerUid}" class="rounded bg-slate-800 border-slate-700 w-4 h-4" />
+        </label>
+      `).join("");
+    }
+
+    window.filterGroupMemberCandidates = (val) => {
+      const q = val.trim().toLowerCase();
+      if (!q) {
+        renderGroupMemberCandidates(groupCandidateUsers);
+        return;
+      }
+      const filtered = groupCandidateUsers.filter((u) => u.username.includes(q) || u.displayName.toLowerCase().includes(q));
+      renderGroupMemberCandidates(filtered);
+    };
+
+    document.getElementById("createGroupForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (!currentUser) return;
+
+      const groupName = document.getElementById("groupNameInput").value.trim();
+      const groupDesc = document.getElementById("groupDescInput").value.trim();
+      const groupPhoto = document.getElementById("groupPhotoURL").value.trim() || `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(groupName)}`;
+      
+      const checkedBoxes = document.querySelectorAll('input[name="groupMemberCheckbox"]:checked');
+      const invitedUids = {};
+      invitedUids[currentUser.uid] = true;
+      checkedBoxes.forEach((cb) => { invitedUids[cb.value] = true; });
+
+      const groupId = `group_${push(ref(db, "conversations")).key}`;
+      const now = Date.now();
+      const myPersona = myIdentities[defaultIdentityId] || Object.values(myIdentities)[0];
+
+      try {
+        const membersMap = {};
+        const memberUidList = Object.keys(invitedUids);
+        memberUidList.forEach((uid) => { membersMap[uid] = true; });
+
+        const updates = {};
+        updates[`conversations/${groupId}`] = {
+          conversationId: groupId,
+          isGroup: true,
+          groupName,
+          groupDescription: groupDesc,
+          groupPhoto,
+          creatorUid: currentUser.uid,
+          admins: { [currentUser.uid]: true },
+          members: membersMap,
+          createdAt: now,
+          updatedAt: now,
+          lastMessage: `Group created by ${myPersona ? myPersona.displayName : "Admin"}`,
+          lastMessageAt: now
+        };
+
+        updates[`conversationMembers/${groupId}`] = membersMap;
+
+        memberUidList.forEach((uid) => {
+          updates[`users/${uid}/conversations/${groupId}`] = true;
+        });
+
+        await update(ref(db), updates);
+        closeModal("createGroupModal");
+        document.getElementById("createGroupForm").reset();
+        showToast(`Group "${groupName}" created successfully!`);
+        openConversation(groupId);
+      } catch (err) {
+        reportDatabaseError("createGroupChat", err);
+      }
+    });
+
     // SUBSCRIBE TO CONVERSATIONS
     function subscribeToMyConversations(uid) {
       const userConvListRef = ref(db, `users/${uid}/conversations`);
@@ -1479,6 +1668,23 @@
       activeListeners.push(unsub);
     }
 
+    function getChatDisplayInfo(conv) {
+      if (!conv) return { name: "Chat", username: "chat", photo: "" };
+      if (conv.isGroup) {
+        return {
+          name: conv.groupName || "Group Chat",
+          username: `${Object.keys(conv.members || {}).length} members`,
+          photo: conv.groupPhoto || "https://api.dicebear.com/7.x/identicon/svg?seed=group"
+        };
+      }
+      const other = getOtherParticipantIdentity(conv);
+      return {
+        name: other.displayName || "Participant",
+        username: `@${other.username || "user"}`,
+        photo: other.photoURL || ""
+      };
+    }
+
     function getOtherParticipantIdentity(conv) {
       if (!conv || !conv.selectedIdentities || !currentUser) return { displayName: "Friend", username: "friend", photoURL: "" };
       const otherUid = Object.keys(conv.participants || {}).find((u) => u !== currentUser.uid);
@@ -1496,31 +1702,33 @@
               <i class="fa-solid fa-user-group"></i>
             </div>
             <div class="font-bold text-white">No Active Chats Yet</div>
-            <p>Tap "Find friends by @username" above to start chatting!</p>
+            <p>Search friends or create a group to start messaging!</p>
           </div>`;
         return;
       }
 
       listEl.innerHTML = convs.map((conv) => {
-        const other = getOtherParticipantIdentity(conv);
-        const mySelected = conv.selectedIdentities?.[currentUser.uid];
+        const info = getChatDisplayInfo(conv);
         const isActive = conv.conversationId === activeConversationId;
+        const mySelected = conv.selectedIdentities?.[currentUser.uid];
         return `
           <button onclick="openConversation('${conv.conversationId}')" class="w-full p-3.5 text-left flex items-center gap-3 hover:bg-white/5 transition ${isActive ? "bg-sky-500/10 border-l-4 gtx-accent-border" : ""}">
             <div class="relative shrink-0">
-              <img src="${getAvatar(other.photoURL, other.username)}" class="w-12 h-12 rounded-full object-cover border-2 gtx-accent-border bg-slate-800" />
+              <img src="${getAvatar(info.photo, info.name)}" class="w-12 h-12 rounded-full object-cover border-2 gtx-accent-border bg-slate-800" />
               <span class="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-slate-950"></span>
             </div>
             <div class="flex-1 min-w-0">
               <div class="flex items-center justify-between gap-1">
-                <span class="font-extrabold text-sm truncate">${escapeHtml(other.displayName)}</span>
-                <span class="text-[11px] gtx-accent-text font-semibold shrink-0">@${escapeHtml(other.username)}</span>
+                <span class="font-extrabold text-sm truncate">${escapeHtml(info.name)}</span>
+                <span class="text-[11px] gtx-accent-text font-semibold shrink-0">${conv.isGroup ? '<i class="fa-solid fa-users mr-0.5"></i>Group' : escapeHtml(info.username)}</span>
               </div>
               <div class="text-xs text-slate-400 truncate mt-0.5">${escapeHtml(conv.lastMessage || "Start chatting...")}</div>
-              <div class="text-[10px] text-slate-500 mt-1 flex items-center gap-1">
-                <i class="fa-solid fa-mask gtx-accent-text"></i>
-                <span>You: <strong class="text-slate-300">@${escapeHtml(mySelected?.username || "default")}</strong></span>
-              </div>
+              ${!conv.isGroup ? `
+                <div class="text-[10px] text-slate-500 mt-1 flex items-center gap-1">
+                  <i class="fa-solid fa-mask gtx-accent-text"></i>
+                  <span>You: <strong class="text-slate-300">@${escapeHtml(mySelected?.username || "default")}</strong></span>
+                </div>
+              ` : ''}
             </div>
           </button>
         `;
@@ -1542,23 +1750,56 @@
       renderActiveConversationHeader();
 
       if (activeMessageUnsub) activeMessageUnsub();
-      const msgQuery = query(ref(db, `messages/${convId}`), limitToFirst(120));
+      const msgQuery = query(ref(db, `messages/${convId}`), limitToFirst(150));
       activeMessageUnsub = onValue(msgQuery, (snap) => {
         const msgs = [];
-        snap.forEach((child) => {
-          msgs.push({ messageId: child.key, ...child.val() });
-        });
+        snap.forEach((child) => { msgs.push({ messageId: child.key, ...child.val() }); });
         renderMessages(msgs);
       }, (err) => reportDatabaseError(`messages/${convId}`, err));
+
+      // Listen for typing indicator
+      const typingRef = ref(db, `conversations/${convId}/typing`);
+      onValue(typingRef, (snap) => {
+        const typingMap = snap.val() || {};
+        const typingNames = [];
+        Object.entries(typingMap).forEach(([uid, val]) => {
+          if (uid !== currentUser.uid && val) {
+            typingNames.add ? typingNames.add(val) : typingNames.push(val);
+          }
+        });
+        const typingEl = document.getElementById("chatHeaderTyping");
+        if (typingNames.length > 0) {
+          typingEl.textContent = `${typingNames.join(", ")} is typing...`;
+          typingEl.className = "text-[11px] text-sky-400 animate-pulse font-bold";
+        } else {
+          typingEl.textContent = "Real-Time Chatting";
+          typingEl.className = "text-[11px] text-emerald-400";
+        }
+      });
     };
 
     function renderActiveConversationHeader() {
       const conv = conversationsCache[activeConversationId];
       if (!conv) return;
-      const other = getOtherParticipantIdentity(conv);
-      document.getElementById("chatHeaderAvatar").src = getAvatar(other.photoURL, other.username);
-      document.getElementById("chatHeaderName").textContent = other.displayName;
-      document.getElementById("chatHeaderUsername").textContent = `@${other.username}`;
+      const info = getChatDisplayInfo(conv);
+      document.getElementById("chatHeaderAvatar").src = getAvatar(info.photo, info.name);
+      document.getElementById("chatHeaderName").textContent = info.name;
+      document.getElementById("chatHeaderUsername").textContent = info.username;
+
+      const badge = document.getElementById("chatHeaderBadge");
+      badge.innerHTML = conv.isGroup ? '<i class="fa-solid fa-users mr-0.5"></i>Group Chat' : '<i class="fa-solid fa-check-double mr-0.5"></i>GTX ID';
+
+      const removeFriendBtn = document.getElementById("menuRemoveFriendBtn");
+      if (removeFriendBtn) {
+        removeFriendBtn.innerHTML = conv.isGroup ? '<i class="fa-solid fa-person-walking-arrow-right text-amber-400"></i> Leave Group' : '<i class="fa-solid fa-user-xmark text-amber-400"></i> Remove Friend';
+      }
+
+      const personaSelectorContainer = document.getElementById("chatPersonaSelect").parentElement;
+      if (conv.isGroup) {
+        personaSelectorContainer.style.display = "flex";
+      } else {
+        personaSelectorContainer.style.display = "flex";
+      }
 
       const mySelectedId = conv.selectedIdentities?.[currentUser.uid]?.identityId || defaultIdentityId;
       const sel = document.getElementById("chatPersonaSelect");
@@ -1571,27 +1812,175 @@
       if (!activeConversationId || !myIdentities[newIdentityId]) return;
       const p = myIdentities[newIdentityId];
       try {
-        await update(ref(db, `conversations/${activeConversationId}/selectedIdentities/${currentUser.uid}`), {
-          identityId: p.identityId,
-          username: p.username,
-          displayName: p.displayName,
-          photoURL: p.photoURL
-        });
+        const conv = conversationsCache[activeConversationId];
+        if (!conv.isGroup) {
+          await update(ref(db, `conversations/${activeConversationId}/selectedIdentities/${currentUser.uid}`), {
+            identityId: p.identityId,
+            username: p.username,
+            displayName: p.displayName,
+            photoURL: p.photoURL
+          });
+        }
         showToast(`Now speaking as ${p.displayName} (@${p.username})`);
       } catch (err) {
         reportDatabaseError("changeConversationPersona", err);
       }
     };
 
-    // 2. CRITICAL PERSISTENT MOBILE KEYBOARD HANDLERS
-    let sendHandledByPointer = false;
-
-    window.preventBlur = (e) => {
-      if (e && e.cancelable) e.preventDefault();
+    window.toggleChatOptionsMenu = () => {
+      const menu = document.getElementById("chatOptionsMenu");
+      menu.classList.toggle("hidden");
     };
 
+    window.handleHeaderTitleClick = () => {
+      const conv = conversationsCache[activeConversationId];
+      if (conv && conv.isGroup) {
+        openGroupInfoModal();
+      }
+    };
+
+    // DELETE CHAT FOR ME & REMOVE FRIEND / LEAVE GROUP
+    window.handleDeleteChatForMe = async () => {
+      if (!activeConversationId || !currentUser) return;
+      if (!confirm("Are you sure you want to remove this conversation from your chat list? The other participant's chat history will remain unaffected.")) return;
+      try {
+        await update(ref(db, `users/${currentUser.uid}/conversations`), { [activeConversationId]: null });
+        toggleChatOptionsMenu();
+        closeMobileChat();
+        showToast("Conversation deleted from your chat list.");
+      } catch (err) {
+        reportDatabaseError("deleteChatForMe", err);
+      }
+    };
+
+    window.handleRemoveFriend = async () => {
+      if (!activeConversationId || !currentUser) return;
+      const conv = conversationsCache[activeConversationId];
+      if (conv && conv.isGroup) {
+        if (!confirm("Are you sure you want to leave this group?")) return;
+        try {
+          const updates = {};
+          updates[`users/${currentUser.uid}/conversations/${activeConversationId}`] = null;
+          updates[`conversations/${activeConversationId}/members/${currentUser.uid}`] = null;
+          updates[`conversationMembers/${activeConversationId}/${currentUser.uid}`] = null;
+          await update(ref(db), updates);
+          toggleChatOptionsMenu();
+          closeMobileChat();
+          showToast("You have left the group.");
+        } catch (err) {
+          reportDatabaseError("leaveGroup", err);
+        }
+      } else {
+        if (!confirm("Remove conversation from your chat list?")) return;
+        window.handleDeleteChatForMe();
+      }
+    };
+
+    // GROUP INFO MODAL
+    async function openGroupInfoModal() {
+      const conv = conversationsCache[activeConversationId];
+      if (!conv || !conv.isGroup) return;
+      const content = document.getElementById("groupInfoContent");
+      const members = conv.members || {};
+      const admins = conv.admins || {};
+      const isCreator = conv.creatorUid === currentUser.uid;
+      const isAdmin = admins[currentUser.uid] || isCreator;
+
+      content.innerHTML = `
+        <div class="flex items-center gap-3 p-3 rounded-xl gtx-card">
+          <img src="${getAvatar(conv.groupPhoto, conv.groupName)}" class="w-14 h-14 rounded-full object-cover border-2 gtx-accent-border" />
+          <div>
+            <div class="font-extrabold text-base">${escapeHtml(conv.groupName)}</div>
+            <div class="text-xs text-slate-400">${escapeHtml(conv.groupDescription || "No description")}</div>
+            <div class="text-[10px] gtx-accent-text mt-1">${Object.keys(members).length} Members</div>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider gtx-accent-text mb-2">Group Members</h4>
+          <div class="space-y-2 max-h-52 touch-scroll">
+            ${Object.keys(members).map((uid) => `
+              <div class="flex items-center justify-between p-2.5 rounded-xl gtx-card">
+                <span class="text-xs font-semibold text-white">${uid === currentUser.uid ? "You (Member)" : `User ID: ${uid.slice(0, 8)}...`}</span>
+                ${isAdmin && uid !== currentUser.uid ? `
+                  <button onclick="removeUserFromGroup('${activeConversationId}', '${uid}')" class="px-2.5 py-1 rounded bg-red-950/70 hover:bg-red-900 text-xs text-red-300 font-semibold">Remove</button>
+                ` : ""}
+              </div>
+            `).join("")}
+          </div>
+        </div>
+
+        ${isAdmin ? `
+          <div class="pt-2 border-t border-white/10">
+            <h4 class="text-xs font-bold uppercase tracking-wider gtx-accent-text mb-2">Add Member</h4>
+            <div class="flex gap-2">
+              <input id="addGroupMemberUsername" type="text" placeholder="Enter @username..." class="flex-1 px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white" />
+              <button onclick="addGroupMemberByUsername('${activeConversationId}')" class="px-3.5 py-2 rounded-xl gtx-accent-bg font-bold text-xs">Add</button>
+            </div>
+          </div>
+        ` : ""}
+      `;
+      openModal("groupInfoModal");
+    }
+
+    window.removeUserFromGroup = async (groupId, uid) => {
+      if (!confirm("Remove this member from the group?")) return;
+      try {
+        const updates = {};
+        updates[`conversations/${groupId}/members/${uid}`] = null;
+        updates[`conversationMembers/${groupId}/${uid}`] = null;
+        updates[`users/${uid}/conversations/${groupId}`] = null;
+        await update(ref(db), updates);
+        showToast("Member removed.");
+        openGroupInfoModal();
+      } catch (err) {
+        reportDatabaseError("removeUserFromGroup", err);
+      }
+    };
+
+    window.addGroupMemberByUsername = async (groupId) => {
+      const usernameInput = document.getElementById("addGroupMemberUsername");
+      const uname = cleanUsername(usernameInput.value);
+      if (!uname) return;
+      try {
+        const idxSnap = await get(ref(db, `usernameIndex/${uname}`));
+        if (!idxSnap.exists()) {
+          showToast(`@${uname} not found.`);
+          return;
+        }
+        const target = idxSnap.val();
+        const updates = {};
+        updates[`conversations/${groupId}/members/${target.ownerUid}`] = true;
+        updates[`conversationMembers/${groupId}/${target.ownerUid}`] = true;
+        updates[`users/${target.ownerUid}/conversations/${groupId}`] = true;
+        await update(ref(db), updates);
+        usernameInput.value = "";
+        showToast(`Added @${uname} to group!`);
+        openGroupInfoModal();
+      } catch (err) {
+        reportDatabaseError("addGroupMemberByUsername", err);
+      }
+    };
+
+    // TYPING INDICATOR
+    window.handleInputTyping = (el) => {
+      autoResizeTextarea(el);
+      if (!activeConversationId || !currentUser) return;
+      const myPersona = myIdentities[defaultIdentityId] || Object.values(myIdentities)[0];
+      const typingRef = ref(db, `conversations/${activeConversationId}/typing/${currentUser.uid}`);
+      set(typingRef, myPersona ? myPersona.displayName : "Someone");
+      if (typingTimeout) clearTimeout(typingTimeout);
+      typingTimeout = setTimeout(() => {
+        set(typingRef, null);
+      }, 3000);
+    };
+
+    // MESSAGE SENDING & KEYBOARD PRESERVATION
+    let sendHandledByPointer = false;
+
+    window.preventBlur = (e) => { if (e && e.cancelable) e.preventDefault(); };
+
     window.handleSendPointerDown = (e) => {
-      // Prevent button tap from stealing focus from #messageInput so mobile keyboard stays open!
       if (e && e.cancelable) e.preventDefault();
       sendHandledByPointer = true;
       window.handleSendMessage();
@@ -1653,7 +2042,6 @@
         return;
       }
 
-      // Immediately clear input while keeping keyboard focused
       input.value = "";
       input.style.height = "auto";
       input.focus({ preventScroll: true });
@@ -1684,6 +2072,9 @@
           lastMessageAt: now,
           updatedAt: now
         });
+
+        // Clear typing indicator
+        set(ref(db, `conversations/${activeConversationId}/typing/${currentUser.uid}`), null);
       } catch (err) {
         reportDatabaseError(`messages/${activeConversationId}`, err);
       }
@@ -1713,6 +2104,51 @@
       }
     };
 
+    // MESSAGE FORWARDING
+    let messageToForward = null;
+    window.openForwardModal = (textSnippet) => {
+      messageToForward = textSnippet;
+      const list = document.getElementById("forwardConversationsList");
+      const convs = Object.values(conversationsCache);
+      list.innerHTML = convs.map((c) => {
+        const info = getChatDisplayInfo(c);
+        return `
+          <button onclick="confirmForwardMessage('${c.conversationId}')" class="w-full p-3 rounded-xl gtx-card flex items-center justify-between hover:bg-white/5 text-left">
+            <span class="font-bold text-xs text-white">${escapeHtml(info.name)}</span>
+            <span class="text-[10px] gtx-accent-text">Forward →</span>
+          </button>
+        `;
+      }).join("");
+      openModal("forwardModal");
+    };
+
+    window.confirmForwardMessage = async (targetConvId) => {
+      if (!messageToForward || !currentUser) return;
+      const persona = myIdentities[defaultIdentityId] || Object.values(myIdentities)[0];
+      const now = Date.now();
+      try {
+        await set(push(ref(db, `messages/${targetConvId}`)), {
+          conversationId: targetConvId,
+          senderUid: currentUser.uid,
+          senderIdentityId: persona?.identityId || "gtx",
+          senderUsername: persona?.username || "user",
+          senderDisplayName: persona?.displayName || "User",
+          senderPhotoURL: persona?.photoURL || "",
+          text: `[Forwarded] ${messageToForward}`,
+          createdAt: now,
+          deleted: false
+        });
+        await update(ref(db, `conversations/${targetConvId}`), {
+          lastMessage: `[Forwarded] ${messageToForward.slice(0, 40)}`,
+          lastMessageAt: now
+        });
+        closeModal("forwardModal");
+        showToast("Message forwarded successfully!");
+      } catch (err) {
+        reportDatabaseError("forwardMessage", err);
+      }
+    };
+
     function renderMessages(msgs) {
       const container = document.getElementById("messagesContainer");
       if (msgs.length === 0) {
@@ -1720,7 +2156,7 @@
           <div class="text-center text-xs text-slate-400 my-10 p-4 rounded-2xl gtx-card max-w-xs mx-auto">
             <i class="fa-solid fa-bolt gtx-accent-text text-lg mb-1"></i>
             <div class="font-bold text-white">Start the Conversation!</div>
-            <p class="mt-0.5">Messages appear instantly with your chosen identity's display name and avatar.</p>
+            <p class="mt-0.5">Messages appear instantly in real time.</p>
           </div>`;
         return;
       }
@@ -1737,7 +2173,6 @@
           <div class="group flex items-end gap-2.5 ${isMine ? "justify-end" : "justify-start"}">
             ${!isMine ? `<img src="${getAvatar(m.senderPhotoURL, m.senderUsername)}" class="w-8 h-8 rounded-full object-cover border-2 gtx-accent-border bg-slate-800 shrink-0" />` : ""}
             <div class="max-w-[82%] sm:max-w-[72%] rounded-2xl px-3.5 py-2.5 shadow-md ${isMine ? "gtx-accent-bg rounded-br-none" : "gtx-card rounded-bl-none"}">
-              <!-- Highlighted Sender Display Name Header -->
               <div class="flex items-center justify-between gap-2 mb-1">
                 <div class="flex items-center gap-1.5">
                   <span class="font-extrabold text-xs tracking-wide ${isMine ? "underline decoration-black/25" : "gtx-accent-text"}">
@@ -1748,7 +2183,6 @@
                 <span class="text-[10px] opacity-75">${timeStr}</span>
               </div>
 
-              <!-- Optional Quoted Reply -->
               ${m.replyTo ? `
                 <div class="mb-1.5 px-2.5 py-1 rounded-lg bg-black/20 border-l-2 border-current text-[11px] opacity-90">
                   <div class="font-bold">${escapeHtml(m.replyTo.senderName)}</div>
@@ -1756,19 +2190,18 @@
                 </div>
               ` : ""}
 
-              <!-- Message Body -->
               <div class="text-xs sm:text-sm whitespace-pre-wrap break-words leading-relaxed ${m.deleted ? "italic opacity-60" : ""}">${escapeHtml(m.text)}</div>
 
-              <!-- Reactions & Action Footer -->
               <div class="mt-1.5 pt-1 border-t border-black/10 flex items-center justify-between gap-2 text-[10px]">
                 <div class="flex items-center gap-1">
-                  <button type="button" onclick="handleReaction('${m.messageId}', '🔥')" class="hover:scale-125 transition" title="React Fire">🔥</button>
-                  <button type="button" onclick="handleReaction('${m.messageId}', '❤️')" class="hover:scale-125 transition" title="React Heart">❤️</button>
-                  <button type="button" onclick="handleReaction('${m.messageId}', '😂')" class="hover:scale-125 transition" title="React Laugh">😂</button>
-                  <button type="button" onclick="handleReaction('${m.messageId}', '⚡')" class="hover:scale-125 transition" title="React Bolt">⚡</button>
+                  <button type="button" onclick="handleReaction('${m.messageId}', '🔥')" class="hover:scale-125 transition">🔥</button>
+                  <button type="button" onclick="handleReaction('${m.messageId}', '❤️')" class="hover:scale-125 transition">❤️</button>
+                  <button type="button" onclick="handleReaction('${m.messageId}', '😂')" class="hover:scale-125 transition">😂</button>
+                  <button type="button" onclick="handleReaction('${m.messageId}', '⚡')" class="hover:scale-125 transition">⚡</button>
                   ${reactionList.length > 0 ? `<span class="ml-1 px-1.5 py-0.5 rounded-full bg-black/25 font-bold">${reactionList.join("")}</span>` : ""}
                 </div>
                 <div class="flex items-center gap-2 opacity-80">
+                  <button type="button" onclick="openForwardModal('${safeSnippet}')" class="hover:underline">Forward</button>
                   ${!m.deleted ? `<button type="button" onclick="setReplyQuote('${safeSenderName}', '${safeSnippet}')" class="hover:underline font-semibold">Reply</button>` : ""}
                   ${isMine && !m.deleted ? `<button type="button" onclick="handleDeleteMessage('${m.messageId}')" class="hover:underline">Delete</button>` : ""}
                 </div>
@@ -1784,13 +2217,12 @@
 
     document.getElementById("messageInput").addEventListener("keydown", (e) => {
       if (e.key === "Enter" && !e.shiftKey) {
-        // On desktop, Enter sends immediately; on mobile, Enter also sends while keeping focus
         e.preventDefault();
         window.handleSendMessage();
       }
     });
 
-    // AUTHENTICATION FORMS
+    // AUTH FORMS
     document.getElementById("loginForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const email = document.getElementById("loginEmail").value.trim();
@@ -1811,7 +2243,7 @@
       const customPhoto = document.getElementById("regPhotoURL").value.trim();
 
       if (username.length < 3) {
-        showAuthAlert("Username must be at least 3 lowercase alphanumeric characters.", true);
+        showAuthAlert("Username must be at least 3 lowercase characters.", true);
         return;
       }
 
@@ -1856,7 +2288,7 @@
       } catch (err) {
         isRegistering = false;
         showAuthAlert(err.message, true);
-        reportDatabaseError("registration atomic init", err);
+        reportDatabaseError("registration init", err);
       }
     });
 
@@ -1941,7 +2373,7 @@
       if (!email) return showAuthAlert("Enter your email address above first.", true);
       try {
         await sendPasswordResetEmail(auth, email);
-        showAuthAlert("Password reset email sent! Check your inbox.", false);
+        showAuthAlert("Password reset email sent!", false);
       } catch (e) {
         showAuthAlert(e.message, true);
       }
@@ -1992,7 +2424,11 @@
 
     function escapeHtml(str) {
       return String(str || "").replace(/[&<>"']/g, (m) => ({
-        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
       }[m]));
     }
   </script>
