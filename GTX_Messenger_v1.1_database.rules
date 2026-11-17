@@ -1,0 +1,83 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid",
+        "conversations": {
+          "$conversationId": {
+            ".read": "auth != null && auth.uid === $uid",
+            ".write": "auth != null && auth.uid === $uid"
+          }
+        }
+      }
+    },
+    "identities": {
+      "$identityId": {
+        ".read": "auth != null && (!data.exists() || data.child('ownerUid').val() === auth.uid || data.child('isPublic').val() === true)",
+        ".write": "auth != null && ((!data.exists() && newData.child('ownerUid').val() === auth.uid) || (data.exists() && data.child('ownerUid').val() === auth.uid && (!newData.exists() || newData.child('ownerUid').val() === auth.uid)))",
+        ".validate": "!newData.exists() || (newData.hasChildren(['ownerUid', 'username', 'displayName', 'isPublic']) && newData.child('username').isString() && newData.child('displayName').isString())"
+      }
+    },
+    "usernameIndex": {
+      ".read": "auth != null",
+      "$username": {
+        ".write": "auth != null && ((!data.exists() && newData.child('ownerUid').val() === auth.uid) || (data.exists() && data.child('ownerUid').val() === auth.uid && (!newData.exists() || newData.child('ownerUid').val() === auth.uid)))",
+        ".validate": "!newData.exists() || (newData.hasChildren(['identityId', 'ownerUid', 'displayName']) && newData.child('ownerUid').val() === auth.uid)"
+      }
+    },
+    "friends": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": false
+      }
+    },
+    "friendRequests": {
+      "$recipientUid": {
+        ".read": "auth != null && auth.uid === $recipientUid",
+        ".write": false
+      }
+    },
+    "sentFriendRequests": {
+      "$senderUid": {
+        ".read": "auth != null && auth.uid === $senderUid",
+        ".write": false
+      }
+    },
+    "adminAuditLogs": {
+      ".read": "auth != null && auth.token.admin === true",
+      ".write": false
+    },
+    "conversationMembers": {
+      "$conversationId": {
+        ".read": "auth != null && (!data.exists() || data.child(auth.uid).val() === true || data.child(auth.uid).child('active').val() === true)",
+        ".write": "auth != null && ((!data.exists() && (newData.child(auth.uid).val() === true || newData.child(auth.uid).child('active').val() === true)) || (data.exists() && (data.child(auth.uid).val() === true || data.child(auth.uid).child('active').val() === true)))"
+      }
+    },
+    "conversations": {
+      "$conversationId": {
+        ".read": "auth != null && (data.child('participants').child(auth.uid).val() === true || data.child('members').child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true)",
+        ".write": "auth != null && ((!data.exists() && ((newData.child('isGroup').val() === true && newData.child('creatorUid').val() === auth.uid && newData.child('members').child(auth.uid).val() === true) || (newData.child('isGroup').val() === false && newData.child('participants').child(auth.uid).val() === true && root.child('friends').child(auth.uid).child(newData.child('peerUid').val()).exists()))) || (data.exists() && (data.child('participants').child(auth.uid).val() === true || data.child('members').child(auth.uid).val() === true || root.child('conversationMembers').child($conversationId).child(auth.uid).val() === true)))",
+        ".validate": "!newData.exists() || data.exists() || (newData.child('isGroup').val() === true && newData.child('creatorUid').val() === auth.uid && newData.child('members').child(auth.uid).val() === true) || (newData.child('isGroup').val() === false && root.child('friends').child(auth.uid).child(newData.child('peerUid').val()).exists())"
+      }
+    },
+    "messages": {
+      "$conversationId": {
+        ".read": "auth != null && (root.child('conversations').child($conversationId).child('participants').child(auth.uid).val() === true || root.child('conversations').child($conversationId).child('members').child(auth.uid).val() === true)",
+        "$messageId": {
+          ".write": "auth != null && (root.child('conversations').child($conversationId).child('participants').child(auth.uid).val() === true || root.child('conversations').child($conversationId).child('members').child(auth.uid).val() === true)",
+          ".validate": "!newData.exists() || (data.exists() ? newData.child('senderUid').val() === data.child('senderUid').val() : newData.child('senderUid').val() === auth.uid)"
+        }
+      }
+    },
+    "displayNameIndex": {
+      ".read": "auth != null",
+      "$entryKey": {
+        ".write": "auth != null && ((!data.exists() && newData.child('ownerUid').val() === auth.uid) || (data.exists() && data.child('ownerUid').val() === auth.uid && (!newData.exists() || newData.child('ownerUid').val() === auth.uid)))",
+        ".validate": "!newData.exists() || (newData.hasChildren(['identityId', 'ownerUid', 'username', 'displayName']) && newData.child('ownerUid').val() === auth.uid)"
+      }
+    }
+  }
+}
