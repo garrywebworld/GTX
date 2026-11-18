@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>GTX MESSENGER 1.3</title>
+  <title>GTX MESSENGER 1.5</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -105,6 +105,10 @@
       --border-subtle: rgba(0, 180, 255, 0.22);
       --glass-specular: rgba(255, 255, 255, 0.28);
     }
+
+    body[data-theme="neon-purple"] { --bg-deep:#090414; --bg-mesh-1:rgba(168,85,247,.27); --bg-mesh-2:rgba(236,72,153,.20); --bg-panel:rgba(25,12,42,.70); --bg-card:rgba(48,24,70,.55); --text-main:#faf5ff; --text-muted:#c4b5fd; --accent:#c084fc; --accent-contrast:#19072b; --accent-glow:rgba(192,132,252,.42); --border-subtle:rgba(216,180,254,.22); }
+    body[data-theme="graphite"] { --bg-deep:#090b0f; --bg-mesh-1:rgba(148,163,184,.12); --bg-mesh-2:rgba(71,85,105,.15); --bg-panel:rgba(20,24,31,.82); --bg-card:rgba(39,45,55,.70); --text-main:#f1f5f9; --text-muted:#a1a1aa; --accent:#cbd5e1; --accent-contrast:#111827; --accent-glow:rgba(203,213,225,.22); --border-subtle:rgba(203,213,225,.16); }
+    body[data-theme="lavender"] { --bg-deep:#f1edfa; --bg-mesh-1:rgba(196,181,253,.30); --bg-mesh-2:rgba(244,114,182,.16); --bg-panel:rgba(255,255,255,.76); --bg-card:rgba(255,255,255,.68); --text-main:#241b35; --text-muted:#665b78; --accent:#8b5cf6; --accent-contrast:#fff; --accent-glow:rgba(139,92,246,.25); --border-subtle:rgba(91,70,130,.16); }
 
     /* PRESERVED CLASSIC THEMES */
     body[data-theme="cyber"] {
@@ -447,11 +451,11 @@
       </div>
 
       <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sky-500/15 border border-sky-400/30 text-[11px] font-bold text-sky-300 uppercase tracking-widest mb-3">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Version 1.3 • Admin & Safety Update
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Version 1.5 • Customization & Administration Update
       </div>
 
       <h1 class="text-3xl sm:text-4xl font-black tracking-tight mb-2 text-white">
-        <span class="gtx-brand-highlight">GTX MESSENGER</span> 1.3
+        <span class="gtx-brand-highlight">GTX MESSENGER</span> 1.5
       </h1>
 
       <p class="text-xs sm:text-sm text-slate-300 max-w-sm leading-relaxed mb-5">
@@ -473,12 +477,12 @@
       </div>
 
       <button onclick="dismissPreloader()" class="px-7 py-3 rounded-2xl gtx-accent-bg font-extrabold text-xs sm:text-sm tracking-wide transition active:scale-95">
-        Enter GTX Messenger 1.3 <i class="fa-solid fa-arrow-right ml-1.5"></i>
+        Enter GTX Messenger 1.5 <i class="fa-solid fa-arrow-right ml-1.5"></i>
       </button>
     </div>
 
     <div class="text-[11px] text-slate-400">
-      GTX MESSENGER 1.3 • Engineered by Garry
+      GTX MESSENGER 1.5 • Engineered by Garry
     </div>
   </div>
 
@@ -510,7 +514,7 @@
           <div>
             <div class="flex items-center gap-1.5">
               <h1 class="font-black text-base sm:text-lg tracking-wide gtx-brand-highlight">GTX MESSENGER</h1>
-              <span class="px-1.5 py-0.5 rounded-md bg-sky-500/20 border border-sky-400/40 text-[10px] font-extrabold gtx-accent-text">v1.3</span>
+              <span class="px-1.5 py-0.5 rounded-md bg-sky-500/20 border border-sky-400/40 text-[10px] font-extrabold gtx-accent-text">v1.5</span>
             </div>
             <p class="text-[11px] opacity-75">Made by Garry • </p>
           </div>
@@ -568,7 +572,7 @@
         </button>
         <div class="flex items-center justify-between text-xs pt-1 opacity-80">
           <button type="button" onclick="handleForgotPassword()" class="hover:underline">Forgot password?</button>
-          <button type="button" onclick="openModal('updateAnnouncementModal')" class="gtx-accent-text font-semibold hover:underline">What's New in 1.3</button>
+          <button type="button" onclick="openModal('updateAnnouncementModal')" class="gtx-accent-text font-semibold hover:underline">What's New in 1.5</button>
         </div>
       </form>
 
@@ -616,12 +620,12 @@
         </div>
 
         <button type="submit" id="registerSubmitBtn" class="w-full py-3 rounded-2xl gtx-accent-bg font-extrabold text-sm transition">
-          Create Account & Launch GTX 1.3
+          Create Account & Launch GTX 1.5
         </button>
       </form>
 
       <div class="mt-4 pt-3 border-t border-white/10 text-[10px] opacity-65 text-center">
-        <i class="fa-solid fa-lock mr-1"></i>Privacy Notice: Authorized administrators may review reported content or accounts for safety & support, with mandatory server-side audit logging.
+        <i class="fa-solid fa-lock mr-1"></i>Privacy Notice: Authorized administrators can access conversations between users for platform administration and safety. Administrator conversation access is disclosed in this notice. Inspection entries are written to the audit log; production-grade tamper-resistant logging requires trusted backend enforcement.
       </div>
     </div>
   </div>
@@ -640,7 +644,7 @@
           <div class="min-w-0">
             <div class="flex items-center gap-1.5">
               <span class="font-black text-sm tracking-wide gtx-brand-highlight truncate">GTX MESSENGER</span>
-              <span class="px-1.5 py-0.2 rounded bg-sky-500/20 text-[9px] font-bold gtx-accent-text">1.3</span>
+              <span class="px-1.5 py-0.2 rounded bg-sky-500/20 text-[9px] font-bold gtx-accent-text">1.5</span>
             </div>
             <div id="activeGlobalPersonaBadge" class="text-[11px] opacity-75 truncate">Loading identity...</div>
           </div>
@@ -709,7 +713,7 @@
         <span><i class="fa-solid fa-code gtx-accent-text mr-1"></i>Made by <strong>Garry</strong></span>
         <div class="flex items-center gap-3">
           <button onclick="toggleSoundEffects()" class="hover:underline"><i id="soundToggleIcon" class="fa-solid fa-volume-high mr-1"></i>Sound</button>
-          <button onclick="openModal('updateAnnouncementModal')" class="hover:underline gtx-accent-text font-semibold">v1.3 Notes</button>
+          <button onclick="openModal('updateAnnouncementModal')" class="hover:underline gtx-accent-text font-semibold">v1.5 Notes</button>
         </div>
       </div>
 
@@ -750,7 +754,7 @@
           
         </div>
         <h2 class="text-xl sm:text-2xl font-black tracking-tight mb-1">
-          Welcome to <span class="gtx-brand-highlight">GTX MESSENGER 1.3</span>
+          Welcome to <span class="gtx-brand-highlight">GTX MESSENGER 1.5</span>
         </h2>
         <p class="text-xs opacity-75 max-w-sm mb-4">
           Select an existing conversation, manage friend requests, or launch a group community with your accepted friends.
@@ -766,7 +770,7 @@
             <i class="fa-solid fa-user-pen mr-1.5 text-emerald-400"></i>Edit Current Persona
           </button>
           <button onclick="openModal('updateAnnouncementModal')" class="px-4 py-2.5 rounded-2xl gtx-card font-bold text-xs hover:opacity-90 transition">
-            <i class="fa-solid fa-sparkles mr-1.5 text-amber-400"></i>What's New in 1.3
+            <i class="fa-solid fa-sparkles mr-1.5 text-amber-400"></i>What's New in 1.5
           </button>
         </div>
       </div>
@@ -829,7 +833,11 @@
         </header>
 
         <!-- Messages Container -->
-        <div id="messagesContainer" class="flex-1 min-h-0 touch-scroll p-3 sm:p-4 space-y-3"></div>
+        <div id="gtx14MessageTools" class="px-3 pt-2 space-y-2 shrink-0">
+        <input id="gtx14MessageSearch" type="search" placeholder="Search messages in this conversation..." oninput="gtx14ApplySearch(this.value)" class="w-full px-3 py-2 rounded-xl gtx-pill-input text-xs" />
+        <div id="gtx14PinnedPanel" class="hidden p-2 rounded-xl gtx-card text-xs"></div>
+      </div>
+      <div id="messagesContainer" class="flex-1 min-h-0 touch-scroll p-3 sm:p-4 space-y-3"></div>
 
         <!-- Reply Preview Bar -->
         <div id="replyPreviewBar" class="hidden px-3.5 py-2 gtx-panel border-t flex items-center justify-between gap-2 shrink-0">
@@ -914,68 +922,25 @@
   </div>
 
   <!-- ========================================================
-       MODAL 1: GTX MESSENGER VERSION 1.3 UPDATE ANNOUNCEMENT
+       MODAL 1: GTX MESSENGER VERSION 1.5 UPDATE ANNOUNCEMENT
        ======================================================== -->
   <div id="updateAnnouncementModal" class="hidden fixed inset-0 bg-black/75 backdrop-blur-md z-[80] flex items-center justify-center p-4">
     <div class="w-full max-w-lg gtx-panel border rounded-3xl p-6 shadow-2xl max-h-[90dvh] flex flex-col relative overflow-hidden">
       <div class="flex items-center justify-between mb-4 shrink-0">
-        <div class="flex items-center gap-2.5">
-          <div class="w-11 h-11 rounded-2xl bg-sky-500/20 border border-sky-400/50 flex items-center justify-center gtx-glow">
-            <span class="font-black gtx-accent-text text-base">GTX</span>
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <span class="font-black text-sm tracking-wide gtx-brand-highlight">GTX MESSENGER — VERSION 1.3</span>
-              <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-[10px] font-bold text-emerald-300">NEW RELEASE</span>
-            </div>
-            <div class="text-[11px] opacity-70">Release Date: November 2026 • Made by Garry</div>
-          </div>
-        </div>
-        <button onclick="acknowledgeUpdateAnnouncement()" class="w-8 h-8 rounded-xl gtx-card">×</button>
+        <div class="flex items-center gap-2.5"><div class="w-11 h-11 rounded-2xl bg-sky-500/20 border border-sky-400/50 flex items-center justify-center gtx-glow"><span class="font-black gtx-accent-text text-base">GTX</span></div>
+          <div><div class="flex items-center gap-2"><span class="font-black text-sm tracking-wide gtx-brand-highlight">GTX MESSENGER — VERSION 1.5</span><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-[10px] font-bold text-emerald-300">NEW RELEASE</span></div><div class="text-[11px] opacity-70">November 2026 • Developed by Garry</div></div>
+        </div><button onclick="acknowledgeUpdateAnnouncement()" class="w-8 h-8 rounded-xl gtx-card">×</button>
       </div>
-
       <div class="touch-scroll space-y-4 pr-1 flex-1">
-        <div class="p-4 rounded-2xl gtx-card border border-sky-400/30">
-          <h3 class="text-lg font-black mb-1">A New Experience Has Arrived.</h3>
-          <p class="text-xs opacity-85 leading-relaxed">
-            "Introducing GTX Messenger 1.3 — the Admin Access & Safety Update. The release introduces administrator sign-in recognition, an in-app warning system, administrator moderation tools and account review. An administrator may issue a warning, sign a user out or remove an account when required under the platform rules. Existing chats and friend requests are intended to remain intact during this update."
-          </p>
+        <div class="p-4 rounded-2xl gtx-card border border-sky-400/30"><h3 class="text-lg font-black mb-1">More Customization. Clearer Administration. Greater Transparency.</h3><p class="text-xs opacity-85 leading-relaxed">Introducing GTX Messenger 1.5, adding three new visual themes and a dedicated read-only administrator conversation viewer with a reason prompt and audit entry.</p></div>
+        <div class="space-y-2.5 text-xs"><div class="font-bold uppercase tracking-wider gtx-accent-text text-[11px]">What's New in Version 1.5</div>
+          <div class="p-3 rounded-2xl gtx-card"><b>Administrator Conversation Viewer</b><div class="opacity-75 text-[11px]">Authorized admins can select two accounts and read their direct conversation history. A reason is required and an audit entry is written before loading messages.</div></div>
+          <div class="p-3 rounded-2xl gtx-card"><b>Three New Themes</b><div class="opacity-75 text-[11px]">Neon Purple, Graphite and Lavender, alongside all existing themes and wallpapers.</div></div>
+          <div class="p-3 rounded-2xl gtx-card"><b>Admin Console Improvements</b><div class="opacity-75 text-[11px]">Dedicated conversation-inspection tab with read-only message history and sender/timestamp details.</div></div>
+          <div class="p-3 rounded-2xl gtx-card"><b>Existing Messaging Tools Preserved</b><div class="opacity-75 text-[11px]">Reply, reactions, forwarding, editing, message search and pinned messages remain available from 1.4.</div></div>
+          <div class="p-3 rounded-2xl gtx-card"><b>Privacy Disclosure</b><div class="opacity-75 text-[11px]">The app now clearly states that authorized administrators may inspect conversations.</div></div>
         </div>
-
-        <div class="space-y-2.5 text-xs">
-          <div class="font-bold uppercase tracking-wider gtx-accent-text text-[11px]">What's New in Version 1.3</div>
-          <div class="p-3 rounded-2xl gtx-card flex items-start gap-3">
-            <i class="fa-solid fa-shield-halved text-amber-400 mt-0.5"></i>
-            <div><div class="font-bold">Admin Access & Moderation</div><div class="opacity-75 text-[11px]">Authorized administrators can access the Admin Console, review accounts, issue users a warning, and apply moderation actions including signing users out or removing accounts where the secure backend supports those actions.</div></div>
-          </div>
-          <div class="p-3 rounded-2xl gtx-card flex items-start gap-3">
-            <i class="fa-solid fa-triangle-exclamation text-orange-400 mt-0.5"></i>
-            <div><div class="font-bold">Warnings & Account Safety</div><div class="opacity-75 text-[11px]">Warnings include a reason, appear in the recipient's account and are recorded for administrator review.</div></div>
-          </div>
-          <div class="p-3 rounded-2xl gtx-card flex items-start gap-3">
-            <i class="fa-solid fa-ban text-rose-400 mt-0.5"></i>
-            <div><div class="font-bold">Block & Manage Users</div><div class="opacity-75 text-[11px]">Block users from their chat menu and manage blocked accounts in Settings.</div></div>
-          </div>
-          <div class="p-3 rounded-2xl gtx-card flex items-start gap-3">
-            <i class="fa-solid fa-user-pen text-purple-400 mt-0.5"></i>
-            <div><div class="font-bold">Expanded Profiles & Message Editing</div><div class="opacity-75 text-[11px]">View richer profiles and edit your own sent messages.</div></div>
-          </div>
-          <div class="p-3 rounded-2xl gtx-card flex items-start gap-3">
-            <i class="fa-solid fa-shield-halved text-emerald-400 mt-0.5"></i>
-            <div><div class="font-bold">Security & Group Controls</div><div class="opacity-75 text-[11px]">Stronger password requirements, identity limits and group administrator controls.</div></div>
-          </div>
-          <div class="p-3 rounded-2xl gtx-card flex items-start gap-3">
-            <i class="fa-solid fa-bell text-sky-400 mt-0.5"></i>
-            <div><div class="font-bold">Presence & Notifications</div><div class="opacity-75 text-[11px]">Online status, last seen, unread counts, message sounds and smoother transitions.</div></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-5 pt-3 border-t border-white/10 shrink-0">
-        <button onclick="acknowledgeUpdateAnnouncement()" class="w-full py-3 rounded-2xl gtx-accent-bg font-extrabold text-sm transition active:scale-95">
-          Continue to GTX Messenger 1.3 <i class="fa-solid fa-arrow-right ml-1.5"></i>
-        </button>
-      </div>
+      </div><div class="mt-5 pt-3 border-t border-white/10 shrink-0"><button onclick="acknowledgeUpdateAnnouncement()" class="w-full py-3 rounded-2xl gtx-accent-bg font-extrabold text-sm transition active:scale-95">Continue to GTX Messenger 1.5 <i class="fa-solid fa-arrow-right ml-1.5"></i></button></div>
     </div>
   </div>
 
@@ -1066,6 +1031,9 @@
             <button onclick="applyTheme('crimson')" class="px-2.5 py-2 rounded-xl gtx-card text-[11px] font-bold">Crimson</button>
             <button onclick="applyTheme('amethyst')" class="px-2.5 py-2 rounded-xl gtx-card text-[11px] font-bold">Amethyst</button>
             <button onclick="applyTheme('frost')" class="px-2.5 py-2 rounded-xl gtx-card text-[11px] font-bold">Frost</button>
+            <button onclick="applyTheme('neon-purple')" class="px-2.5 py-2 rounded-xl gtx-card text-[11px] font-bold">Neon Purple</button>
+            <button onclick="applyTheme('graphite')" class="px-2.5 py-2 rounded-xl gtx-card text-[11px] font-bold">Graphite</button>
+            <button onclick="applyTheme('lavender')" class="px-2.5 py-2 rounded-xl gtx-card text-[11px] font-bold">Lavender</button>
           </div>
         </div>
 
@@ -1158,7 +1126,7 @@
             </div>
             <div>
               <label class="block text-xs opacity-80 mb-1">Biography</label>
-              <input id="identityBio" type="text" maxlength="120" placeholder="Available on GTX 1.3" class="w-full px-3 py-2 rounded-xl gtx-pill-input text-xs" />
+              <input id="identityBio" type="text" maxlength="120" placeholder="Available on GTX 1.5" class="w-full px-3 py-2 rounded-xl gtx-pill-input text-xs" />
             </div>
           </div>
 
@@ -1361,7 +1329,7 @@
             <i class="fa-solid fa-shield-cat"></i>
           </div>
           <div>
-            <h3 class="font-black text-base">GTX 1.3 Administrator Console</h3>
+            <h3 class="font-black text-base">GTX 1.5 Administrator Console</h3>
             <p class="text-[11px] opacity-75">Server-Verified Role (`auth.token.admin` / `/admins/$uid`) • Mandatory Audit Logging</p>
           </div>
         </div>
@@ -1457,6 +1425,8 @@
             <button onclick="closeModal('settingsModal'); openFriendsModal('requests')" class="px-3 py-2 rounded-xl gtx-card text-xs font-bold"><i class="fa-solid fa-user-plus mr-1"></i>Friend requests</button>
             
             <button onclick="openBlockedUsers()" class="px-3 py-2 rounded-xl gtx-card text-xs font-bold"><i class="fa-solid fa-ban mr-1"></i>Blocked users</button>
+            <button onclick="gtx14EditStatus()" class="px-3 py-2 rounded-xl gtx-card text-xs font-bold"><i class="fa-solid fa-comment-dots mr-1"></i>Profile status</button>
+            <button onclick="gtx14PrivacySettings()" class="px-3 py-2 rounded-xl gtx-card text-xs font-bold"><i class="fa-solid fa-eye-slash mr-1"></i>Online privacy</button>
             <button onclick="openPasswordChange()" class="px-3 py-2 rounded-xl gtx-card text-xs font-bold"><i class="fa-solid fa-key mr-1"></i>Change password</button>
             <button onclick="openDeveloperPage()" class="px-3 py-2 rounded-xl gtx-card text-xs font-bold"><i class="fa-solid fa-code mr-1"></i>About developer</button>
             <button onclick="handleLogout()" class="px-3 py-2 rounded-xl gtx-card text-xs font-bold text-rose-400"><i class="fa-solid fa-right-from-bracket mr-1"></i>Sign out</button>
@@ -1467,7 +1437,7 @@
   </div>
 
 <!-- ========================================================
-       FIREBASE & GTX MESSENGER 1.3 APPLICATION SCRIPT
+       FIREBASE & GTX MESSENGER 1.5 APPLICATION SCRIPT
        ======================================================== -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -1517,18 +1487,17 @@
     const auth = getAuth(app);
     const db = getDatabase(app);
 
-    const APP_VERSION = "1.3";
+    const APP_VERSION = "1.5";
 
     // PRELOADER
     const barEl = document.getElementById("preloaderBar");
-    setTimeout(() => { if (barEl) barEl.style.width = "65%"; }, 250);
-    setTimeout(() => { if (barEl) barEl.style.width = "100%"; }, 900);
-    setTimeout(() => { window.dismissPreloader(); }, 1750);
-
     window.dismissPreloader = () => {
       const el = document.getElementById("preloaderScreen");
       if (el) el.classList.add("preloader-hidden");
     };
+    setTimeout(() => { if (barEl) barEl.style.width = "65%"; }, 250);
+    setTimeout(() => { if (barEl) barEl.style.width = "100%"; }, 900);
+    setTimeout(() => { window.dismissPreloader(); }, 1750);
 
     window.replayPreloader = () => {
       const el = document.getElementById("preloaderScreen");
@@ -1908,7 +1877,7 @@
             username: emailPrefix,
             displayName,
             photoURL,
-            bio: "Available on GTX Messenger 1.3",
+            bio: "Available on GTX Messenger 1.5",
             statusText: "Online",
             isPublic: true,
             createdAt: now
@@ -1938,9 +1907,9 @@
           }
           await update(userRef, { email: user.email || "", lastSeen: Date.now() });
 
-          // Check Version 1.3 Update Announcement Acknowledgement
-          const ackLocal = localStorage.getItem(`gtx_v1_2_ack_${user.uid}`);
-          const ackRemote = uData.announcements?.v1_2;
+          // Check Version 1.5 Update Announcement Acknowledgement
+          const ackLocal = localStorage.getItem(`gtx_v1_5_ack_${user.uid}`);
+          const ackRemote = uData.announcements?.v1_5;
           if (!ackLocal && !ackRemote) {
             openModal("updateAnnouncementModal");
           }
@@ -2866,7 +2835,7 @@
       renderActiveConversationHeader();
 
       if (activeMessageUnsub) activeMessageUnsub();
-      const msgQuery = query(ref(db, `messages/${convId}`), limitToFirst(150));
+      const msgQuery = query(ref(db, `messages/${convId}`), limitToLast(150));
       activeMessageUnsub = onValue(msgQuery, (snap) => {
         const msgs = [];
         snap.forEach((child) => { msgs.push({ messageId: child.key, ...child.val() }); });
@@ -3553,7 +3522,7 @@
     }
 
     // ==========================================
-    // GTX 1.3 SETTINGS, DIRECTORY TABS & DESKTOP NAV
+    // GTX 1.5 SETTINGS, DIRECTORY TABS & DESKTOP NAV
     // ==========================================
     let groupCandidateUsers = [];
     let currentSidebarSection = "chats";
@@ -3893,13 +3862,123 @@
           const logs = Object.values(snap.val() || {});
           content.innerHTML = logs.slice(-100).reverse().map((r) => `
             <div class="p-3 rounded-xl gtx-card"><div class="text-xs font-bold">${escapeHtml(r.action || "Admin action")}</div><div class="text-[11px] opacity-75">${escapeHtml(r.reason || "")}</div><div class="text-[10px] opacity-50">${escapeHtml(r.adminUid || "")} • ${new Date(r.createdAt || Date.now()).toLocaleString()}</div></div>`).join("") || `<div class="text-xs opacity-65 p-4">No audit logs available.</div>`;
+        } else if (activeTab === "inspector") {
+          const [usersSnap, convSnap] = await Promise.all([get(ref(db, "users")), get(ref(db, "conversations"))]);
+          const users = usersSnap.val() || {};
+          const convs = convSnap.val() || {};
+          const userRows = Object.entries(users).map(([uid, u]) => ({ uid, label: `${u.displayName || u.email || "User"} • ${uid.slice(0,8)}` }));
+          const options = userRows.map(u => `<option value="${escapeHtml(u.uid)}">${escapeHtml(u.label)}</option>`).join("");
+          content.innerHTML = `
+            <div class="p-3 rounded-2xl gtx-card space-y-3">
+              <div class="flex items-center gap-2"><i class="fa-solid fa-eye gtx-accent-text"></i><b class="text-sm">Read User Conversations</b><span class="ml-auto text-[10px] text-amber-300">Admin only</span></div>
+              <p class="text-[11px] opacity-75">Select two accounts to view their direct conversation. This access is disclosed in the app privacy notice. Enter a reason; the inspection is recorded before messages are loaded.</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <label class="text-[11px]">First user<select id="gtx15InspectorUserA" class="w-full mt-1 p-2 rounded-xl gtx-pill-input">${options}</select></label>
+                <label class="text-[11px]">Second user<select id="gtx15InspectorUserB" class="w-full mt-1 p-2 rounded-xl gtx-pill-input">${options}</select></label>
+              </div>
+              <label class="block text-[11px]">Reason for access<input id="gtx15InspectorReason" maxlength="300" placeholder="e.g. Review a reported conversation" class="w-full mt-1 p-2 rounded-xl gtx-pill-input" /></label>
+              <button onclick="gtx15InspectConversation()" class="px-4 py-2 rounded-xl gtx-accent-bg text-xs font-bold"><i class="fa-solid fa-book-open mr-1"></i>Open conversation</button>
+              <div id="gtx15InspectorResults" class="space-y-2"></div>
+            </div>`;
+          window.__gtx15InspectorConversations = convs;
         } else {
-          content.innerHTML = `<div class="p-4 rounded-xl gtx-card text-xs opacity-75">Conversation inspection is not enabled in this single-file build. The administrator panel remains read-only for account and report review.</div>`;
+          content.innerHTML = `<div class="p-4 rounded-xl gtx-card text-xs opacity-70">This administrator section is not available.</div>`;
         }
       } catch (err) {
         reportDatabaseError(`admin ${activeTab}`, err);
         content.innerHTML = `<div class="p-4 text-xs text-rose-300">Unable to load this section. Confirm administrator access in Firebase.</div>`;
       }
+    };
+
+    // GTX Messenger 1.5: administrator conversation viewer.
+    // Searches every direct-conversation record for the selected accounts and
+    // merges all messages from matching threads into one chronological history.
+    window.gtx15InspectConversation = async () => {
+      if (!isCurrentUserAdmin || !currentUser) { showToast("Administrator access required."); return; }
+      const a = document.getElementById("gtx15InspectorUserA")?.value;
+      const b = document.getElementById("gtx15InspectorUserB")?.value;
+      const reason = String(document.getElementById("gtx15InspectorReason")?.value || "").trim().slice(0,300);
+      const out = document.getElementById("gtx15InspectorResults");
+      if (!a || !b || a === b) { showToast("Select two different users."); return; }
+      if (reason.length < 8) { showToast("Enter a clear reason (at least 8 characters)."); return; }
+      if (out) out.innerHTML = `<div class="text-xs opacity-70 p-3"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Searching all conversations and loading complete message history…</div>`;
+      try {
+        // Read the full conversation index, not just the first candidate cached by the UI.
+        const [convsSnap, usersSnap] = await Promise.all([
+          get(ref(db, "conversations")),
+          get(ref(db, "users"))
+        ]);
+        const allConvs = convsSnap.val() || {};
+        const allUsers = usersSnap.val() || {};
+        const hasUid = (map, uid) => {
+          if (Array.isArray(map)) return map.includes(uid);
+          return !!map && (map[uid] === true || map[uid]?.active === true || map[uid] === 1);
+        };
+        const matches = Object.entries(allConvs).filter(([id, c]) => {
+          if (!c || c.isGroup === true || String(id).startsWith("group_")) return false;
+          const participantMaps = [c.participants, c.members, c.memberUids, c.users];
+          // Some older records identify the pair only by the deterministic UID key.
+          const keyPair = String(id) === [a,b].sort().join("_");
+          const pairInMap = participantMaps.some(map => hasUid(map, a) && hasUid(map, b));
+          const pairInFields = (c.userA === a && c.userB === b) || (c.userA === b && c.userB === a) || (c.uid1 === a && c.uid2 === b) || (c.uid1 === b && c.uid2 === a);
+          return pairInMap || pairInFields || keyPair;
+        });
+        if (!matches.length) {
+          if (out) out.innerHTML = `<div class="p-3 rounded-xl gtx-card text-xs">No direct conversation records were found for these two accounts. If they have an older legacy chat, its conversation metadata may need to be migrated.</div>`;
+          return;
+        }
+
+        // Record the inspection before fetching message contents.
+        const auditId = push(ref(db, "adminAuditLogs")).key;
+        await set(ref(db, `adminAuditLogs/${auditId}`), {
+          action: "ADMIN_CONVERSATION_INSPECTION", adminUid: currentUser.uid,
+          userA: a, userB: b, conversationIds: matches.map(([id]) => id),
+          reason, createdAt: Date.now(), accessMode: "read-only",
+          appVersion: "1.5", threadCount: matches.length
+        });
+
+        const histories = await Promise.all(matches.map(async ([conversationId, conv]) => {
+          const snap = await get(ref(db, `messages/${conversationId}`));
+          const rows = [];
+          snap.forEach(child => {
+            const value = child.val() || {};
+            rows.push({ id: child.key, conversationId, conversationLabel: conv.groupName || conversationId, ...value });
+          });
+          return rows;
+        }));
+        const messages = histories.flat();
+        const timeOf = m => Number(m.createdAt || m.timestamp || m.sentAt || m.time || 0);
+        messages.sort((x,y) => timeOf(x) - timeOf(y));
+        const userLabel = uid => {
+          const u = allUsers[uid] || {};
+          return u.displayName || u.name || u.email || uid;
+        };
+        const labelA = userLabel(a), labelB = userLabel(b);
+        const html = messages.map(m => {
+          const sender = m.senderDisplayName || m.senderUsername || (m.senderUid ? userLabel(m.senderUid) : "Unknown sender");
+          const timestamp = timeOf(m);
+          return `<div class="p-2.5 rounded-xl gtx-card"><div class="flex justify-between gap-2 text-[10px] opacity-65"><b>${escapeHtml(sender)}</b><span>${timestamp ? new Date(timestamp).toLocaleString() : "Time unavailable"}</span></div><div class="text-xs mt-1 whitespace-pre-wrap break-words">${escapeHtml(m.deleted ? "This message was deleted" : (m.text || m.message || "[No text content]"))}</div><div class="text-[9px] opacity-45 mt-1">Conversation: ${escapeHtml(m.conversationId)}</div>${m.edited ? `<div class="text-[9px] opacity-50 mt-1">Edited</div>` : ""}</div>`;
+        }).join("");
+        if (out) out.innerHTML = `<div class="space-y-2"><div class="flex items-center justify-between gap-2 text-xs"><b>${messages.length} total messages • ${matches.length} conversation record(s)</b><span class="text-emerald-400">Read-only</span></div><div class="text-[11px] opacity-70">${escapeHtml(labelA)} ↔ ${escapeHtml(labelB)}</div><div class="p-2 rounded-xl border border-amber-400/30 text-[10px] text-amber-200">Inspection recorded • ${escapeHtml(reason)}</div><input type="search" id="gtx15InspectorSearch" placeholder="Search all loaded messages…" class="w-full p-2 rounded-xl gtx-pill-input text-xs" oninput="gtx15FilterInspectorMessages(this.value)"><div id="gtx15InspectorMessageList" class="max-h-[60vh] overflow-y-auto space-y-2">${html || `<div class="p-3 gtx-card text-xs">No messages were found in the matching conversation records.</div>`}</div></div>`;
+        window.__gtx15InspectorAllMessages = messages;
+      } catch (err) {
+        console.error("GTX 1.5 conversation inspection failed", err);
+        if (out) out.innerHTML = `<div class="p-3 rounded-xl border border-rose-400/30 text-xs text-rose-300">Could not load the complete conversation history. Firebase must allow this administrator to read conversations/messages and write the audit record. Details: ${escapeHtml(err?.code || err?.message || "Unknown error")}</div>`;
+      }
+    };
+
+    window.gtx15FilterInspectorMessages = (term) => {
+      const list = document.getElementById("gtx15InspectorMessageList");
+      if (!list) return;
+      const q = String(term || "").trim().toLowerCase();
+      const all = window.__gtx15InspectorAllMessages || [];
+      const filtered = q ? all.filter(m => [m.text, m.message, m.senderDisplayName, m.senderUsername, m.senderUid, m.conversationId].some(v => String(v || "").toLowerCase().includes(q))) : all;
+      const timeOf = m => Number(m.createdAt || m.timestamp || m.sentAt || m.time || 0);
+      list.innerHTML = filtered.map(m => {
+        const sender = m.senderDisplayName || m.senderUsername || m.senderUid || "Unknown sender";
+        const timestamp = timeOf(m);
+        return `<div class="p-2.5 rounded-xl gtx-card"><div class="flex justify-between gap-2 text-[10px] opacity-65"><b>${escapeHtml(sender)}</b><span>${timestamp ? new Date(timestamp).toLocaleString() : "Time unavailable"}</span></div><div class="text-xs mt-1 whitespace-pre-wrap break-words">${escapeHtml(m.deleted ? "This message was deleted" : (m.text || m.message || "[No text content]"))}</div><div class="text-[9px] opacity-45 mt-1">Conversation: ${escapeHtml(m.conversationId)}</div>${m.edited ? `<div class="text-[9px] opacity-50 mt-1">Edited</div>` : ""}</div>`;
+      }).join("") || `<div class="p-3 gtx-card text-xs">No matching messages.</div>`;
     };
 
     window.issueUserWarning = async (targetUid) => {
@@ -3911,7 +3990,7 @@
       if (cleanReason.length < 5) { showToast("Please enter a clear warning reason (at least 5 characters)."); return; }
       try {
         const warningId = push(ref(db, `userWarnings/${targetUid}`)).key;
-        const warning = { warningId, targetUid, adminUid: currentUser.uid, reason: cleanReason, createdAt: Date.now(), status: "unread", version: "1.3" };
+        const warning = { warningId, targetUid, adminUid: currentUser.uid, reason: cleanReason, createdAt: Date.now(), status: "unread", version: "1.5" };
         const updates = {};
         updates[`userWarnings/${targetUid}/${warningId}`] = warning;
         const logId = push(ref(db, "adminAuditLogs")).key;
@@ -4140,7 +4219,7 @@
 
     // Close the module only after all restored functions are defined.
   
-    // ================= GTX 1.3 ADDITIONS =================
+    // ================= GTX 1.5 ADDITIONS =================
     const gtx12BlockedCache = {};
     const gtx12MessageCache = {};
     function gtx12EnsureModal(id, title, body) {
@@ -4196,7 +4275,7 @@
       }catch(e){reportDatabaseError('editMessage',e);}
     };
     window.openPasswordChange = () => gtx12EnsureModal('gtx12PasswordModal','Change password',`<form id="gtx12PasswordForm" class="space-y-3"><input id="gtx12CurrentPass" type="password" autocomplete="current-password" required placeholder="Current password" class="w-full p-3 rounded-xl gtx-pill-input"><input id="gtx12NewPass" type="password" autocomplete="new-password" required placeholder="New password" class="w-full p-3 rounded-xl gtx-pill-input"><input id="gtx12ConfirmPass" type="password" autocomplete="new-password" required placeholder="Confirm new password" class="w-full p-3 rounded-xl gtx-pill-input"><p class="text-xs opacity-70">At least 8 characters, including uppercase, lowercase and a special character.</p><button class="w-full p-3 rounded-xl gtx-accent-bg font-bold">Update password</button></form>`).querySelector('#gtx12PasswordForm').onsubmit=async e=>{e.preventDefault();const a=document.getElementById('gtx12CurrentPass').value,b=document.getElementById('gtx12NewPass').value,c=document.getElementById('gtx12ConfirmPass').value;if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{8,}$/.test(b)){showToast('Password does not meet requirements.');return;}if(b!==c){showToast('New passwords do not match.');return;}try{const credential=EmailAuthProvider.credential(currentUser.email,a);await reauthenticateWithCredential(currentUser,credential);await updatePassword(currentUser,b);showToast('Password updated successfully.');document.getElementById('gtx12PasswordModal').classList.add('hidden');}catch(err){showToast(err.message||'Could not update password.');}};
-    window.openDeveloperPage = () => gtx12EnsureModal('gtx12DeveloperModal','About GTX Messenger',`<div class="text-center space-y-3"><div class="mx-auto w-20 h-20 rounded-3xl gtx-accent-bg grid place-items-center text-2xl font-black">GTX</div><h2 class="text-2xl font-black">Made by Garry</h2><p class="text-sm opacity-75">@Garry · Administrator</p><p class="text-sm">GTX Messenger is developed and maintained by Garry. The administrator may moderate accounts that violate platform rules.</p><p class="text-xs opacity-60">GTX Messenger 1.3</p></div>`);
+    window.openDeveloperPage = () => gtx12EnsureModal('gtx12DeveloperModal','About GTX Messenger',`<div class="text-center space-y-3"><div class="mx-auto w-20 h-20 rounded-3xl gtx-accent-bg grid place-items-center text-2xl font-black">GTX</div><h2 class="text-2xl font-black">Made by Garry</h2><p class="text-sm opacity-75">@Garry · Administrator</p><p class="text-sm">GTX Messenger is developed and maintained by Garry. The administrator may moderate accounts that violate platform rules.</p><p class="text-xs opacity-60">GTX Messenger 1.5</p></div>`);
     // Profile view is opened by clicking the chat title; keep the existing title navigation behaviour and enrich it.
     const gtx12OriginalHeaderTitleClick=window.handleHeaderTitleClick;
     window.handleHeaderTitleClick=()=>{const conv=conversationsCache[activeConversationId];if(conv?.isGroup){if(typeof gtx12OriginalHeaderTitleClick==='function')gtx12OriginalHeaderTitleClick();return;}const uid=Object.keys(conv?.participants||{}).find(x=>x!==currentUser?.uid);if(uid)window.openPublicProfile(uid);};
@@ -4239,8 +4318,151 @@
       return gtx12OriginalSendMessage(...args);
     };
     // Preserve app's existing presence implementation; it already uses .info/connected and onDisconnect.
-    document.title='GTX Messenger 1.3';
+    document.title='GTX Messenger 1.5';
     document.body.classList.add('gtx12-enhanced');
+
+
+    // ================= GTX MESSENGER 1.5 FEATURES =================
+    const GTX14_VERSION = "1.4";
+    let gtx14LoadedMessages = [];
+    let gtx14SearchTerm = "";
+    let gtx14SendLock = false;
+
+    // Message search works against the currently loaded recent conversation messages.
+    window.gtx14ApplySearch = (value) => {
+      gtx14SearchTerm = String(value || "").trim().toLowerCase();
+      const filtered = !gtx14SearchTerm ? gtx14LoadedMessages : gtx14LoadedMessages.filter(m => String(m.text || "").toLowerCase().includes(gtx14SearchTerm) || String(m.senderDisplayName || "").toLowerCase().includes(gtx14SearchTerm));
+      renderMessages(filtered);
+      if (gtx14SearchTerm) showToast(`${filtered.length} matching message(s) in loaded messages.`);
+    };
+
+    // Extend the existing renderer without replacing its existing reply/reaction/edit/delete actions.
+    const gtx14BaseRenderMessages = renderMessages;
+    renderMessages = function(msgs) {
+      gtx14LoadedMessages = Array.isArray(msgs) ? msgs.slice() : [];
+      const term = gtx14SearchTerm;
+      const visible = term ? gtx14LoadedMessages.filter(m => String(m.text || "").toLowerCase().includes(term) || String(m.senderDisplayName || "").toLowerCase().includes(term)) : gtx14LoadedMessages;
+      gtx14BaseRenderMessages(visible);
+      const container = document.getElementById("messagesContainer");
+      if (!container) return;
+      container.querySelectorAll(".chat-message-row").forEach((row, i) => {
+        const m = visible[i]; if (!m) return;
+        const actions = row.querySelector(".chat-message-actions > div:last-child");
+        if (actions && !actions.querySelector(`[data-gtx14-pin="${m.messageId}"]`)) {
+          const pin = document.createElement("button"); pin.type="button"; pin.dataset.gtx14Pin=m.messageId;
+          pin.className="hover:underline"; pin.textContent=m.pinned ? "Unpin" : "Pin";
+          pin.onclick=()=>window.gtx14TogglePin(m.messageId, !!m.pinned);
+          actions.prepend(pin);
+        }
+        if (m.pinned) { const bubble=row.querySelector(".chat-message-bubble"); if(bubble && !bubble.querySelector(".gtx14-pinned-label")){const tag=document.createElement("div");tag.className="gtx14-pinned-label text-[9px] font-bold opacity-80 mb-1";tag.textContent="📌 Pinned message";bubble.prepend(tag);} }
+      });
+      gtx14RenderPinnedPanel();
+    };
+
+    window.gtx14TogglePin = async (messageId, currentlyPinned) => {
+      if (!currentUser || !activeConversationId) return;
+      try {
+        await update(ref(db, `messages/${activeConversationId}/${messageId}`), { pinned: !currentlyPinned, pinnedBy: !currentlyPinned ? currentUser.uid : null, pinnedAt: !currentlyPinned ? Date.now() : null });
+        showToast(currentlyPinned ? "Message unpinned." : "Message pinned.");
+      } catch (e) { reportDatabaseError("pinMessage", e); }
+    };
+    function gtx14RenderPinnedPanel() {
+      const panel=document.getElementById("gtx14PinnedPanel"); if(!panel)return;
+      const pinned=gtx14LoadedMessages.filter(m=>m.pinned);
+      if(!pinned.length){panel.classList.add("hidden");panel.innerHTML="";return;}
+      panel.classList.remove("hidden");
+      panel.innerHTML=`<div class="font-extrabold gtx-accent-text mb-1">📌 Pinned messages (${pinned.length})</div>`+pinned.slice(-3).map(m=>`<div class="truncate opacity-85">${escapeHtml(m.senderDisplayName||"User")}: ${escapeHtml(m.text||"")}</div>`).join("");
+    }
+
+    // Profile status is stored on the active identity record, so each identity can have its own status.
+    window.gtx14EditStatus = async () => {
+      const identityId = document.getElementById("chatPersonaSelect")?.value || defaultIdentityId;
+      const persona = myIdentities[identityId] || Object.values(myIdentities)[0];
+      if (!persona) { showToast("No active identity found."); return; }
+      const next = prompt("Set your profile status (maximum 80 characters):", persona.statusText || "");
+      if (next === null) return;
+      const value = next.trim().slice(0,80);
+      try { await update(ref(db, `identities/${persona.identityId}`), { statusText: value }); persona.statusText=value; showToast("Profile status updated."); }
+      catch(e){reportDatabaseError("updateProfileStatus",e);}
+    };
+
+    // Presence visibility preferences. The profile renderer below respects these preferences for non-owners.
+    window.gtx14PrivacySettings = async () => {
+      if(!currentUser)return;
+      try {
+        const snap=await get(ref(db,`users/${currentUser.uid}/preferences/privacy`));
+        const prefs=snap.val()||{};
+        const online=prompt("Who can see your online status? Enter: everyone, contacts, or nobody",prefs.online||"everyone");
+        if(online===null)return;
+        const last=prompt("Who can see your last seen? Enter: everyone, contacts, or nobody",prefs.lastSeen||"everyone");
+        if(last===null)return;
+        const valid=v=>["everyone","contacts","nobody"].includes(String(v).toLowerCase().trim());
+        if(!valid(online)||!valid(last)){showToast("Use everyone, contacts, or nobody.");return;}
+        await update(ref(db,`users/${currentUser.uid}/preferences/privacy`),{online:String(online).toLowerCase().trim(),lastSeen:String(last).toLowerCase().trim()});
+        showToast("Online privacy settings saved.");
+      }catch(e){reportDatabaseError("privacySettings",e);}
+    };
+
+    // Upgrade public profile presence display to respect the target user's visibility preferences.
+    const gtx14PreviousOpenProfile = window.openPublicProfile;
+    window.openPublicProfile = async uid => {
+      try {
+        const [identityRefSnap,statusSnap,prefsSnap] = await Promise.all([
+          get(ref(db,`users/${uid}/defaultIdentityId`)),get(ref(db,`users/${uid}/status`)),get(ref(db,`users/${uid}/preferences/privacy`))
+        ]);
+        if(!identityRefSnap.exists())return;
+        const identitySnap=await get(ref(db,`identities/${identityRefSnap.val()}`)); if(!identitySnap.exists())return;
+        const p=identitySnap.val(), presence=statusSnap.val()||{}, prefs=prefsSnap.val()||{};
+        let allowedOnline=true, allowedLast=true;
+        if(uid!==currentUser?.uid){
+          const isContact=!!(conversationsCache && Object.values(conversationsCache).some(c=>c?.participants?.[uid]));
+          allowedOnline=(prefs.online||"everyone")==="everyone" || ((prefs.online||"everyone")==="contacts" && isContact);
+          allowedLast=(prefs.lastSeen||"everyone")==="everyone" || ((prefs.lastSeen||"everyone")==="contacts" && isContact);
+        }
+        const presenceText=presence.state==="online"?(allowedOnline?"● Online":"Presence hidden"):(allowedLast&&presence.lastChanged?`Last seen ${new Date(presence.lastChanged).toLocaleString()}`:"Last seen hidden");
+        gtx12EnsureModal("gtx12ProfileModal","Profile",`<div class="text-center space-y-3"><img src="${getAvatar(p.photoURL,p.username)}" class="w-24 h-24 rounded-full mx-auto object-cover border-2 gtx-accent-border"><h2 class="text-xl font-black">${escapeHtml(p.displayName||"GTX User")}</h2><p class="text-sm opacity-70">@${escapeHtml(p.username||"")}</p><p class="text-xs ${presence.state==="online"&&allowedOnline?"text-emerald-400":"opacity-60"}">${escapeHtml(presenceText)}</p><div class="gtx-card rounded-xl p-3 text-left"><b class="text-xs gtx-accent-text">Status</b><p class="text-sm">${escapeHtml(p.statusText||"No status")}</p><b class="text-xs gtx-accent-text block mt-3">Biography</b><p class="text-sm">${escapeHtml(p.bio||"No biography added.")}</p></div></div>`);
+      } catch(e){reportDatabaseError("profile",e);}
+    };
+
+    // Add useful aggregate counts to the existing administrator overview.
+    const gtx14OriginalOpenAdmin = window.openAdminPanelModal;
+    window.openAdminPanelModal = () => {
+      gtx14OriginalOpenAdmin();
+      if(!isCurrentUserAdmin)return;
+      gtx14LoadAdminStats();
+    };
+    async function gtx14LoadAdminStats(){
+      try{
+        const [usersSnap,convsSnap,msgsSnap]=await Promise.all([get(ref(db,"users")),get(ref(db,"conversations")),get(ref(db,"messages"))]);
+        const users=usersSnap.val()||{},convs=convsSnap.val()||{},messages=msgsSnap.val()||{};
+        const online=Object.values(users).filter(u=>u?.status?.state==="online").length;
+        const totalMessages=Object.values(messages).reduce((sum,thread)=>sum+Object.keys(thread||{}).length,0);
+        const row=document.querySelector("#adminPanelModal .grid.grid-cols-2");
+        if(row){
+          let extra=document.getElementById("gtx14AdminStats");
+          if(!extra){extra=document.createElement("div");extra.id="gtx14AdminStats";extra.className="grid grid-cols-2 gap-2.5 my-2 shrink-0";row.parentNode.insertBefore(extra,row.nextSibling);}
+          extra.innerHTML=`<div class="p-3 rounded-2xl gtx-card"><div class="text-[10px] uppercase opacity-70 font-bold">Online users</div><div class="text-xl font-black text-emerald-400 mt-0.5">${online}</div></div><div class="p-3 rounded-2xl gtx-card"><div class="text-[10px] uppercase opacity-70 font-bold">Total messages</div><div class="text-xl font-black gtx-accent-text mt-0.5">${totalMessages}</div></div>`;
+        }
+      }catch(e){console.warn("GTX 1.5 admin statistics unavailable",e);showToast("Some statistics could not be loaded. Check administrator database permissions.");}
+    }
+
+    // Lightweight duplicate-submit guard; always releases after the existing send handler settles.
+    const gtx14OriginalSend = window.handleSendMessage;
+    window.handleSendMessage = async (...args) => {
+      if(gtx14SendLock)return;
+      gtx14SendLock=true;
+      try{return await gtx14OriginalSend(...args);}finally{gtx14SendLock=false;}
+    };
+
+    // Version 1.5 announcement acknowledgement is separate from previous release acknowledgements.
+    const gtx14OriginalAcknowledge = window.acknowledgeUpdateAnnouncement;
+    window.acknowledgeUpdateAnnouncement = async () => {
+      try { if(currentUser) await update(ref(db,`users/${currentUser.uid}/announcements`),{v1_5:true}); } catch(_) {}
+      try { if(currentUser) localStorage.setItem(`gtx_v1_5_ack_${currentUser.uid}`,"1"); } catch(_) {}
+      closeModal("updateAnnouncementModal");
+    };
+    document.title="GTX Messenger 1.5";
+    document.body.classList.add("gtx14-enhanced");
 
 </script>
 </body>
