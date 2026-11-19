@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>GTX MESSENGER 1.5</title>
+  <title>GTX MESSENGER 1.6</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -169,6 +169,21 @@
 
 
     body[data-theme="liquid-glass"] { --bg-deep:#07111f; --bg-panel:rgba(19,35,58,.48); --bg-card:rgba(34,62,94,.38); --text-main:#f4f9ff; --text-muted:#a9c0d8; --accent:#68c8ff; --accent-contrast:#061525; --accent-glow:rgba(104,200,255,.34); --border-subtle:rgba(210,235,255,.24); --blur-strength:28px; }
+
+    /* GTX 1.6 NEW COLORWAYS + eDEX-INSPIRED TERMINAL SKIN */
+    body[data-theme="edex-ui"] { --bg-deep:#050b10; --bg-mesh-1:rgba(0,229,255,.18); --bg-mesh-2:rgba(57,255,20,.10); --bg-panel:rgba(5,17,24,.94); --bg-card:rgba(8,28,37,.88); --bg-card-hover:rgba(10,47,57,.96); --text-main:#d8f7f5; --text-muted:#76aeb1; --accent:#00e5ff; --accent-contrast:#001014; --accent-glow:rgba(0,229,255,.36); --border-subtle:rgba(0,229,255,.34); --glass-specular:rgba(0,229,255,.12); --blur-strength:8px; }
+    body[data-theme="solar-flare"] { --bg-deep:#160b0a; --bg-mesh-1:rgba(249,115,22,.24); --bg-mesh-2:rgba(234,179,8,.16); --bg-panel:rgba(43,20,13,.78); --bg-card:rgba(69,31,17,.68); --bg-card-hover:rgba(91,42,20,.78); --text-main:#fff7ed; --text-muted:#fdba74; --accent:#fb923c; --accent-contrast:#2b1005; --accent-glow:rgba(251,146,60,.35); --border-subtle:rgba(251,146,60,.22); }
+    body[data-theme="oceanic"] { --bg-deep:#041522; --bg-mesh-1:rgba(14,165,233,.22); --bg-mesh-2:rgba(20,184,166,.16); --bg-panel:rgba(5,31,48,.78); --bg-card:rgba(8,48,67,.66); --bg-card-hover:rgba(10,65,86,.78); --text-main:#e0f7ff; --text-muted:#8bbdce; --accent:#22d3ee; --accent-contrast:#04202a; --accent-glow:rgba(34,211,238,.34); --border-subtle:rgba(34,211,238,.22); }
+    body[data-theme="rose-quartz"] { --bg-deep:#190d17; --bg-mesh-1:rgba(244,114,182,.22); --bg-mesh-2:rgba(192,132,252,.16); --bg-panel:rgba(42,20,39,.78); --bg-card:rgba(67,31,60,.66); --bg-card-hover:rgba(84,38,76,.78); --text-main:#fff1f7; --text-muted:#d8a5c2; --accent:#f472b6; --accent-contrast:#310d22; --accent-glow:rgba(244,114,182,.34); --border-subtle:rgba(244,114,182,.22); }
+
+    /* eDEX-inspired terminal styling: visual theme only; core app layout remains intact. */
+    body[data-theme="edex-ui"] { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace !important; background-image: linear-gradient(rgba(0,229,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,.035) 1px, transparent 1px), radial-gradient(circle at 12% 18%, var(--bg-mesh-1), transparent 42%), radial-gradient(circle at 88% 82%, var(--bg-mesh-2), transparent 46%); background-size: 24px 24px, 24px 24px, auto, auto; }
+    body[data-theme="edex-ui"] .gtx-panel, body[data-theme="edex-ui"] .gtx-card { border-radius: 12px !important; backdrop-filter: blur(8px) saturate(125%); -webkit-backdrop-filter: blur(8px) saturate(125%); box-shadow: 0 0 0 1px rgba(0,229,255,.06), 0 0 22px rgba(0,229,255,.055), inset 0 1px 0 rgba(0,229,255,.10); }
+    body[data-theme="edex-ui"] .gtx-card { border-left: 2px solid rgba(0,229,255,.38); }
+    body[data-theme="edex-ui"] .gtx-brand-highlight, body[data-theme="edex-ui"] .gtx-accent-text { text-shadow: 0 0 10px rgba(0,229,255,.38); }
+    body[data-theme="edex-ui"] .gtx-accent-bg { background: linear-gradient(135deg,#00e5ff,#00a6a6) !important; box-shadow: 0 0 18px rgba(0,229,255,.28), inset 0 1px 0 rgba(255,255,255,.3); }
+    body[data-theme="edex-ui"] .gtx-pill-input { background: rgba(0,12,18,.92); border-color: rgba(0,229,255,.38); color: #d8f7f5; }
+    body[data-theme="edex-ui"]::after { content:""; position:fixed; inset:0; pointer-events:none; z-index:1; opacity:.14; background:repeating-linear-gradient(to bottom, transparent 0, transparent 3px, rgba(0,229,255,.12) 4px); }
     .gtx12-enhanced .gtx-card, .gtx12-enhanced .gtx-panel { transition: opacity .18s ease, transform .22s cubic-bezier(.2,.8,.2,1), background .2s ease; }
 
     * {
@@ -451,15 +466,15 @@
       </div>
 
       <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sky-500/15 border border-sky-400/30 text-[11px] font-bold text-sky-300 uppercase tracking-widest mb-3">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Version 1.5 • Customization & Administration Update
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Version 1.6 • Privacy & Interface Refresh
       </div>
 
       <h1 class="text-3xl sm:text-4xl font-black tracking-tight mb-2 text-white">
-        <span class="gtx-brand-highlight">GTX MESSENGER</span> 1.5
+        <span class="gtx-brand-highlight">GTX MESSENGER</span> 1.6
       </h1>
 
       <p class="text-xs sm:text-sm text-slate-300 max-w-sm leading-relaxed mb-5">
-        Next-generation  interface, Multi-Identity Studio, Friend Requests, Smart Groups & Real-Time Hub.
+        Privacy-first update, eDEX-inspired interface theme, new colorways & refined visual effects.
       </p>
 
       <div class="w-full p-4 rounded-2xl gtx-card mb-6">
@@ -468,7 +483,7 @@
           <span>Project Made by <span class="text-sky-400 underline decoration-sky-500/50">Garry</span></span>
         </div>
         <div class="text-[11px] text-slate-400 mt-1">
-          100% Backward-Compatible • Preserves All Chats, Friends & Personas
+          Privacy-focused interface • Existing chats and accounts preserved
         </div>
       </div>
 
@@ -477,12 +492,12 @@
       </div>
 
       <button onclick="dismissPreloader()" class="px-7 py-3 rounded-2xl gtx-accent-bg font-extrabold text-xs sm:text-sm tracking-wide transition active:scale-95">
-        Enter GTX Messenger 1.5 <i class="fa-solid fa-arrow-right ml-1.5"></i>
+        Enter GTX Messenger 1.6 <i class="fa-solid fa-arrow-right ml-1.5"></i>
       </button>
     </div>
 
     <div class="text-[11px] text-slate-400">
-      GTX MESSENGER 1.5 • Engineered by Garry
+      GTX MESSENGER 1.6 • Engineered by Garry
     </div>
   </div>
 
@@ -514,7 +529,7 @@
           <div>
             <div class="flex items-center gap-1.5">
               <h1 class="font-black text-base sm:text-lg tracking-wide gtx-brand-highlight">GTX MESSENGER</h1>
-              <span class="px-1.5 py-0.5 rounded-md bg-sky-500/20 border border-sky-400/40 text-[10px] font-extrabold gtx-accent-text">v1.5</span>
+              <span class="px-1.5 py-0.5 rounded-md bg-sky-500/20 border border-sky-400/40 text-[10px] font-extrabold gtx-accent-text">v1.6</span>
             </div>
             <p class="text-[11px] opacity-75">Made by Garry • </p>
           </div>
@@ -540,9 +555,9 @@
       <!-- GOOGLE AUTH BUTTON -->
       <button type="button" onclick="handleGoogleLogin()" class="w-full mb-3.5 py-3 rounded-2xl bg-white hover:bg-slate-100 text-slate-900 font-extrabold text-xs sm:text-sm flex items-center justify-center gap-2.5 shadow-lg transition active:scale-[0.99]">
         <svg class="w-4 h-4" viewBox="0 0 24 24">
-          <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
+          <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.62-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/>
           <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.13 0-5.78-2.11-6.73-4.96H1.15v3.14C3.15 21.32 7.23 24 12 24z"/>
-          <path fill="#FBBC05" d="M5.27 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.52.38-2.24V6.62H1.15C.42 8.1 0 9.99 0 12s.42 3.9 1.15 5.38l4.12-3.14z"/>
+          <path fill="#FBBC05" d="M5.27 14.24c-.25-.72-.38-1.49-.38-2.24s.13-1.62.38-2.24V6.62H1.15C.42 8.1 0 9.99 0 12s.42 3.9 1.15 5.38l4.12-3.14z"/>
           <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.23 0 3.15 2.68 1.15 6.62l4.12 3.14c.95-2.85 3.6-4.96 6.73-4.96z"/>
         </svg>
         Continue with Google
@@ -572,7 +587,7 @@
         </button>
         <div class="flex items-center justify-between text-xs pt-1 opacity-80">
           <button type="button" onclick="handleForgotPassword()" class="hover:underline">Forgot password?</button>
-          <button type="button" onclick="openModal('updateAnnouncementModal')" class="gtx-accent-text font-semibold hover:underline">What's New in 1.5</button>
+          <button type="button" onclick="openModal('updateHistoryModal')" class="gtx-accent-text font-semibold hover:underline">Update History</button>
         </div>
       </form>
 
@@ -620,12 +635,12 @@
         </div>
 
         <button type="submit" id="registerSubmitBtn" class="w-full py-3 rounded-2xl gtx-accent-bg font-extrabold text-sm transition">
-          Create Account & Launch GTX 1.5
+          Create Account & Launch GTX 1.6
         </button>
       </form>
 
       <div class="mt-4 pt-3 border-t border-white/10 text-[10px] opacity-65 text-center">
-        <i class="fa-solid fa-lock mr-1"></i>Privacy Notice: Authorized administrators can access conversations between users for platform administration and safety. Administrator conversation access is disclosed in this notice. Inspection entries are written to the audit log; production-grade tamper-resistant logging requires trusted backend enforcement.
+        <i class="fa-solid fa-shield-heart mr-1"></i>Privacy matters to us. The in-app Administrator Conversation Inspector has been removed in GTX Messenger 1.6 so administrators no longer have a built-in tool to browse private chats. See the privacy policy for full data-handling details.
       </div>
     </div>
   </div>
@@ -644,7 +659,7 @@
           <div class="min-w-0">
             <div class="flex items-center gap-1.5">
               <span class="font-black text-sm tracking-wide gtx-brand-highlight truncate">GTX MESSENGER</span>
-              <span class="px-1.5 py-0.2 rounded bg-sky-500/20 text-[9px] font-bold gtx-accent-text">1.5</span>
+              <span class="px-1.5 py-0.2 rounded bg-sky-500/20 text-[9px] font-bold gtx-accent-text">1.6</span>
             </div>
             <div id="activeGlobalPersonaBadge" class="text-[11px] opacity-75 truncate">Loading identity...</div>
           </div>
@@ -713,7 +728,7 @@
         <span><i class="fa-solid fa-code gtx-accent-text mr-1"></i>Made by <strong>Garry</strong></span>
         <div class="flex items-center gap-3">
           <button onclick="toggleSoundEffects()" class="hover:underline"><i id="soundToggleIcon" class="fa-solid fa-volume-high mr-1"></i>Sound</button>
-          <button onclick="openModal('updateAnnouncementModal')" class="hover:underline gtx-accent-text font-semibold">v1.5 Notes</button>
+          <button onclick="openModal('updateHistoryModal')" class="hover:underline gtx-accent-text font-semibold">Update History</button>
         </div>
       </div>
 
@@ -754,7 +769,7 @@
           
         </div>
         <h2 class="text-xl sm:text-2xl font-black tracking-tight mb-1">
-          Welcome to <span class="gtx-brand-highlight">GTX MESSENGER 1.5</span>
+          Welcome to <span class="gtx-brand-highlight">GTX MESSENGER 1.6</span>
         </h2>
         <p class="text-xs opacity-75 max-w-sm mb-4">
           Select an existing conversation, manage friend requests, or launch a group community with your accepted friends.
@@ -769,8 +784,8 @@
           <button onclick="openEditCurrentIdentityModal()" class="px-4 py-2.5 rounded-2xl gtx-card font-bold text-xs hover:opacity-90 transition">
             <i class="fa-solid fa-user-pen mr-1.5 text-emerald-400"></i>Edit Current Persona
           </button>
-          <button onclick="openModal('updateAnnouncementModal')" class="px-4 py-2.5 rounded-2xl gtx-card font-bold text-xs hover:opacity-90 transition">
-            <i class="fa-solid fa-sparkles mr-1.5 text-amber-400"></i>What's New in 1.5
+          <button onclick="openModal('updateHistoryModal')" class="px-4 py-2.5 rounded-2xl gtx-card font-bold text-xs hover:opacity-90 transition">
+            <i class="fa-solid fa-clock-rotate-left mr-1.5 gtx-accent-text"></i>Update History
           </button>
         </div>
       </div>
@@ -922,25 +937,46 @@
   </div>
 
   <!-- ========================================================
-       MODAL 1: GTX MESSENGER VERSION 1.5 UPDATE ANNOUNCEMENT
+       MODAL: GTX MESSENGER VERSION 1.6 UPDATE ANNOUNCEMENT
        ======================================================== -->
   <div id="updateAnnouncementModal" class="hidden fixed inset-0 bg-black/75 backdrop-blur-md z-[80] flex items-center justify-center p-4">
     <div class="w-full max-w-lg gtx-panel border rounded-3xl p-6 shadow-2xl max-h-[90dvh] flex flex-col relative overflow-hidden">
       <div class="flex items-center justify-between mb-4 shrink-0">
-        <div class="flex items-center gap-2.5"><div class="w-11 h-11 rounded-2xl bg-sky-500/20 border border-sky-400/50 flex items-center justify-center gtx-glow"><span class="font-black gtx-accent-text text-base">GTX</span></div>
-          <div><div class="flex items-center gap-2"><span class="font-black text-sm tracking-wide gtx-brand-highlight">GTX MESSENGER — VERSION 1.5</span><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-[10px] font-bold text-emerald-300">NEW RELEASE</span></div><div class="text-[11px] opacity-70">November 2026 • Developed by Garry</div></div>
-        </div><button onclick="acknowledgeUpdateAnnouncement()" class="w-8 h-8 rounded-xl gtx-card">×</button>
+        <div class="flex items-center gap-2.5">
+          <div class="w-11 h-11 rounded-2xl bg-sky-500/20 border border-sky-400/50 flex items-center justify-center gtx-glow"><span class="font-black gtx-accent-text text-base">GTX</span></div>
+          <div><div class="flex items-center gap-2"><span class="font-black text-sm tracking-wide gtx-brand-highlight">GTX MESSENGER — VERSION 1.6</span><span class="px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-400/40 text-[10px] font-bold text-emerald-300">RELEASE</span></div><div class="text-[11px] opacity-70">19 November 2026 • Developed by Garry</div></div>
+        </div>
+        <button type="button" aria-label="Close update notes" onclick="acknowledgeUpdateAnnouncement()" class="w-8 h-8 rounded-xl gtx-card">×</button>
       </div>
       <div class="touch-scroll space-y-4 pr-1 flex-1">
-        <div class="p-4 rounded-2xl gtx-card border border-sky-400/30"><h3 class="text-lg font-black mb-1">More Customization. Clearer Administration. Greater Transparency.</h3><p class="text-xs opacity-85 leading-relaxed">Introducing GTX Messenger 1.5, adding three new visual themes and a dedicated read-only administrator conversation viewer with a reason prompt and audit entry.</p></div>
-        <div class="space-y-2.5 text-xs"><div class="font-bold uppercase tracking-wider gtx-accent-text text-[11px]">What's New in Version 1.5</div>
-          <div class="p-3 rounded-2xl gtx-card"><b>Administrator Conversation Viewer</b><div class="opacity-75 text-[11px]">Authorized admins can select two accounts and read their direct conversation history. A reason is required and an audit entry is written before loading messages.</div></div>
-          <div class="p-3 rounded-2xl gtx-card"><b>Three New Themes</b><div class="opacity-75 text-[11px]">Neon Purple, Graphite and Lavender, alongside all existing themes and wallpapers.</div></div>
-          <div class="p-3 rounded-2xl gtx-card"><b>Admin Console Improvements</b><div class="opacity-75 text-[11px]">Dedicated conversation-inspection tab with read-only message history and sender/timestamp details.</div></div>
-          <div class="p-3 rounded-2xl gtx-card"><b>Existing Messaging Tools Preserved</b><div class="opacity-75 text-[11px]">Reply, reactions, forwarding, editing, message search and pinned messages remain available from 1.4.</div></div>
-          <div class="p-3 rounded-2xl gtx-card"><b>Privacy Disclosure</b><div class="opacity-75 text-[11px]">The app now clearly states that authorized administrators may inspect conversations.</div></div>
+        <div class="p-4 rounded-2xl gtx-card border border-emerald-400/35"><div class="flex items-center gap-2 mb-1"><i class="fa-solid fa-shield-heart text-emerald-400"></i><h3 class="text-lg font-black">Your privacy matters to us.</h3></div><p class="text-xs opacity-90 leading-relaxed">We have removed the Administrator Conversation Inspector from GTX Messenger because we respect user privacy. The app no longer provides administrators with a built-in feature to open and read private conversations between users.</p></div>
+        <div class="space-y-2.5 text-xs"><div class="font-bold uppercase tracking-wider gtx-accent-text text-[11px]">What's New in Version 1.6</div>
+          <div class="p-3 rounded-2xl gtx-card"><b>Privacy-first administrator experience</b><div class="opacity-75 text-[11px]">The in-app Conversation Inspector and its conversation-reading controls have been removed. This describes the app interface; it does not replace Firebase security rules or the published privacy policy.</div></div>
+          <div class="p-3 rounded-2xl gtx-card"><b>eDEX-inspired terminal theme</b><div class="opacity-75 text-[11px]">A futuristic interface skin with a technical grid, cyan highlights, subtle scanlines and terminal-style typography.</div></div>
+          <div class="p-3 rounded-2xl gtx-card"><b>Four new color themes</b><div class="opacity-75 text-[11px]">eDEX UI, Oceanic, Solar Flare and Rose Quartz join the existing GTX themes.</div></div>
+          <div class="p-3 rounded-2xl gtx-card"><b>Visual polish</b><div class="opacity-75 text-[11px]">Refined panel borders, accent glow, contrast and theme-specific surfaces while retaining the existing app layout.</div></div>
+          <div class="p-3 rounded-2xl gtx-card"><b>Existing features retained</b><div class="opacity-75 text-[11px]">Existing messaging, accounts, groups, chats and Firebase project are retained by this UI update.</div></div>
         </div>
-      </div><div class="mt-5 pt-3 border-t border-white/10 shrink-0"><button onclick="acknowledgeUpdateAnnouncement()" class="w-full py-3 rounded-2xl gtx-accent-bg font-extrabold text-sm transition active:scale-95">Continue to GTX Messenger 1.5 <i class="fa-solid fa-arrow-right ml-1.5"></i></button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UPDATE HISTORY VIEWER -->
+  <div id="updateHistoryModal" class="hidden fixed inset-0 bg-black/75 backdrop-blur-md z-[82] flex items-center justify-center p-4">
+    <div class="w-full max-w-2xl gtx-panel border rounded-3xl p-5 sm:p-6 shadow-2xl max-h-[90dvh] flex flex-col">
+      <div class="flex items-center justify-between gap-3 mb-4 shrink-0">
+        <div><div class="text-[10px] uppercase tracking-[.22em] gtx-accent-text font-extrabold">GTX Messenger • Changelog</div><h2 class="text-xl font-black">Update History</h2><p class="text-xs opacity-70">A record of features and changes by release.</p></div>
+        <button type="button" onclick="closeModal('updateHistoryModal')" aria-label="Close update history" class="w-9 h-9 rounded-xl gtx-card">×</button>
+      </div>
+      <div class="touch-scroll flex-1 space-y-3 pr-1 text-xs">
+        <article class="p-4 rounded-2xl gtx-card border border-sky-400/40"><div class="flex items-start justify-between gap-3"><div><div class="font-black text-base gtx-accent-text">Version 1.6</div><div class="font-semibold">Privacy & Interface Refresh</div></div><span class="shrink-0 rounded-full px-2 py-1 bg-emerald-500/15 text-emerald-300 text-[10px] font-bold">19 Nov 2026</span></div><ul class="list-disc pl-4 mt-2 space-y-1 opacity-85"><li>Removed the in-app Administrator Conversation Inspector.</li><li>Added eDEX-inspired terminal theme.</li><li>Added Oceanic, Solar Flare and Rose Quartz themes.</li><li>Refined theme surfaces, contrast and visual effects.</li></ul></article>
+        <article class="p-4 rounded-2xl gtx-card"><div class="flex items-start justify-between gap-3"><div><div class="font-black text-base gtx-accent-text">Version 1.5</div><div class="font-semibold">Messaging & Group Feature Expansion</div></div><span class="shrink-0 rounded-full px-2 py-1 bg-white/10 opacity-80 text-[10px]">Release date not recorded</span></div><ul class="list-disc pl-4 mt-2 space-y-1 opacity-85"><li>Emoji reactions, delete-for-everyone, scheduled messages and edit history.</li><li>Chat wallpapers, group descriptions and covers, invite links, polls and announcements.</li><li>Expanded group permissions, disappearing messages and app-lock/session features.</li><li>Moderation queue, reports, activity history and platform statistics.</li><li>No voice or video calling and no media-upload feature.</li></ul></article>
+        <article class="p-4 rounded-2xl gtx-card"><div class="flex items-start justify-between gap-3"><div><div class="font-black text-base gtx-accent-text">Version 1.4</div><div class="font-semibold">Conversation Experience Improvements</div></div><span class="shrink-0 rounded-full px-2 py-1 bg-white/10 opacity-80 text-[10px]">Release date not recorded</span></div><ul class="list-disc pl-4 mt-2 space-y-1 opacity-85"><li>Reply, pin and forward messages.</li><li>Message search and custom profile status.</li><li>Online privacy controls and admin dashboard statistics.</li><li>Performance improvements.</li></ul></article>
+        <article class="p-4 rounded-2xl gtx-card"><div class="flex items-start justify-between gap-3"><div><div class="font-black text-base gtx-accent-text">Version 1.3</div><div class="font-semibold">Release history entry</div></div><span class="shrink-0 rounded-full px-2 py-1 bg-white/10 opacity-80 text-[10px]">Date and detailed notes unavailable</span></div><p class="mt-2 opacity-75">The available project notes do not contain a verified release date or complete feature list for this version.</p></article>
+        <article class="p-4 rounded-2xl gtx-card"><div class="flex items-start justify-between gap-3"><div><div class="font-black text-base gtx-accent-text">Version 1.2</div><div class="font-semibold">Identity, Profile & Group Improvements</div></div><span class="shrink-0 rounded-full px-2 py-1 bg-white/10 opacity-80 text-[10px]">Release date not recorded</span></div><ul class="list-disc pl-4 mt-2 space-y-1 opacity-85"><li>Blocking and unblocking, profile editing and multiple identities.</li><li>Message editing, group administration and permissions.</li><li>Online/last-seen indicators, unread counts, copy messages and notification sound.</li><li>Additional themes and developer information.</li></ul></article>
+        <article class="p-4 rounded-2xl gtx-card"><div class="flex items-start justify-between gap-3"><div><div class="font-black text-base gtx-accent-text">Version 1.1</div><div class="font-semibold">Early release</div></div><span class="shrink-0 rounded-full px-2 py-1 bg-white/10 opacity-80 text-[10px]">Date and detailed notes unavailable</span></div><p class="mt-2 opacity-75">The available project history confirms this release existed, but does not contain a verified date or full changelog.</p></article>
+        <p class="text-[10px] opacity-60 px-1">Dates are shown only where confirmed by the available release record. Earlier release dates have not been guessed.</p>
+      </div>
     </div>
   </div>
 
@@ -1020,6 +1056,16 @@
                 <div class="text-[10px] opacity-70">High-Refraction Neon Horizon</div>
               </div>
             </button>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider gtx-accent-text mb-2">New in 1.6 • Futuristic & Color Themes</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <button onclick="applyTheme('edex-ui')" class="p-3 rounded-xl gtx-card text-left border border-cyan-400/40"><div class="flex items-center gap-2"><span class="w-7 h-7 rounded-md bg-[#06151b] border border-cyan-400 shadow-[0_0_12px_rgba(0,229,255,.4)] flex items-center justify-center text-cyan-300 text-xs">&gt;_</span><span class="text-xs font-bold">eDEX UI</span></div><div class="text-[10px] opacity-70 mt-1">Futuristic terminal • Grid • Cyan glow</div></button>
+            <button onclick="applyTheme('oceanic')" class="p-3 rounded-xl gtx-card text-left"><div class="flex items-center gap-2"><span class="w-7 h-7 rounded-md bg-gradient-to-br from-cyan-400 to-blue-900"></span><span class="text-xs font-bold">Oceanic</span></div><div class="text-[10px] opacity-70 mt-1">Deep sea blues and teal</div></button>
+            <button onclick="applyTheme('solar-flare')" class="p-3 rounded-xl gtx-card text-left"><div class="flex items-center gap-2"><span class="w-7 h-7 rounded-md bg-gradient-to-br from-yellow-400 to-orange-700"></span><span class="text-xs font-bold">Solar Flare</span></div><div class="text-[10px] opacity-70 mt-1">Warm amber and sunset orange</div></button>
+            <button onclick="applyTheme('rose-quartz')" class="p-3 rounded-xl gtx-card text-left"><div class="flex items-center gap-2"><span class="w-7 h-7 rounded-md bg-gradient-to-br from-pink-300 to-purple-700"></span><span class="text-xs font-bold">Rose Quartz</span></div><div class="text-[10px] opacity-70 mt-1">Soft rose and violet glow</div></button>
           </div>
         </div>
 
@@ -1126,7 +1172,7 @@
             </div>
             <div>
               <label class="block text-xs opacity-80 mb-1">Biography</label>
-              <input id="identityBio" type="text" maxlength="120" placeholder="Available on GTX 1.5" class="w-full px-3 py-2 rounded-xl gtx-pill-input text-xs" />
+              <input id="identityBio" type="text" maxlength="120" placeholder="Available on GTX 1.6" class="w-full px-3 py-2 rounded-xl gtx-pill-input text-xs" />
             </div>
           </div>
 
@@ -1329,7 +1375,7 @@
             <i class="fa-solid fa-shield-cat"></i>
           </div>
           <div>
-            <h3 class="font-black text-base">GTX 1.5 Administrator Console</h3>
+            <h3 class="font-black text-base">GTX 1.6 Administrator Console</h3>
             <p class="text-[11px] opacity-75">Server-Verified Role (`auth.token.admin` / `/admins/$uid`) • Mandatory Audit Logging</p>
           </div>
         </div>
@@ -1362,7 +1408,6 @@
           <button onclick="switchAdminTab('users')" id="adminTab_users" class="px-3.5 py-1.5 rounded-xl gtx-accent-bg text-xs font-bold">Users & Accounts</button>
           <button onclick="switchAdminTab('warnings')" id="adminTab_warnings" class="px-3.5 py-1.5 rounded-xl gtx-card text-xs font-bold">Warnings</button>
           <button onclick="switchAdminTab('reports')" id="adminTab_reports" class="px-3.5 py-1.5 rounded-xl gtx-card text-xs font-bold">Reported Content</button>
-          <button onclick="switchAdminTab('inspector')" id="adminTab_inspector" class="px-3.5 py-1.5 rounded-xl gtx-card text-xs font-bold">Conversation Inspector</button>
           <button onclick="switchAdminTab('audit')" id="adminTab_audit" class="px-3.5 py-1.5 rounded-xl gtx-card text-xs font-bold">Audit Logs</button>
         </div>
         <input id="adminUserSearchInput" type="text" oninput="renderAdminActiveTab()" placeholder="Filter users, UIDs or @usernames..." class="px-3 py-1.5 rounded-xl gtx-pill-input text-xs w-60" />
@@ -1437,7 +1482,7 @@
   </div>
 
 <!-- ========================================================
-       FIREBASE & GTX MESSENGER 1.5 APPLICATION SCRIPT
+       FIREBASE & GTX MESSENGER 1.6 APPLICATION SCRIPT
        ======================================================== -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
@@ -1487,7 +1532,7 @@
     const auth = getAuth(app);
     const db = getDatabase(app);
 
-    const APP_VERSION = "1.5";
+    const APP_VERSION = "1.6";
 
     // PRELOADER
     const barEl = document.getElementById("preloaderBar");
@@ -1877,7 +1922,7 @@
             username: emailPrefix,
             displayName,
             photoURL,
-            bio: "Available on GTX Messenger 1.5",
+            bio: "Available on GTX Messenger 1.6",
             statusText: "Online",
             isPublic: true,
             createdAt: now
@@ -1907,9 +1952,9 @@
           }
           await update(userRef, { email: user.email || "", lastSeen: Date.now() });
 
-          // Check Version 1.5 Update Announcement Acknowledgement
-          const ackLocal = localStorage.getItem(`gtx_v1_5_ack_${user.uid}`);
-          const ackRemote = uData.announcements?.v1_5;
+          // Check Version 1.6 Update Announcement Acknowledgement
+          const ackLocal = localStorage.getItem(`gtx_v1_6_ack_${user.uid}`);
+          const ackRemote = uData.announcements?.v1_6;
           if (!ackLocal && !ackRemote) {
             openModal("updateAnnouncementModal");
           }
@@ -1932,10 +1977,10 @@
     window.acknowledgeUpdateAnnouncement = async () => {
       closeModal("updateAnnouncementModal");
       if (!currentUser) return;
-      localStorage.setItem(`gtx_v1_2_ack_${currentUser.uid}`, "true");
+      localStorage.setItem(`gtx_v1_6_ack_${currentUser.uid}`, "1");
       try {
         await update(ref(db, `users/${currentUser.uid}/announcements`), {
-          v1_2: true,
+          v1_6: true,
           acknowledgedAt: Date.now()
         });
       } catch (_) {}
@@ -3522,7 +3567,7 @@
     }
 
     // ==========================================
-    // GTX 1.5 SETTINGS, DIRECTORY TABS & DESKTOP NAV
+    // GTX 1.6 SETTINGS, DIRECTORY TABS & DESKTOP NAV
     // ==========================================
     let groupCandidateUsers = [];
     let currentSidebarSection = "chats";
@@ -3819,8 +3864,8 @@
     window.switchAdminTab = (tab) => {
       document.querySelectorAll('[id^="adminTab_"]').forEach((el) => {
         el.className = el.id === `adminTab_${tab}`
-          ? "px-3.5 py-1.5 rounded-xl gtx-accent-bg text-xs font-bold"
-          : "px-3.5 py-1.5 rounded-xl gtx-card text-xs font-bold";
+          ? "px-3.5 py-1.6 rounded-xl gtx-accent-bg text-xs font-bold"
+          : "px-3.5 py-1.6 rounded-xl gtx-card text-xs font-bold";
       });
       renderAdminActiveTab(tab);
     };
@@ -3862,25 +3907,6 @@
           const logs = Object.values(snap.val() || {});
           content.innerHTML = logs.slice(-100).reverse().map((r) => `
             <div class="p-3 rounded-xl gtx-card"><div class="text-xs font-bold">${escapeHtml(r.action || "Admin action")}</div><div class="text-[11px] opacity-75">${escapeHtml(r.reason || "")}</div><div class="text-[10px] opacity-50">${escapeHtml(r.adminUid || "")} • ${new Date(r.createdAt || Date.now()).toLocaleString()}</div></div>`).join("") || `<div class="text-xs opacity-65 p-4">No audit logs available.</div>`;
-        } else if (activeTab === "inspector") {
-          const [usersSnap, convSnap] = await Promise.all([get(ref(db, "users")), get(ref(db, "conversations"))]);
-          const users = usersSnap.val() || {};
-          const convs = convSnap.val() || {};
-          const userRows = Object.entries(users).map(([uid, u]) => ({ uid, label: `${u.displayName || u.email || "User"} • ${uid.slice(0,8)}` }));
-          const options = userRows.map(u => `<option value="${escapeHtml(u.uid)}">${escapeHtml(u.label)}</option>`).join("");
-          content.innerHTML = `
-            <div class="p-3 rounded-2xl gtx-card space-y-3">
-              <div class="flex items-center gap-2"><i class="fa-solid fa-eye gtx-accent-text"></i><b class="text-sm">Read User Conversations</b><span class="ml-auto text-[10px] text-amber-300">Admin only</span></div>
-              <p class="text-[11px] opacity-75">Select two accounts to view their direct conversation. This access is disclosed in the app privacy notice. Enter a reason; the inspection is recorded before messages are loaded.</p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                <label class="text-[11px]">First user<select id="gtx15InspectorUserA" class="w-full mt-1 p-2 rounded-xl gtx-pill-input">${options}</select></label>
-                <label class="text-[11px]">Second user<select id="gtx15InspectorUserB" class="w-full mt-1 p-2 rounded-xl gtx-pill-input">${options}</select></label>
-              </div>
-              <label class="block text-[11px]">Reason for access<input id="gtx15InspectorReason" maxlength="300" placeholder="e.g. Review a reported conversation" class="w-full mt-1 p-2 rounded-xl gtx-pill-input" /></label>
-              <button onclick="gtx15InspectConversation()" class="px-4 py-2 rounded-xl gtx-accent-bg text-xs font-bold"><i class="fa-solid fa-book-open mr-1"></i>Open conversation</button>
-              <div id="gtx15InspectorResults" class="space-y-2"></div>
-            </div>`;
-          window.__gtx15InspectorConversations = convs;
         } else {
           content.innerHTML = `<div class="p-4 rounded-xl gtx-card text-xs opacity-70">This administrator section is not available.</div>`;
         }
@@ -3888,97 +3914,6 @@
         reportDatabaseError(`admin ${activeTab}`, err);
         content.innerHTML = `<div class="p-4 text-xs text-rose-300">Unable to load this section. Confirm administrator access in Firebase.</div>`;
       }
-    };
-
-    // GTX Messenger 1.5: administrator conversation viewer.
-    // Searches every direct-conversation record for the selected accounts and
-    // merges all messages from matching threads into one chronological history.
-    window.gtx15InspectConversation = async () => {
-      if (!isCurrentUserAdmin || !currentUser) { showToast("Administrator access required."); return; }
-      const a = document.getElementById("gtx15InspectorUserA")?.value;
-      const b = document.getElementById("gtx15InspectorUserB")?.value;
-      const reason = String(document.getElementById("gtx15InspectorReason")?.value || "").trim().slice(0,300);
-      const out = document.getElementById("gtx15InspectorResults");
-      if (!a || !b || a === b) { showToast("Select two different users."); return; }
-      if (reason.length < 8) { showToast("Enter a clear reason (at least 8 characters)."); return; }
-      if (out) out.innerHTML = `<div class="text-xs opacity-70 p-3"><i class="fa-solid fa-spinner fa-spin mr-2"></i>Searching all conversations and loading complete message history…</div>`;
-      try {
-        // Read the full conversation index, not just the first candidate cached by the UI.
-        const [convsSnap, usersSnap] = await Promise.all([
-          get(ref(db, "conversations")),
-          get(ref(db, "users"))
-        ]);
-        const allConvs = convsSnap.val() || {};
-        const allUsers = usersSnap.val() || {};
-        const hasUid = (map, uid) => {
-          if (Array.isArray(map)) return map.includes(uid);
-          return !!map && (map[uid] === true || map[uid]?.active === true || map[uid] === 1);
-        };
-        const matches = Object.entries(allConvs).filter(([id, c]) => {
-          if (!c || c.isGroup === true || String(id).startsWith("group_")) return false;
-          const participantMaps = [c.participants, c.members, c.memberUids, c.users];
-          // Some older records identify the pair only by the deterministic UID key.
-          const keyPair = String(id) === [a,b].sort().join("_");
-          const pairInMap = participantMaps.some(map => hasUid(map, a) && hasUid(map, b));
-          const pairInFields = (c.userA === a && c.userB === b) || (c.userA === b && c.userB === a) || (c.uid1 === a && c.uid2 === b) || (c.uid1 === b && c.uid2 === a);
-          return pairInMap || pairInFields || keyPair;
-        });
-        if (!matches.length) {
-          if (out) out.innerHTML = `<div class="p-3 rounded-xl gtx-card text-xs">No direct conversation records were found for these two accounts. If they have an older legacy chat, its conversation metadata may need to be migrated.</div>`;
-          return;
-        }
-
-        // Record the inspection before fetching message contents.
-        const auditId = push(ref(db, "adminAuditLogs")).key;
-        await set(ref(db, `adminAuditLogs/${auditId}`), {
-          action: "ADMIN_CONVERSATION_INSPECTION", adminUid: currentUser.uid,
-          userA: a, userB: b, conversationIds: matches.map(([id]) => id),
-          reason, createdAt: Date.now(), accessMode: "read-only",
-          appVersion: "1.5", threadCount: matches.length
-        });
-
-        const histories = await Promise.all(matches.map(async ([conversationId, conv]) => {
-          const snap = await get(ref(db, `messages/${conversationId}`));
-          const rows = [];
-          snap.forEach(child => {
-            const value = child.val() || {};
-            rows.push({ id: child.key, conversationId, conversationLabel: conv.groupName || conversationId, ...value });
-          });
-          return rows;
-        }));
-        const messages = histories.flat();
-        const timeOf = m => Number(m.createdAt || m.timestamp || m.sentAt || m.time || 0);
-        messages.sort((x,y) => timeOf(x) - timeOf(y));
-        const userLabel = uid => {
-          const u = allUsers[uid] || {};
-          return u.displayName || u.name || u.email || uid;
-        };
-        const labelA = userLabel(a), labelB = userLabel(b);
-        const html = messages.map(m => {
-          const sender = m.senderDisplayName || m.senderUsername || (m.senderUid ? userLabel(m.senderUid) : "Unknown sender");
-          const timestamp = timeOf(m);
-          return `<div class="p-2.5 rounded-xl gtx-card"><div class="flex justify-between gap-2 text-[10px] opacity-65"><b>${escapeHtml(sender)}</b><span>${timestamp ? new Date(timestamp).toLocaleString() : "Time unavailable"}</span></div><div class="text-xs mt-1 whitespace-pre-wrap break-words">${escapeHtml(m.deleted ? "This message was deleted" : (m.text || m.message || "[No text content]"))}</div><div class="text-[9px] opacity-45 mt-1">Conversation: ${escapeHtml(m.conversationId)}</div>${m.edited ? `<div class="text-[9px] opacity-50 mt-1">Edited</div>` : ""}</div>`;
-        }).join("");
-        if (out) out.innerHTML = `<div class="space-y-2"><div class="flex items-center justify-between gap-2 text-xs"><b>${messages.length} total messages • ${matches.length} conversation record(s)</b><span class="text-emerald-400">Read-only</span></div><div class="text-[11px] opacity-70">${escapeHtml(labelA)} ↔ ${escapeHtml(labelB)}</div><div class="p-2 rounded-xl border border-amber-400/30 text-[10px] text-amber-200">Inspection recorded • ${escapeHtml(reason)}</div><input type="search" id="gtx15InspectorSearch" placeholder="Search all loaded messages…" class="w-full p-2 rounded-xl gtx-pill-input text-xs" oninput="gtx15FilterInspectorMessages(this.value)"><div id="gtx15InspectorMessageList" class="max-h-[60vh] overflow-y-auto space-y-2">${html || `<div class="p-3 gtx-card text-xs">No messages were found in the matching conversation records.</div>`}</div></div>`;
-        window.__gtx15InspectorAllMessages = messages;
-      } catch (err) {
-        console.error("GTX 1.5 conversation inspection failed", err);
-        if (out) out.innerHTML = `<div class="p-3 rounded-xl border border-rose-400/30 text-xs text-rose-300">Could not load the complete conversation history. Firebase must allow this administrator to read conversations/messages and write the audit record. Details: ${escapeHtml(err?.code || err?.message || "Unknown error")}</div>`;
-      }
-    };
-
-    window.gtx15FilterInspectorMessages = (term) => {
-      const list = document.getElementById("gtx15InspectorMessageList");
-      if (!list) return;
-      const q = String(term || "").trim().toLowerCase();
-      const all = window.__gtx15InspectorAllMessages || [];
-      const filtered = q ? all.filter(m => [m.text, m.message, m.senderDisplayName, m.senderUsername, m.senderUid, m.conversationId].some(v => String(v || "").toLowerCase().includes(q))) : all;
-      const timeOf = m => Number(m.createdAt || m.timestamp || m.sentAt || m.time || 0);
-      list.innerHTML = filtered.map(m => {
-        const sender = m.senderDisplayName || m.senderUsername || m.senderUid || "Unknown sender";
-        const timestamp = timeOf(m);
-        return `<div class="p-2.5 rounded-xl gtx-card"><div class="flex justify-between gap-2 text-[10px] opacity-65"><b>${escapeHtml(sender)}</b><span>${timestamp ? new Date(timestamp).toLocaleString() : "Time unavailable"}</span></div><div class="text-xs mt-1 whitespace-pre-wrap break-words">${escapeHtml(m.deleted ? "This message was deleted" : (m.text || m.message || "[No text content]"))}</div><div class="text-[9px] opacity-45 mt-1">Conversation: ${escapeHtml(m.conversationId)}</div>${m.edited ? `<div class="text-[9px] opacity-50 mt-1">Edited</div>` : ""}</div>`;
-      }).join("") || `<div class="p-3 gtx-card text-xs">No matching messages.</div>`;
     };
 
     window.issueUserWarning = async (targetUid) => {
@@ -3990,7 +3925,7 @@
       if (cleanReason.length < 5) { showToast("Please enter a clear warning reason (at least 5 characters)."); return; }
       try {
         const warningId = push(ref(db, `userWarnings/${targetUid}`)).key;
-        const warning = { warningId, targetUid, adminUid: currentUser.uid, reason: cleanReason, createdAt: Date.now(), status: "unread", version: "1.5" };
+        const warning = { warningId, targetUid, adminUid: currentUser.uid, reason: cleanReason, createdAt: Date.now(), status: "unread", version: "1.6" };
         const updates = {};
         updates[`userWarnings/${targetUid}/${warningId}`] = warning;
         const logId = push(ref(db, "adminAuditLogs")).key;
@@ -4219,7 +4154,7 @@
 
     // Close the module only after all restored functions are defined.
   
-    // ================= GTX 1.5 ADDITIONS =================
+    // ================= GTX 1.6 ADDITIONS =================
     const gtx12BlockedCache = {};
     const gtx12MessageCache = {};
     function gtx12EnsureModal(id, title, body) {
@@ -4275,7 +4210,7 @@
       }catch(e){reportDatabaseError('editMessage',e);}
     };
     window.openPasswordChange = () => gtx12EnsureModal('gtx12PasswordModal','Change password',`<form id="gtx12PasswordForm" class="space-y-3"><input id="gtx12CurrentPass" type="password" autocomplete="current-password" required placeholder="Current password" class="w-full p-3 rounded-xl gtx-pill-input"><input id="gtx12NewPass" type="password" autocomplete="new-password" required placeholder="New password" class="w-full p-3 rounded-xl gtx-pill-input"><input id="gtx12ConfirmPass" type="password" autocomplete="new-password" required placeholder="Confirm new password" class="w-full p-3 rounded-xl gtx-pill-input"><p class="text-xs opacity-70">At least 8 characters, including uppercase, lowercase and a special character.</p><button class="w-full p-3 rounded-xl gtx-accent-bg font-bold">Update password</button></form>`).querySelector('#gtx12PasswordForm').onsubmit=async e=>{e.preventDefault();const a=document.getElementById('gtx12CurrentPass').value,b=document.getElementById('gtx12NewPass').value,c=document.getElementById('gtx12ConfirmPass').value;if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{8,}$/.test(b)){showToast('Password does not meet requirements.');return;}if(b!==c){showToast('New passwords do not match.');return;}try{const credential=EmailAuthProvider.credential(currentUser.email,a);await reauthenticateWithCredential(currentUser,credential);await updatePassword(currentUser,b);showToast('Password updated successfully.');document.getElementById('gtx12PasswordModal').classList.add('hidden');}catch(err){showToast(err.message||'Could not update password.');}};
-    window.openDeveloperPage = () => gtx12EnsureModal('gtx12DeveloperModal','About GTX Messenger',`<div class="text-center space-y-3"><div class="mx-auto w-20 h-20 rounded-3xl gtx-accent-bg grid place-items-center text-2xl font-black">GTX</div><h2 class="text-2xl font-black">Made by Garry</h2><p class="text-sm opacity-75">@Garry · Administrator</p><p class="text-sm">GTX Messenger is developed and maintained by Garry. The administrator may moderate accounts that violate platform rules.</p><p class="text-xs opacity-60">GTX Messenger 1.5</p></div>`);
+    window.openDeveloperPage = () => gtx12EnsureModal('gtx12DeveloperModal','About GTX Messenger',`<div class="text-center space-y-3"><div class="mx-auto w-20 h-20 rounded-3xl gtx-accent-bg grid place-items-center text-2xl font-black">GTX</div><h2 class="text-2xl font-black">Made by Garry</h2><p class="text-sm opacity-75">@Garry · Administrator</p><p class="text-sm">GTX Messenger is developed and maintained by Garry. The administrator may moderate accounts that violate platform rules.</p><p class="text-xs opacity-60">GTX Messenger 1.6</p></div>`);
     // Profile view is opened by clicking the chat title; keep the existing title navigation behaviour and enrich it.
     const gtx12OriginalHeaderTitleClick=window.handleHeaderTitleClick;
     window.handleHeaderTitleClick=()=>{const conv=conversationsCache[activeConversationId];if(conv?.isGroup){if(typeof gtx12OriginalHeaderTitleClick==='function')gtx12OriginalHeaderTitleClick();return;}const uid=Object.keys(conv?.participants||{}).find(x=>x!==currentUser?.uid);if(uid)window.openPublicProfile(uid);};
@@ -4318,11 +4253,11 @@
       return gtx12OriginalSendMessage(...args);
     };
     // Preserve app's existing presence implementation; it already uses .info/connected and onDisconnect.
-    document.title='GTX Messenger 1.5';
+    document.title='GTX Messenger 1.6';
     document.body.classList.add('gtx12-enhanced');
 
 
-    // ================= GTX MESSENGER 1.5 FEATURES =================
+    // ================= GTX MESSENGER 1.6 FEATURES =================
     const GTX14_VERSION = "1.4";
     let gtx14LoadedMessages = [];
     let gtx14SearchTerm = "";
@@ -4443,7 +4378,7 @@
           if(!extra){extra=document.createElement("div");extra.id="gtx14AdminStats";extra.className="grid grid-cols-2 gap-2.5 my-2 shrink-0";row.parentNode.insertBefore(extra,row.nextSibling);}
           extra.innerHTML=`<div class="p-3 rounded-2xl gtx-card"><div class="text-[10px] uppercase opacity-70 font-bold">Online users</div><div class="text-xl font-black text-emerald-400 mt-0.5">${online}</div></div><div class="p-3 rounded-2xl gtx-card"><div class="text-[10px] uppercase opacity-70 font-bold">Total messages</div><div class="text-xl font-black gtx-accent-text mt-0.5">${totalMessages}</div></div>`;
         }
-      }catch(e){console.warn("GTX 1.5 admin statistics unavailable",e);showToast("Some statistics could not be loaded. Check administrator database permissions.");}
+      }catch(e){console.warn("GTX 1.6 admin statistics unavailable",e);showToast("Some statistics could not be loaded. Check administrator database permissions.");}
     }
 
     // Lightweight duplicate-submit guard; always releases after the existing send handler settles.
@@ -4454,14 +4389,14 @@
       try{return await gtx14OriginalSend(...args);}finally{gtx14SendLock=false;}
     };
 
-    // Version 1.5 announcement acknowledgement is separate from previous release acknowledgements.
+    // Version 1.6 announcement acknowledgement is separate from previous release acknowledgements.
     const gtx14OriginalAcknowledge = window.acknowledgeUpdateAnnouncement;
     window.acknowledgeUpdateAnnouncement = async () => {
-      try { if(currentUser) await update(ref(db,`users/${currentUser.uid}/announcements`),{v1_5:true}); } catch(_) {}
-      try { if(currentUser) localStorage.setItem(`gtx_v1_5_ack_${currentUser.uid}`,"1"); } catch(_) {}
+      try { if(currentUser) await update(ref(db,`users/${currentUser.uid}/announcements`),{v1_6:true}); } catch(_) {}
+      try { if(currentUser) localStorage.setItem(`gtx_v1_6_ack_${currentUser.uid}`,"1"); } catch(_) {}
       closeModal("updateAnnouncementModal");
     };
-    document.title="GTX Messenger 1.5";
+    document.title="GTX Messenger 1.6";
     document.body.classList.add("gtx14-enhanced");
 
 </script>
