@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <title>GTX MESSENGER 1.6</title>
+  <title>GTX MESSENGER 1.7</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -171,19 +171,11 @@
     body[data-theme="liquid-glass"] { --bg-deep:#07111f; --bg-panel:rgba(19,35,58,.48); --bg-card:rgba(34,62,94,.38); --text-main:#f4f9ff; --text-muted:#a9c0d8; --accent:#68c8ff; --accent-contrast:#061525; --accent-glow:rgba(104,200,255,.34); --border-subtle:rgba(210,235,255,.24); --blur-strength:28px; }
 
     /* GTX 1.6 NEW COLORWAYS + eDEX-INSPIRED TERMINAL SKIN */
-    body[data-theme="edex-ui"] { --bg-deep:#050b10; --bg-mesh-1:rgba(0,229,255,.18); --bg-mesh-2:rgba(57,255,20,.10); --bg-panel:rgba(5,17,24,.94); --bg-card:rgba(8,28,37,.88); --bg-card-hover:rgba(10,47,57,.96); --text-main:#d8f7f5; --text-muted:#76aeb1; --accent:#00e5ff; --accent-contrast:#001014; --accent-glow:rgba(0,229,255,.36); --border-subtle:rgba(0,229,255,.34); --glass-specular:rgba(0,229,255,.12); --blur-strength:8px; }
     body[data-theme="solar-flare"] { --bg-deep:#160b0a; --bg-mesh-1:rgba(249,115,22,.24); --bg-mesh-2:rgba(234,179,8,.16); --bg-panel:rgba(43,20,13,.78); --bg-card:rgba(69,31,17,.68); --bg-card-hover:rgba(91,42,20,.78); --text-main:#fff7ed; --text-muted:#fdba74; --accent:#fb923c; --accent-contrast:#2b1005; --accent-glow:rgba(251,146,60,.35); --border-subtle:rgba(251,146,60,.22); }
     body[data-theme="oceanic"] { --bg-deep:#041522; --bg-mesh-1:rgba(14,165,233,.22); --bg-mesh-2:rgba(20,184,166,.16); --bg-panel:rgba(5,31,48,.78); --bg-card:rgba(8,48,67,.66); --bg-card-hover:rgba(10,65,86,.78); --text-main:#e0f7ff; --text-muted:#8bbdce; --accent:#22d3ee; --accent-contrast:#04202a; --accent-glow:rgba(34,211,238,.34); --border-subtle:rgba(34,211,238,.22); }
     body[data-theme="rose-quartz"] { --bg-deep:#190d17; --bg-mesh-1:rgba(244,114,182,.22); --bg-mesh-2:rgba(192,132,252,.16); --bg-panel:rgba(42,20,39,.78); --bg-card:rgba(67,31,60,.66); --bg-card-hover:rgba(84,38,76,.78); --text-main:#fff1f7; --text-muted:#d8a5c2; --accent:#f472b6; --accent-contrast:#310d22; --accent-glow:rgba(244,114,182,.34); --border-subtle:rgba(244,114,182,.22); }
 
     /* eDEX-inspired terminal styling: visual theme only; core app layout remains intact. */
-    body[data-theme="edex-ui"] { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace !important; background-image: linear-gradient(rgba(0,229,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,255,.035) 1px, transparent 1px), radial-gradient(circle at 12% 18%, var(--bg-mesh-1), transparent 42%), radial-gradient(circle at 88% 82%, var(--bg-mesh-2), transparent 46%); background-size: 24px 24px, 24px 24px, auto, auto; }
-    body[data-theme="edex-ui"] .gtx-panel, body[data-theme="edex-ui"] .gtx-card { border-radius: 12px !important; backdrop-filter: blur(8px) saturate(125%); -webkit-backdrop-filter: blur(8px) saturate(125%); box-shadow: 0 0 0 1px rgba(0,229,255,.06), 0 0 22px rgba(0,229,255,.055), inset 0 1px 0 rgba(0,229,255,.10); }
-    body[data-theme="edex-ui"] .gtx-card { border-left: 2px solid rgba(0,229,255,.38); }
-    body[data-theme="edex-ui"] .gtx-brand-highlight, body[data-theme="edex-ui"] .gtx-accent-text { text-shadow: 0 0 10px rgba(0,229,255,.38); }
-    body[data-theme="edex-ui"] .gtx-accent-bg { background: linear-gradient(135deg,#00e5ff,#00a6a6) !important; box-shadow: 0 0 18px rgba(0,229,255,.28), inset 0 1px 0 rgba(255,255,255,.3); }
-    body[data-theme="edex-ui"] .gtx-pill-input { background: rgba(0,12,18,.92); border-color: rgba(0,229,255,.38); color: #d8f7f5; }
-    body[data-theme="edex-ui"]::after { content:""; position:fixed; inset:0; pointer-events:none; z-index:1; opacity:.14; background:repeating-linear-gradient(to bottom, transparent 0, transparent 3px, rgba(0,229,255,.12) 4px); }
     .gtx12-enhanced .gtx-card, .gtx12-enhanced .gtx-panel { transition: opacity .18s ease, transform .22s cubic-bezier(.2,.8,.2,1), background .2s ease; }
 
     * {
@@ -466,15 +458,15 @@
       </div>
 
       <div class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sky-500/15 border border-sky-400/30 text-[11px] font-bold text-sky-300 uppercase tracking-widest mb-3">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Version 1.6 • Privacy & Interface Refresh
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> Version 1.7 • Messenger Experience Update
       </div>
 
       <h1 class="text-3xl sm:text-4xl font-black tracking-tight mb-2 text-white">
-        <span class="gtx-brand-highlight">GTX MESSENGER</span> 1.6
+        <span class="gtx-brand-highlight">GTX MESSENGER</span> 1.7
       </h1>
 
       <p class="text-xs sm:text-sm text-slate-300 max-w-sm leading-relaxed mb-5">
-        Privacy-first update, eDEX-inspired interface theme, new colorways & refined visual effects.
+        A cleaner messenger experience with expanded emoji choices, simpler themes and improved settings guidance.
       </p>
 
       <div class="w-full p-4 rounded-2xl gtx-card mb-6">
@@ -492,12 +484,12 @@
       </div>
 
       <button onclick="dismissPreloader()" class="px-7 py-3 rounded-2xl gtx-accent-bg font-extrabold text-xs sm:text-sm tracking-wide transition active:scale-95">
-        Enter GTX Messenger 1.6 <i class="fa-solid fa-arrow-right ml-1.5"></i>
+        Enter GTX Messenger 1.7 <i class="fa-solid fa-arrow-right ml-1.5"></i>
       </button>
     </div>
 
     <div class="text-[11px] text-slate-400">
-      GTX MESSENGER 1.6 • Engineered by Garry
+      GTX MESSENGER 1.7 • Engineered by Garry
     </div>
   </div>
 
@@ -635,7 +627,7 @@
         </div>
 
         <button type="submit" id="registerSubmitBtn" class="w-full py-3 rounded-2xl gtx-accent-bg font-extrabold text-sm transition">
-          Create Account & Launch GTX 1.6
+          Create Account & Launch GTX 1.7
         </button>
       </form>
 
@@ -769,7 +761,7 @@
           
         </div>
         <h2 class="text-xl sm:text-2xl font-black tracking-tight mb-1">
-          Welcome to <span class="gtx-brand-highlight">GTX MESSENGER 1.6</span>
+          Welcome to <span class="gtx-brand-highlight">GTX MESSENGER 1.7</span>
         </h2>
         <p class="text-xs opacity-75 max-w-sm mb-4">
           Select an existing conversation, manage friend requests, or launch a group community with your accepted friends.
@@ -969,6 +961,7 @@
         <button type="button" onclick="closeModal('updateHistoryModal')" aria-label="Close update history" class="w-9 h-9 rounded-xl gtx-card">×</button>
       </div>
       <div class="touch-scroll flex-1 space-y-3 pr-1 text-xs">
+        <article class="p-4 rounded-2xl gtx-card border border-sky-400/40"><div class="flex items-start justify-between gap-3"><div><div class="font-black text-base gtx-accent-text">Version 1.7</div><div class="font-semibold">Messenger Experience Update</div></div><span class="shrink-0 rounded-full px-2 py-1 bg-emerald-500/15 text-emerald-300 text-[10px] font-bold">19 Nov 2026</span></div><ul class="list-disc pl-4 mt-2 space-y-1 opacity-85"><li>Removed the eDEX UI theme from the theme picker and migrated saved eDEX selections to the standard Liquid Dark theme.</li><li>Expanded emoji choices across smileys, people, animals, food, travel, activities, objects, symbols and flags.</li><li>Added administrator best-practice guidance in Settings, focused on account security, Firebase rules and privacy-respecting moderation.</li><li>Updated app version branding to 1.7.</li></ul><p class="mt-2 opacity-70">Per-chat disappearing-message controls, polls, scheduled-message delivery and granular notification preferences require additional database-backed implementation and are not represented as completed in this build.</p></article>
         <article class="p-4 rounded-2xl gtx-card border border-sky-400/40"><div class="flex items-start justify-between gap-3"><div><div class="font-black text-base gtx-accent-text">Version 1.6</div><div class="font-semibold">Privacy & Interface Refresh</div></div><span class="shrink-0 rounded-full px-2 py-1 bg-emerald-500/15 text-emerald-300 text-[10px] font-bold">19 Nov 2026</span></div><ul class="list-disc pl-4 mt-2 space-y-1 opacity-85"><li>Removed the in-app Administrator Conversation Inspector.</li><li>Added eDEX-inspired terminal theme.</li><li>Added Oceanic, Solar Flare and Rose Quartz themes.</li><li>Refined theme surfaces, contrast and visual effects.</li></ul></article>
         <article class="p-4 rounded-2xl gtx-card"><div class="flex items-start justify-between gap-3"><div><div class="font-black text-base gtx-accent-text">Version 1.5</div><div class="font-semibold">Messaging & Group Feature Expansion</div></div><span class="shrink-0 rounded-full px-2 py-1 bg-white/10 opacity-80 text-[10px]">Release date not recorded</span></div><ul class="list-disc pl-4 mt-2 space-y-1 opacity-85"><li>Emoji reactions, delete-for-everyone, scheduled messages and edit history.</li><li>Chat wallpapers, group descriptions and covers, invite links, polls and announcements.</li><li>Expanded group permissions, disappearing messages and app-lock/session features.</li><li>Moderation queue, reports, activity history and platform statistics.</li><li>No voice or video calling and no media-upload feature.</li></ul></article>
         <article class="p-4 rounded-2xl gtx-card"><div class="flex items-start justify-between gap-3"><div><div class="font-black text-base gtx-accent-text">Version 1.4</div><div class="font-semibold">Conversation Experience Improvements</div></div><span class="shrink-0 rounded-full px-2 py-1 bg-white/10 opacity-80 text-[10px]">Release date not recorded</span></div><ul class="list-disc pl-4 mt-2 space-y-1 opacity-85"><li>Reply, pin and forward messages.</li><li>Message search and custom profile status.</li><li>Online privacy controls and admin dashboard statistics.</li><li>Performance improvements.</li></ul></article>
@@ -1060,9 +1053,8 @@
         </div>
 
         <div>
-          <label class="block text-xs font-bold uppercase tracking-wider gtx-accent-text mb-2">New in 1.6 • Futuristic & Color Themes</label>
+          <label class="block text-xs font-bold uppercase tracking-wider gtx-accent-text mb-2">Color Themes</label>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            <button onclick="applyTheme('edex-ui')" class="p-3 rounded-xl gtx-card text-left border border-cyan-400/40"><div class="flex items-center gap-2"><span class="w-7 h-7 rounded-md bg-[#06151b] border border-cyan-400 shadow-[0_0_12px_rgba(0,229,255,.4)] flex items-center justify-center text-cyan-300 text-xs">&gt;_</span><span class="text-xs font-bold">eDEX UI</span></div><div class="text-[10px] opacity-70 mt-1">Futuristic terminal • Grid • Cyan glow</div></button>
             <button onclick="applyTheme('oceanic')" class="p-3 rounded-xl gtx-card text-left"><div class="flex items-center gap-2"><span class="w-7 h-7 rounded-md bg-gradient-to-br from-cyan-400 to-blue-900"></span><span class="text-xs font-bold">Oceanic</span></div><div class="text-[10px] opacity-70 mt-1">Deep sea blues and teal</div></button>
             <button onclick="applyTheme('solar-flare')" class="p-3 rounded-xl gtx-card text-left"><div class="flex items-center gap-2"><span class="w-7 h-7 rounded-md bg-gradient-to-br from-yellow-400 to-orange-700"></span><span class="text-xs font-bold">Solar Flare</span></div><div class="text-[10px] opacity-70 mt-1">Warm amber and sunset orange</div></button>
             <button onclick="applyTheme('rose-quartz')" class="p-3 rounded-xl gtx-card text-left"><div class="flex items-center gap-2"><span class="w-7 h-7 rounded-md bg-gradient-to-br from-pink-300 to-purple-700"></span><span class="text-xs font-bold">Rose Quartz</span></div><div class="text-[10px] opacity-70 mt-1">Soft rose and violet glow</div></button>
@@ -1172,7 +1164,7 @@
             </div>
             <div>
               <label class="block text-xs opacity-80 mb-1">Biography</label>
-              <input id="identityBio" type="text" maxlength="120" placeholder="Available on GTX 1.6" class="w-full px-3 py-2 rounded-xl gtx-pill-input text-xs" />
+              <input id="identityBio" type="text" maxlength="120" placeholder="Available on GTX 1.7" class="w-full px-3 py-2 rounded-xl gtx-pill-input text-xs" />
             </div>
           </div>
 
@@ -1375,7 +1367,7 @@
             <i class="fa-solid fa-shield-cat"></i>
           </div>
           <div>
-            <h3 class="font-black text-base">GTX 1.6 Administrator Console</h3>
+            <h3 class="font-black text-base">GTX 1.7 Administrator Console</h3>
             <p class="text-[11px] opacity-75">Server-Verified Role (`auth.token.admin` / `/admins/$uid`) • Mandatory Audit Logging</p>
           </div>
         </div>
@@ -1464,6 +1456,16 @@
             <input id="settingsMuteChatToggle" type="checkbox" onchange="toggleChatMute(this.checked)" class="w-5 h-5 accent-sky-400" />
           </label>
         </section>
+        <section class="p-4 rounded-2xl gtx-card space-y-2">
+          <div class="text-xs uppercase tracking-wider font-extrabold gtx-accent-text"><i class="fa-solid fa-shield-halved mr-1"></i>Administrator best-practice tips</div>
+          <ul class="list-disc pl-4 space-y-1 text-[11px] opacity-80">
+            <li>Use a unique, strong password and enable Google account protection.</li>
+            <li>Grant admin privileges only to trusted accounts; never rely on hidden UI buttons as security.</li>
+            <li>Keep Firebase Realtime Database rules restrictive and test them with non-admin accounts.</li>
+            <li>Review reports consistently and document moderation actions without browsing private chats.</li>
+            <li>Never share Firebase service-account credentials or private keys in client-side HTML.</li>
+          </ul>
+        </section>
         <section class="p-4 rounded-2xl gtx-card">
           <div class="text-xs uppercase tracking-wider font-extrabold gtx-accent-text mb-2">Account & privacy</div>
           <div class="flex flex-wrap gap-2">
@@ -1532,7 +1534,7 @@
     const auth = getAuth(app);
     const db = getDatabase(app);
 
-    const APP_VERSION = "1.6";
+    const APP_VERSION = "1.7";
 
     // PRELOADER
     const barEl = document.getElementById("preloaderBar");
@@ -1590,6 +1592,7 @@
 
     // PERSISTENT THEME & WALLPAPER STUDIO
     let currentTheme = localStorage.getItem("gtx_theme") || "liquid-dark";
+    if (currentTheme === "edex-ui") { currentTheme = "liquid-dark"; localStorage.setItem("gtx_theme", currentTheme); }
     let currentWallpaper = localStorage.getItem("gtx_wallpaper") || "void";
     document.body.setAttribute("data-theme", currentTheme);
 
@@ -1922,7 +1925,7 @@
             username: emailPrefix,
             displayName,
             photoURL,
-            bio: "Available on GTX Messenger 1.6",
+            bio: "Available on GTX Messenger 1.7",
             statusText: "Online",
             isPublic: true,
             createdAt: now
@@ -3580,16 +3583,16 @@
     } catch (_) { mutedChatMap = {}; }
 
     const emojiCategories = {
-      recent: "🕒 🔥 ❤️ 😂 ⚡ 🙌 😎 🚀 💯 ✨ 👑",
-      smileys: "😀 😃 😄 😁 😆 😅 😂 🙂 🙃 🥹 😉 😊 😍 🥰 😘 😎 🤓 🥳 😭 😤 🤔 🫠 🫡 🤯 🥺 😴 🤗 🙄 😇 🤩",
-      people: "👋 🙌 🫶 🤝 👏 💪 🙏 🧑‍💻 👨‍🚀 👩‍🎨 🧑‍🔬 🕺 💃 🧍 🧘 🫂",
-      animals: "🐶 🐱 🐼 🦊 🐻 🐸 🦁 🐯 🐵 🐧 🦋 🐢 🦖 🐬 🦉 🐺",
-      food: "🍕 🍔 🍟 🌮 🍜 🍣 🍩 🍫 🍓 🍉 🥑 ☕ 🧋 🍿 🍰",
-      travel: "🚀 🌌 🌍 🌙 ⭐ ✨ 🌈 🏔️ 🏖️ 🚗 ✈️ 🚲 🪐",
-      activities: "⚽ 🏀 🎮 🎧 🎸 🎯 🏆 🏋️ 🎨 🎬 🧩",
-      objects: "💻 📱 🎁 💎 🔑 📷 🔭 🧠 💡 🛠️ 🕶️",
-      symbols: "❤️ 🧡 💛 💚 💙 💜 🖤 🤍 💯 🔥 ⚡ ♻️ ☮️ ♾️",
-      flags: "🇮🇳 🇺🇸 🇬🇧 🇨🇦 🇦🇺 🇫🇷 🇩🇪 🇯🇵 🇰🇷 🇧🇷 🇵🇰"
+      recent: "🕒 🔥 ❤️ 😂 ⚡ 🙌 😎 🚀 💯 ✨ 👑 🫶 🥹 🫡 🤝 🥳 🧠 🦋 🌈 🪐 🌠 🌃 🌄 🌅 🌆 🌇 🌉 🏙️ 🏰 🗼 🗽 🛸 🚁 🚂 🚆 🚢 ⛵ 🛶 🏍️ 🛻",
+      smileys: "😀 😃 😄 😁 😆 😅 😂 🙂 🙃 🥹 😉 😊 😍 🥰 😘 😎 🤓 🥳 😭 😤 🤔 🫠 🫡 🤯 🥺 😴 🤗 🙄 😇 🤩 🥲 😌 😏 🤭 🫣 🫢 🫨 😵‍💫 🥴 🤤 🥱 🫠 😮‍💨 😬 🥸 🤠 😈 👻 💀 🤖 👽",
+      people: "👋 🙌 🫶 🤝 👏 💪 🙏 🧑‍💻 👨‍🚀 👩‍🎨 🧑‍🔬 🕺 💃 🧍 🧘 🫂 🧑‍🚀 🧑‍🎤 🧑‍🍳 🧑‍🏫 🧑‍🚒 🧑‍⚕️ 🧑‍🔧 🧑‍🚀 🧔‍♂️ 🧕 🧙 🧛 🧟 🦸 🦹",
+      animals: "🐶 🐱 🐼 🦊 🐻 🐸 🦁 🐯 🐵 🐧 🦋 🐢 🦖 🐬 🦉 🐺 🦄 🐙 🦈 🦭 🦩 🦚 🦜 🐝 🐞 🐌 🦔 🦥 🦦 🦫 🦬 🦣 🐉 🐲",
+      food: "🍕 🍔 🍟 🌮 🍜 🍣 🍩 🍫 🍓 🍉 🥑 ☕ 🧋 🍿 🍰 🥐 🥨 🧀 🥞 🧇 🥓 🥗 🍱 🥟 🍤 🧁 🍪 🍭 🍬 🍯 🥭 🍍 🫐 🍒",
+      travel: "🚀 🌌 🌍 🌙 ⭐ ✨ 🌈 🏔️ 🏖️ 🚗 ✈️ 🚲 🪐 🌠 🌃 🌄 🌅 🌆 🌇 🌉 🏙️ 🏰 🗼 🗽 🛸 🚁 🚂 🚆 🚢 ⛵ 🛶 🏍️ 🛻",
+      activities: "⚽ 🏀 🎮 🎧 🎸 🎯 🏆 🏋️ 🎨 🎬 🧩 🎲 🃏 🎳 🏸 🏓 🥊 🥋 🏹 🛹 🛼 🪁 🎤 🎹 🥁 🎻 🪇 🏕️ 🧗",
+      objects: "💻 📱 🎁 💎 🔑 📷 🔭 🧠 💡 🛠️ 🕶️ ⌚ 🧭 🧳 🧸 🪄 🪞 🪩 🧪 🧬 🛰️ 🧯 🪫 🔋 🧲 🪛 🪜 🧵 🪡 🧶",
+      symbols: "❤️ 🧡 💛 💚 💙 💜 🖤 🤍 💯 🔥 ⚡ ♻️ ☮️ ♾️ 💜 🤎 🩷 🩵 🩶 ❤️‍🔥 ❤️‍🩹 💔 💖 💗 💓 💞 💘 💝 💟 ❣️ 🚩 🏳️‍🌈 🏳️‍⚧️ ☯️ ⚛️",
+      flags: "🇮🇳 🇺🇸 🇬🇧 🇨🇦 🇦🇺 🇫🇷 🇩🇪 🇯🇵 🇰🇷 🇧🇷 🇵🇰 🇳🇿 🇸🇬 🇦🇪 🇸🇦 🇮🇹 🇪🇸 🇲🇽 🇿🇦 🇳🇵 🇧🇩 🇱🇰 🇺🇦 🇸🇪 🇳🇴 🇨🇭 🇹🇷 🇮🇩 🇹🇭 🇻🇳"
     };
 
     window.openCreateGroupModal = async () => {
@@ -3925,7 +3928,7 @@
       if (cleanReason.length < 5) { showToast("Please enter a clear warning reason (at least 5 characters)."); return; }
       try {
         const warningId = push(ref(db, `userWarnings/${targetUid}`)).key;
-        const warning = { warningId, targetUid, adminUid: currentUser.uid, reason: cleanReason, createdAt: Date.now(), status: "unread", version: "1.6" };
+        const warning = { warningId, targetUid, adminUid: currentUser.uid, reason: cleanReason, createdAt: Date.now(), status: "unread", version: "1.7" };
         const updates = {};
         updates[`userWarnings/${targetUid}/${warningId}`] = warning;
         const logId = push(ref(db, "adminAuditLogs")).key;
@@ -4210,7 +4213,7 @@
       }catch(e){reportDatabaseError('editMessage',e);}
     };
     window.openPasswordChange = () => gtx12EnsureModal('gtx12PasswordModal','Change password',`<form id="gtx12PasswordForm" class="space-y-3"><input id="gtx12CurrentPass" type="password" autocomplete="current-password" required placeholder="Current password" class="w-full p-3 rounded-xl gtx-pill-input"><input id="gtx12NewPass" type="password" autocomplete="new-password" required placeholder="New password" class="w-full p-3 rounded-xl gtx-pill-input"><input id="gtx12ConfirmPass" type="password" autocomplete="new-password" required placeholder="Confirm new password" class="w-full p-3 rounded-xl gtx-pill-input"><p class="text-xs opacity-70">At least 8 characters, including uppercase, lowercase and a special character.</p><button class="w-full p-3 rounded-xl gtx-accent-bg font-bold">Update password</button></form>`).querySelector('#gtx12PasswordForm').onsubmit=async e=>{e.preventDefault();const a=document.getElementById('gtx12CurrentPass').value,b=document.getElementById('gtx12NewPass').value,c=document.getElementById('gtx12ConfirmPass').value;if(!/^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{8,}$/.test(b)){showToast('Password does not meet requirements.');return;}if(b!==c){showToast('New passwords do not match.');return;}try{const credential=EmailAuthProvider.credential(currentUser.email,a);await reauthenticateWithCredential(currentUser,credential);await updatePassword(currentUser,b);showToast('Password updated successfully.');document.getElementById('gtx12PasswordModal').classList.add('hidden');}catch(err){showToast(err.message||'Could not update password.');}};
-    window.openDeveloperPage = () => gtx12EnsureModal('gtx12DeveloperModal','About GTX Messenger',`<div class="text-center space-y-3"><div class="mx-auto w-20 h-20 rounded-3xl gtx-accent-bg grid place-items-center text-2xl font-black">GTX</div><h2 class="text-2xl font-black">Made by Garry</h2><p class="text-sm opacity-75">@Garry · Administrator</p><p class="text-sm">GTX Messenger is developed and maintained by Garry. The administrator may moderate accounts that violate platform rules.</p><p class="text-xs opacity-60">GTX Messenger 1.6</p></div>`);
+    window.openDeveloperPage = () => gtx12EnsureModal('gtx12DeveloperModal','About GTX Messenger',`<div class="text-center space-y-3"><div class="mx-auto w-20 h-20 rounded-3xl gtx-accent-bg grid place-items-center text-2xl font-black">GTX</div><h2 class="text-2xl font-black">Made by Garry</h2><p class="text-sm opacity-75">@Garry · Administrator</p><p class="text-sm">GTX Messenger is developed and maintained by Garry. The administrator may moderate accounts that violate platform rules.</p><p class="text-xs opacity-60">GTX Messenger 1.7</p></div>`);
     // Profile view is opened by clicking the chat title; keep the existing title navigation behaviour and enrich it.
     const gtx12OriginalHeaderTitleClick=window.handleHeaderTitleClick;
     window.handleHeaderTitleClick=()=>{const conv=conversationsCache[activeConversationId];if(conv?.isGroup){if(typeof gtx12OriginalHeaderTitleClick==='function')gtx12OriginalHeaderTitleClick();return;}const uid=Object.keys(conv?.participants||{}).find(x=>x!==currentUser?.uid);if(uid)window.openPublicProfile(uid);};
@@ -4253,7 +4256,7 @@
       return gtx12OriginalSendMessage(...args);
     };
     // Preserve app's existing presence implementation; it already uses .info/connected and onDisconnect.
-    document.title='GTX Messenger 1.6';
+    document.title='GTX Messenger 1.7';
     document.body.classList.add('gtx12-enhanced');
 
 
@@ -4396,7 +4399,7 @@
       try { if(currentUser) localStorage.setItem(`gtx_v1_6_ack_${currentUser.uid}`,"1"); } catch(_) {}
       closeModal("updateAnnouncementModal");
     };
-    document.title="GTX Messenger 1.6";
+    document.title="GTX Messenger 1.7";
     document.body.classList.add("gtx14-enhanced");
 
 </script>
