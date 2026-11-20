@@ -651,7 +651,7 @@
           <div class="min-w-0">
             <div class="flex items-center gap-1.5">
               <span class="font-black text-sm tracking-wide gtx-brand-highlight truncate">GTX MESSENGER</span>
-              <span class="px-1.5 py-0.2 rounded bg-sky-500/20 text-[9px] font-bold gtx-accent-text">1.6</span>
+              <span class="px-1.5 py-0.2 rounded bg-sky-500/20 text-[9px] font-bold gtx-accent-text">1.7</span>
             </div>
             <div id="activeGlobalPersonaBadge" class="text-[11px] opacity-75 truncate">Loading identity...</div>
           </div>
@@ -929,7 +929,7 @@
   </div>
 
   <!-- ========================================================
-       MODAL: GTX MESSENGER VERSION 1.6 UPDATE ANNOUNCEMENT
+       MODAL: GTX MESSENGER VERSION 1.7 UPDATE ANNOUNCEMENT
        ======================================================== -->
   <div id="updateAnnouncementModal" class="hidden fixed inset-0 bg-black/75 backdrop-blur-md z-[80] flex items-center justify-center p-4">
     <div class="w-full max-w-lg gtx-panel border rounded-3xl p-6 shadow-2xl max-h-[90dvh] flex flex-col relative overflow-hidden">
@@ -942,7 +942,7 @@
       </div>
       <div class="touch-scroll space-y-4 pr-1 flex-1">
         <div class="p-4 rounded-2xl gtx-card border border-emerald-400/35"><div class="flex items-center gap-2 mb-1"><i class="fa-solid fa-shield-heart text-emerald-400"></i><h3 class="text-lg font-black">Your privacy matters to us.</h3></div><p class="text-xs opacity-90 leading-relaxed">We have removed the Administrator Conversation Inspector from GTX Messenger because we respect user privacy. The app no longer provides administrators with a built-in feature to open and read private conversations between users.</p></div>
-        <div class="space-y-2.5 text-xs"><div class="font-bold uppercase tracking-wider gtx-accent-text text-[11px]">What's New in Version 1.6</div>
+        <div class="space-y-2.5 text-xs"><div class="font-bold uppercase tracking-wider gtx-accent-text text-[11px]">What's New in Version 1.7</div>
           <div class="p-3 rounded-2xl gtx-card"><b>Privacy-first administrator experience</b><div class="opacity-75 text-[11px]">The in-app Conversation Inspector and its conversation-reading controls have been removed. This describes the app interface; it does not replace Firebase security rules or the published privacy policy.</div></div>
           <div class="p-3 rounded-2xl gtx-card"><b>eDEX-inspired terminal theme</b><div class="opacity-75 text-[11px]">A futuristic interface skin with a technical grid, cyan highlights, subtle scanlines and terminal-style typography.</div></div>
           <div class="p-3 rounded-2xl gtx-card"><b>Four new color themes</b><div class="opacity-75 text-[11px]">eDEX UI, Oceanic, Solar Flare and Rose Quartz join the existing GTX themes.</div></div>
@@ -3867,7 +3867,7 @@
     window.switchAdminTab = (tab) => {
       document.querySelectorAll('[id^="adminTab_"]').forEach((el) => {
         el.className = el.id === `adminTab_${tab}`
-          ? "px-3.5 py-1.6 rounded-xl gtx-accent-bg text-xs font-bold"
+          ? "px-3.5 py- rounded-xl gtx-accent-bg text-xs font-bold"
           : "px-3.5 py-1.6 rounded-xl gtx-card text-xs font-bold";
       });
       renderAdminActiveTab(tab);
